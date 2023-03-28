@@ -10,86 +10,64 @@ const toast = useToast()
 const showViewModal = ref(false)
 const showAddModal = ref(false)
 
-const viewContactDetails = ref({
+const viewGroupDetails = ref({
   id: 0,
   name: '',
-  email: '',
-  phone: '',
+  members: [],
   created_at: ''
 })
 
 //Temp data
-const contacts = ref([
+const groups = ref([
   {
     id: 1,
-    name: 'John Doe',
-    email: 'john@mail.com',
-    phone: '555-555-5555',
+    name: 'Skirmisher',
+    members: ['Wraith', 'Mirage', 'Lifeline', 'Pathfinder'],
     created_at: '2020-Jan-01'
   },
   {
     id: 2,
-    name: 'Karen Williams',
-    email: 'karen@mail.com',
-    phone: '444-444-4444',
-    created_at: '2021-Mar-07'
+    name: 'Recon',
+    members: ['Gibby', 'Mirage', 'Pathfinder'],
+    created_at: '2022-Jan-01'
   },
   {
     id: 3,
-    name: 'Henry Johnson',
-    email: 'henry@gmail.com',
-    phone: '333-333-3333',
-    created_at: '2023-May-09'
-  },
-  {
-    id: 4,
-    name: 'Sara Jackson',
-    email: 'sara@mail.com',
-    phone: '222-222-2222',
-    created_at: '2021-Apr-14'
-  },
-  {
-    id: 5,
-    name: 'Silverhand',
-    email: 'silver@cp.net',
-    phone: '111-111-1111',
-    created_at: '2022-Dec-30'
+    name: 'Support',
+    members: ['BT7224', 'Lifeline', 'ASH']
   }
 ])
 
 //Store to Local Storage to persist data
-if (localStorage.getItem('contacts') === null) {
-  localStorage.setItem('contacts', JSON.stringify(contacts.value))
+if (localStorage.getItem('groups') === null) {
+  localStorage.setItem('groups', JSON.stringify(groups.value))
 } else {
-  contacts.value = JSON.parse(localStorage.getItem('contacts') || '[]')
+  groups.value = JSON.parse(localStorage.getItem('groups') || '[]')
 }
 
-//Search Contact
+//Search Groups
 let searchInput = ref('')
 function filteredList() {
-  return contacts.value.filter((contact) => {
+  return groups.value.filter((data) => {
     //Name, Email and Phone
     return (
-      contact.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      contact.email.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      contact.phone.toLowerCase().includes(searchInput.value.toLowerCase())
+      data.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+      data.members.join(' ').toLowerCase().includes(searchInput.value.toLowerCase())
     )
   })
 }
 
-//View Contact Details
-function viewContact(event: Event, id: number) {
-  viewContactDetails.value = contacts.value.find(
-    (contact) => contact.id === id
-  ) as (typeof contacts.value)[0]
+//View Group Details
+function viewGroup(event: Event, id: number) {
+  viewGroupDetails.value = groups.value.find((group) => group.id === id) as (typeof groups.value)[0]
   showViewModal.value = true
 }
 
-//Delete Contact
-function deleteContact(event: Event, id: number) {
+//Delete Group
+function deleteGroup(event: Event, id: number) {
   confirm.require({
-    message: 'Are you sure you want to delete this contact?',
-    header: 'Delete Contact',
+    message: 'Are you sure you want to delete this group?',
+    header: 'Delete Group',
     icon: 'pi pi-exclamation-triangle',
     acceptIcon: 'pi pi-check',
     rejectIcon: 'pi pi-times',
@@ -97,14 +75,14 @@ function deleteContact(event: Event, id: number) {
     target: event.currentTarget as HTMLElement,
 
     accept: () => {
-      contacts.value.splice(
-        contacts.value.findIndex((contact) => contact.id === id),
+      groups.value.splice(
+        groups.value.findIndex((group) => group.id === id),
         1
       )
       toast.add({
         severity: 'info',
         summary: 'Success',
-        detail: 'Contact Deleted Successfully',
+        detail: 'Group Deleted Successfully',
         life: 3000
       })
       console.log('Deleted', id)
@@ -116,55 +94,50 @@ function deleteContact(event: Event, id: number) {
   })
 }
 
-//Form data for New Contact
-const contactData = ref({
+//Form data for New Group
+const groupData = ref({
   id: 0,
   name: '',
-  email: '',
-  phone: '',
+  members: [],
   created_at: ''
 })
 //Error message object for Validation
 const errorMessage = ref({
   name: '',
-  email: '',
-  phone: ''
+  members: ''
 })
-//Add New Contact
+//Add New Group
 const saveContact = () => {
   //Validate form
-  if (contactData.value.name === '') {
+  if (groupData.value.name === '') {
     errorMessage.value.name = 'Name is required'
   } else {
     errorMessage.value.name = ''
   }
-  if (contactData.value.email === '') {
-    errorMessage.value.email = 'Email is required'
+  if (groupData.value.members.length === 0) {
+    errorMessage.value.members = 'Members are required'
   } else {
-    errorMessage.value.email = ''
-  }
-  if (contactData.value.phone === '') {
-    errorMessage.value.phone = 'Phone is required'
-  } else {
-    errorMessage.value.phone = ''
+    errorMessage.value.members = ''
   }
 
   //If no error, save to Local Storage
-  if (
-    errorMessage.value.name === '' &&
-    errorMessage.value.email === '' &&
-    errorMessage.value.phone === ''
-  ) {
-    contactData.value.id = contacts.value.length + 1
-    contactData.value.created_at = new Date().toLocaleDateString()
-    contacts.value.push(contactData.value)
-    localStorage.setItem('contacts', JSON.stringify(contacts.value))
-    console.log('Saved', contactData.value)
+  if (errorMessage.value.name === '' && errorMessage.value.members === '') {
+    groupData.value.id = groups.value.length + 1
+    //Date Format as DD-MMM-YYYY
+    groupData.value.created_at = new Date().toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    })
+    //groupData.value.created_at = new Date().toLocaleDateString() //Alternative Timestamp
+    groups.value.push(groupData.value)
+    localStorage.setItem('groups', JSON.stringify(groups.value))
+    console.log('Saved', groupData.value)
     showAddModal.value = false
     toast.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Contact Added Successfully',
+      detail: 'Group created Successfully',
       life: 3000
     })
   }
@@ -172,18 +145,16 @@ const saveContact = () => {
 
 //Clear form data and error messages before opening modal
 const showForm = () => {
-  contactData.value = {
+  groupData.value = {
     id: 0,
     name: '',
-    email: '',
-    phone: '',
+    members: [],
     created_at: ''
   }
   //Clear error messages
   errorMessage.value = {
     name: '',
-    email: '',
-    phone: ''
+    members: ''
   }
   //Open modal
   showAddModal.value = true
@@ -199,16 +170,16 @@ const showForm = () => {
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-10 h-10 mr-2 text-lightblue"
+        class="w-10 h-10 mt-1 mr-0.5 text-lightblue"
       >
         <path
           stroke-linecap="round"
           stroke-linejoin="round"
-          d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+          d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z"
         />
       </svg>
 
-      <h1 class="mt-1">Contacts</h1>
+      <h1 class="mt-1">Groups</h1>
     </div>
     <div class="w-full p-8 bg-white">
       <DataTable

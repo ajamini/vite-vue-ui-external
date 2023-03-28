@@ -16,6 +16,10 @@ const navLinks = [
   {
     name: 'Contacts',
     path: '/contacts'
+  },
+  {
+    name: 'Groups',
+    path: '/groups'
   }
 ]
 const subMenu = ref()
