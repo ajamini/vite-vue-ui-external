@@ -169,13 +169,20 @@ const suggestedItems = ref([
     name: 'Watson'
   }
 ])
+//Store Filtered Contacts/Items for Autocomplete
+const filteredContactItems = ref<{ id: number; name: string }[]>([])
 
-//Search in Items for Autocomplete
-const contactSearch = (event: Event) => {
-  suggestedItems.value = suggestedItems.value.filter((data) => {
-    // Name
-    return data.name.toLowerCase().includes(searchInput.value.toLowerCase())
-  })
+//Items for Autocomplete
+const contactSearch = (event: any) => {
+  setTimeout(() => {
+    if (!event.query.trim().length) {
+      filteredContactItems.value = [...suggestedItems.value]
+    } else {
+      filteredContactItems.value = suggestedItems.value.filter((item) => {
+        return item.name.toLowerCase().startsWith(event.query.toLowerCase())
+      })
+    }
+  }, 250)
 }
 
 //Error message object for Validation
@@ -482,7 +489,7 @@ const showForm = () => {
               v-model="groupData.members"
               dropdown
               multiple
-              :suggestions="suggestedItems"
+              :suggestions="filteredContactItems"
               @complete="contactSearch"
               forceSelection
               option-label="name"

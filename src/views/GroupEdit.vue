@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 
-//Contact ID from URL
+//Group ID from URL
 const { id } = useRoute().params
 const toast = useToast()
 console.log('Edit This id:', id)
@@ -43,9 +43,9 @@ const menuItems = ref([
         url: '/'
       },
       {
-        label: 'Contacts',
+        label: 'Groups',
         icon: 'pi pi-users',
-        to: '/contacts'
+        to: '/groups'
       }
     ]
   }
@@ -56,32 +56,31 @@ const toggleActions = (event: Event) => {
 }
 
 // Retrive Temp data from Local Storage
-const contacts = ref(JSON.parse(localStorage.getItem('contacts') || '[]'))
+const groups = ref(JSON.parse(localStorage.getItem('groups') || '[]'))
 
 //Form data
-const contactData = ref({
+const groupData = ref({
   id: 0,
   name: '',
-  email: '',
-  phone: '',
+  members: [],
   created_at: ''
 })
 
 //Set form data on load
-contacts.value.forEach((contact: any) => {
-  if (contact.id === Number(id)) {
-    contactData.value = contact
+groups.value.forEach((group: any) => {
+  if (group.id === Number(id)) {
+    groupData.value = group
   } else {
-    //SHow error message if contact not found
+    //SHow error message if Group not found
     toast.add({
       severity: 'error',
       summary: 'Error',
-      detail: 'Contact not found',
+      detail: 'Group not found',
       life: 3000
     })
-    //Redirect to contacts page after 3 seconds
+    //Redirect to group page after 3 seconds
     //setTimeout(() => {
-    //  router.push('/contacts')
+    //  router.push('/groups')
     // }, 3000)
   }
 })
@@ -89,51 +88,74 @@ contacts.value.forEach((contact: any) => {
 //Error message object for Validation
 const errorMessage = ref({
   name: '',
-  email: '',
-  phone: ''
+  members: ''
 })
 
+//Suggested Contacts/Items
+//TODO: Contacts should be retrived from DB
+const suggestedItems = ref([
+  {
+    id: 1,
+    name: 'Wraith'
+  },
+  {
+    id: 2,
+    name: 'Bangalore'
+  },
+  {
+    id: 3,
+    name: 'Bloodhound'
+  },
+  {
+    id: 4,
+    name: 'Pathfinder'
+  },
+  {
+    id: 5,
+    name: 'Watson'
+  }
+])
+//Search in Items for Autocomplete
+const contactSearch = (event: Event) => {
+  suggestedItems.value = suggestedItems.value.filter((data) => {
+    // Name
+    return data.name.toLowerCase().includes(searchInput.value.toLowerCase())
+  })
+}
+
 //Update form data
-const updateContact = () => {
-  //Validate form
-  if (contactData.value.name === '') {
+const updateGroup = () => {
+   //Validate form
+   if (groupData.value.name === '') {
     errorMessage.value.name = 'Name is required'
   } else {
     errorMessage.value.name = ''
   }
-  if (contactData.value.email === '') {
-    errorMessage.value.email = 'Email is required'
+  if (groupData.value.members.length === 0) {
+    errorMessage.value.members = 'Members are required'
   } else {
-    errorMessage.value.email = ''
+    errorMessage.value.members = ''
   }
-  if (contactData.value.phone === '') {
-    errorMessage.value.phone = 'Phone is required'
-  } else {
-    errorMessage.value.phone = ''
-  }
-
-  //If no error, Update contact
+  //If no error, Update Group
   if (
     errorMessage.value.name === '' &&
-    errorMessage.value.email === '' &&
-    errorMessage.value.phone === ''
+    errorMessage.value.members === ''
   ) {
-    console.log('Update Contact:', contactData.value)
-    //TODO: Update contact in DB
-    contacts.value.forEach((contact: any) => {
+    console.log('Update Contact:', groupData.value)
+    //TODO: Update Group in DB
+    groups.value.forEach((contact: any) => {
       if (contact.id === Number(id)) {
-        contact.name = contactData.value.name
-        contact.email = contactData.value.email
-        contact.phone = contactData.value.phone
+        contact.name = groupData.value.name
+        contact.members = groupData.value.members
       }
     })
     //Update Local Storage for persistent
-    localStorage.setItem('contacts', JSON.stringify(contacts.value))
+    localStorage.setItem('contacts', JSON.stringify(groupData.value))
 
     toast.add({
       severity: 'success',
       summary: 'Updated',
-      detail: 'Contact Updated',
+      detail: 'Group Updated',
       life: 3000
     })
     //Redirect to contacts page after 3 seconds
@@ -151,7 +173,7 @@ const updateContact = () => {
         <RouterLink to="/contacts" class="mr-3">
           <i class="pi pi-arrow-left text-lightblue" style="font-size: 1.5rem"></i>
         </RouterLink>
-        <h1 class="mt-1">Edit Contact</h1>
+        <h1 class="mt-1">Edit Group</h1>
       </div>
       <div class="grid grid-flow-col mb-4 md:mb-0 items-center gap-4 px-8">
         <button
@@ -165,7 +187,7 @@ const updateContact = () => {
         </button>
         <PrimeMenu ref="actionMenu" id="overlay_menu" :model="menuItems" :popup="true" />
         <button
-          @click="updateContact"
+          @click="updateGroup"
           class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-green-500 rounded shadow ripple hover:shadow-lg hover:bg-green-600 focus:outline-none"
         >
           Save
@@ -175,39 +197,33 @@ const updateContact = () => {
 
     <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-5">
       <div class="sidenav">
-        <h4 class="text-gray-600 text-base font-semibold">Contact Details</h4>
+        <h4 class="text-gray-600 text-base font-semibold">Group Details</h4>
       </div>
       <form class="col-span-2 md:pr-20 mt-4 md:mt-0">
         <div class="input-wrapper grid grid-flow-row">
           <label class="text-gray-600 font-medium" for="name">Name</label>
           <InputText
             id="name"
-            v-model="contactData.name"
+            v-model="groupData.name"
             :class="{ 'p-invalid': errorMessage.name }"
             aria-describedby="name-help"
           />
           <small class="p-error" id="text-error">{{ errorMessage.name || '&nbsp;' }}</small>
         </div>
         <div class="input-wrapper grid grid-flow-row mt-4">
-          <label class="text-gray-600 font-medium" for="email">Email</label>
-          <InputText
-            id="email"
-            :class="{ 'p-invalid': errorMessage.email }"
-            v-model="contactData.email"
-            aria-describedby="email-help"
-          />
-          <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small>
-        </div>
-        <div class="input-wrapper grid grid-flow-row mt-4">
-          <label class="text-gray-600 font-medium" for="phone">Phone</label>
-          <InputText
-            id="phone"
-            v-model="contactData.phone"
-            aria-describedby="phone-help"
-            :class="{ 'p-invalid': errorMessage.phone }"
-          />
-          <small class="p-error" id="text-error">{{ errorMessage.phone || '&nbsp;' }}</small>
-        </div>
+          <label class="text-gray-600 font-medium" for="contact">Contact</label>
+            <AutoComplete
+              v-model="groupData.members"
+              dropdown
+              multiple
+              :suggestions="suggestedItems"
+              @complete="contactSearch"
+              forceSelection
+              option-label="name"
+              :class="{ 'p-invalid': errorMessage.members }"
+            />
+            <small class="p-error" id="text-error">{{ errorMessage.members || '&nbsp;' }}</small>
+        </div>        
       </form>
       <div class="col-span-2 flex justify-center pt-4 mt-4 md:mt-0">
         <!-- Insight Card with Icon to show few Keywords -->
