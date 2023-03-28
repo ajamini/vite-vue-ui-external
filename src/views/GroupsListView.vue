@@ -23,7 +23,7 @@ const groups = ref([
     id: 1,
     name: 'Skirmisher',
     members: ['Wraith', 'Mirage', 'Lifeline', 'Pathfinder'],
-    created_at: '2020-Jan-01'
+    created_at: '2020-Apr-01'
   },
   {
     id: 2,
@@ -34,7 +34,8 @@ const groups = ref([
   {
     id: 3,
     name: 'Support',
-    members: ['BT7224', 'Lifeline', 'ASH']
+    members: ['BT7224', 'Lifeline', 'ASH'],
+    created_at: '2021-Jun-01'
   }
 ])
 
@@ -107,7 +108,7 @@ const errorMessage = ref({
   members: ''
 })
 //Add New Group
-const saveContact = () => {
+const saveGroup = () => {
   //Validate form
   if (groupData.value.name === '') {
     errorMessage.value.name = 'Name is required'
@@ -226,15 +227,27 @@ const showForm = () => {
                 @click="showForm"
                 class="block w-full px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkblue rounded shadow ripple hover:shadow-lg hover:bg-opacity-80 focus:outline-none"
               >
-                Add a Contact
+                Add New Group
               </button>
             </div>
           </div>
         </template>
         <template #empty> No customers found. </template>
-        <TableColumn field="id" header="ID" style="width: 5%"></TableColumn>
-        <TableColumn sortable field="name" header="Name" style="width: 25%"></TableColumn>
-        <TableColumn field="phone" header="Telephone" style="width: 25%"></TableColumn>
+        <TableColumn field="id" header="ID" style="width: 10%"></TableColumn>
+        <TableColumn sortable field="name" header="Name" style="width: 20%"></TableColumn>
+        <TableColumn field="members" header="Members" style="width: 30%">
+          <template #body="slotProps">
+            <div class="flex">
+              <span
+                class="rounded-full bg-gray-300 px-5 py-2 text-sm font-medium tracking-wider text-gray-600 shadow-sm hover:bg-gray-400 hover:shadow-2xl"
+                v-for="member in slotProps.data.members"
+                :key="member.id"
+              >
+                {{ member.name }}
+              </span>
+            </div>
+          </template>
+        </TableColumn>
         <TableColumn
           class="text-sm"
           field="created_at"
@@ -246,7 +259,7 @@ const showForm = () => {
           <template #body="slotProps">
             <div class="flex justify-start">
               <button
-                @click="viewContact($event, slotProps.data.id)"
+                @click="viewGroup($event, slotProps.data.id)"
                 class="flex items-center justify-center w-8 h-8 mr-0.5 text-lightblue transition-colors duration-150 cursor-pointer focus:outline-none hover:opacity-90"
               >
                 <svg
@@ -270,7 +283,7 @@ const showForm = () => {
                 </svg>
               </button>
               <RouterLink
-                :to="{ name: 'contact-edit', params: { id: slotProps.data.id } }"
+                :to="{ name: 'group-edit', params: { id: slotProps.data.id } }"
                 class="flex items-center justify-center w-8 h-8 mr-1 text-darkblue transition-colors duration-150 cursor-pointer hover:opacity-90 focus:outline-none"
               >
                 <svg
@@ -290,7 +303,7 @@ const showForm = () => {
               </RouterLink>
               <div class="delete-wrapper">
                 <button
-                  @click="deleteContact($event, slotProps.data.id)"
+                  @click="deleteGroup($event, slotProps.data.id)"
                   class="flex items-center justify-center w-8 h-8 mr-1 text-darkred transition-colors duration-150 cursor-pointer hover:text-gray-500 focus:outline-none"
                 >
                   <svg
@@ -316,7 +329,7 @@ const showForm = () => {
         <DialogModal
           v-model:visible="showViewModal"
           modal
-          header="Contact Details"
+          header="Group Details"
           :style="{ width: '50vw' }"
           :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
         >
@@ -324,14 +337,12 @@ const showForm = () => {
             <div class="w-full px-8 py-4 bg-darkblue rounded text-primary grid grid-cols-3">
               <div class="font-semibold">
                 <h4 class="text-primary">Name:</h4>
-                <h4 class="text-primary mt-4">Email:</h4>
-                <h4 class="text-primary mt-4">Phone:</h4>
+                <h4 class="text-primary mt-4">Members:</h4>
               </div>
 
               <div class="text-primary col-span-2 grid grid-flow-row">
-                <span class="">{{ viewContactDetails.name }}</span>
-                <span class="mt-4">{{ viewContactDetails.email }}</span>
-                <span class="mt-4">{{ viewContactDetails.phone }}</span>
+                <span class="">{{ viewGroupDetails.name }}</span>
+                <div>Show Members Here</div>
               </div>
             </div>
           </div>
@@ -355,14 +366,12 @@ const showForm = () => {
           </div>
 
           <div class="text-primary col-span-2 grid grid-flow-row">
-            <span class="">{{ viewContactDetails.name }}</span>
-            <span class="mt-4">{{ viewContactDetails.email }}</span>
-            <span class="mt-4">{{ viewContactDetails.phone }}</span>
+            <span class="">{{ viewGroupDetails.name }}</span>
           </div>
         </div>
       </div>
     </DialogModal>
-    <!-- Add Contact Modal - Form -->
+    <!-- Add Group Modal - Form -->
     <DialogModal
       v-model:visible="showAddModal"
       modal
@@ -376,7 +385,7 @@ const showForm = () => {
             <label class="text-gray-600 font-medium" for="name">Name</label>
             <InputText
               id="name"
-              v-model="contactData.name"
+              v-model="groupData.name"
               :class="{ 'p-invalid': errorMessage.name }"
               aria-describedby="name-help"
             />
@@ -384,23 +393,13 @@ const showForm = () => {
           </div>
           <div class="input-wrapper grid grid-flow-row mt-4">
             <label class="text-gray-600 font-medium" for="email">Email</label>
-            <InputText
+            <!-- <InputText
               id="email"
               :class="{ 'p-invalid': errorMessage.email }"
-              v-model="contactData.email"
+              v-model="groupData.members"
               aria-describedby="email-help"
-            />
-            <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small>
-          </div>
-          <div class="input-wrapper grid grid-flow-row mt-4">
-            <label class="text-gray-600 font-medium" for="phone">Phone</label>
-            <InputText
-              id="phone"
-              v-model="contactData.phone"
-              aria-describedby="phone-help"
-              :class="{ 'p-invalid': errorMessage.phone }"
-            />
-            <small class="p-error" id="text-error">{{ errorMessage.phone || '&nbsp;' }}</small>
+            /> -->
+            <!-- <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small> -->
           </div>
         </form>
       </div>
@@ -413,7 +412,7 @@ const showForm = () => {
         </button>
         <button
           class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-lightblue rounded shadow ripple hover:shadow-lg hover:bg-sky-700 focus:outline-none"
-          @click="saveContact"
+          @click="saveGroup"
           autofocus
         >
           Add
