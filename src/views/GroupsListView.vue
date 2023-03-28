@@ -145,7 +145,7 @@ const groupData = ref({
   members: [],
   created_at: ''
 })
-//Suggested Contacts/Items
+
 //TODO: Contacts should be retrived from DB
 const suggestedItems = ref([
   {
@@ -172,7 +172,6 @@ const suggestedItems = ref([
 //Store Filtered Contacts/Items for Autocomplete
 const filteredContactItems = ref<{ id: number; name: string }[]>([])
 
-//Items for Autocomplete
 const contactSearch = (event: any) => {
   setTimeout(() => {
     if (!event.query.trim().length) {

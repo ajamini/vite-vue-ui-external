@@ -91,7 +91,6 @@ const errorMessage = ref({
   members: ''
 })
 
-//Suggested Contacts/Items
 //TODO: Contacts should be retrived from DB
 const suggestedItems = ref([
   {
@@ -115,18 +114,25 @@ const suggestedItems = ref([
     name: 'Watson'
   }
 ])
-//Search in Items for Autocomplete
-const contactSearch = (event: Event) => {
-  suggestedItems.value = suggestedItems.value.filter((data) => {
-    // Name
-    return data.name.toLowerCase().includes(searchInput.value.toLowerCase())
-  })
+//Store Filtered Contacts/Items for Autocomplete
+const filteredContactItems = ref<{ id: number; name: string }[]>([])
+
+const contactSearch = (event: any) => {
+  setTimeout(() => {
+    if (!event.query.trim().length) {
+      filteredContactItems.value = [...suggestedItems.value]
+    } else {
+      filteredContactItems.value = suggestedItems.value.filter((item) => {
+        return item.name.toLowerCase().startsWith(event.query.toLowerCase())
+      })
+    }
+  }, 250)
 }
 
 //Update form data
 const updateGroup = () => {
-   //Validate form
-   if (groupData.value.name === '') {
+  //Validate form
+  if (groupData.value.name === '') {
     errorMessage.value.name = 'Name is required'
   } else {
     errorMessage.value.name = ''
@@ -137,10 +143,7 @@ const updateGroup = () => {
     errorMessage.value.members = ''
   }
   //If no error, Update Group
-  if (
-    errorMessage.value.name === '' &&
-    errorMessage.value.members === ''
-  ) {
+  if (errorMessage.value.name === '' && errorMessage.value.members === '') {
     console.log('Update Contact:', groupData.value)
     //TODO: Update Group in DB
     groups.value.forEach((contact: any) => {
@@ -150,7 +153,7 @@ const updateGroup = () => {
       }
     })
     //Update Local Storage for persistent
-    localStorage.setItem('contacts', JSON.stringify(groupData.value))
+    localStorage.setItem('groups', JSON.stringify(groups.value))
 
     toast.add({
       severity: 'success',
@@ -158,9 +161,9 @@ const updateGroup = () => {
       detail: 'Group Updated',
       life: 3000
     })
-    //Redirect to contacts page after 3 seconds
+    //Redirect to groups page after 3 seconds
     setTimeout(() => {
-      router.push('/contacts')
+      router.push('/groups')
     }, 3000)
   }
 }
@@ -212,18 +215,18 @@ const updateGroup = () => {
         </div>
         <div class="input-wrapper grid grid-flow-row mt-4">
           <label class="text-gray-600 font-medium" for="contact">Contact</label>
-            <AutoComplete
-              v-model="groupData.members"
-              dropdown
-              multiple
-              :suggestions="suggestedItems"
-              @complete="contactSearch"
-              forceSelection
-              option-label="name"
-              :class="{ 'p-invalid': errorMessage.members }"
-            />
-            <small class="p-error" id="text-error">{{ errorMessage.members || '&nbsp;' }}</small>
-        </div>        
+          <AutoComplete
+            v-model="groupData.members"
+            dropdown
+            multiple
+            :suggestions="filteredContactItems"
+            @complete="contactSearch"
+            forceSelection
+            option-label="name"
+            :class="{ 'p-invalid': errorMessage.members }"
+          />
+          <small class="p-error" id="text-error">{{ errorMessage.members || '&nbsp;' }}</small>
+        </div>
       </form>
       <div class="col-span-2 flex justify-center pt-4 mt-4 md:mt-0">
         <!-- Insight Card with Icon to show few Keywords -->
@@ -254,3 +257,9 @@ const updateGroup = () => {
     <ToastVue />
   </div>
 </template>
+
+<style>
+ul.p-autocomplete-multiple-container {
+  width: 100%;
+}
+</style>
