@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BasicsFormVue from '@/components/offers/BasicsForm.vue'
 import { ref } from 'vue'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
@@ -76,20 +77,22 @@ const handleGoBack = () => {
           </li>
         </ul>
       </aside>
-      <main class="border-2 w-2/3 border-teal-500">
+      <main class="border-2 w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
-          <div v-if="currentStep === 0"><Basics /> Basics</div>
-          <div v-else-if="currentStep === 1"><Agreement /> Agreement</div>
-          <div v-else-if="currentStep === 2"><Condition /> Condition</div>
-          <div v-else-if="currentStep === 3"><Representation /> Representation</div>
-          <div v-else-if="currentStep === 4"><Documents /> Documents</div>
-          <div v-else-if="currentStep === 5"><Review /> Review</div>
-          <div v-else><Basics /> Basics</div>
+          <div class="input-wrapper border-2 border-teal-400 min-h-[480px]">
+            <BasicsFormVue v-if="currentStep === 0" />
+            <div v-else-if="currentStep === 1"><Agreement /> Agreement</div>
+            <div v-else-if="currentStep === 2"><Condition /> Condition</div>
+            <div v-else-if="currentStep === 3"><Representation /> Representation</div>
+            <div v-else-if="currentStep === 4"><Documents /> Documents</div>
+            <div v-else-if="currentStep === 5"><Review /> Review</div>
+            <div v-else><Basics /> Basics</div>
+          </div>
 
-          <div class="button-wrapper flex justify-start w-full pl-4 mt-12">
+          <div class="button-wrapper flex justify-start w-full pl-4 mt-2">
             <button
               type="button"
-              :class="currentStep === 0 ? 'invisible' : 'visible'"
+              v-if="currentStep > 0"
               class="w-20 px-2 py-2 text-sm hover:text-teal-700 font-medium leading-6 text-center text-darkblue uppercase focus:outline-none"
               @click="handleGoBack"
             >
