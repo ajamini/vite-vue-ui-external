@@ -5,6 +5,19 @@ import { ref } from 'vue'
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
 const currentStep = ref(0)
+const formData = ref({
+  name: '',
+  title: '',
+  created_at: new Date(),
+  mls: '',
+  buyers: []
+})
+
+//Error Message Object for Validation
+const errors = ref({
+  mls: '',
+  buyers: ''
+})
 
 const handleSubmit = () => {
   switch (currentStep.value) {
@@ -39,6 +52,8 @@ const handleGoBack = () => {
     currentStep.value--
   }
 }
+
+//First Step Form Data
 </script>
 
 <template>
@@ -80,7 +95,12 @@ const handleGoBack = () => {
       <main class="border-2 w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
           <div class="input-wrapper border-2 border-teal-400 min-h-[480px]">
-            <BasicsFormVue v-if="currentStep === 0" />
+            <BasicsFormVue
+              :err="errors"
+              v-model:name="formData.name"
+              v-model:title="formData.title"
+              v-if="currentStep === 0"
+            />
             <div v-else-if="currentStep === 1"><Agreement /> Agreement</div>
             <div v-else-if="currentStep === 2"><Condition /> Condition</div>
             <div v-else-if="currentStep === 3"><Representation /> Representation</div>
