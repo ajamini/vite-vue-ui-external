@@ -10,7 +10,14 @@ const toast = useToast()
 const showViewModal = ref(false)
 const showAddModal = ref(false)
 
-const viewGroupDetails = ref({
+type GroupDetails = {
+  id: number
+  name: string
+  members: { id: number; name: string }[]
+  created_at: string
+}
+
+const viewGroupDetails = ref<GroupDetails>({
   id: 0,
   name: '',
   members: [],
@@ -22,19 +29,58 @@ const groups = ref([
   {
     id: 1,
     name: 'Skirmisher',
-    members: ['Wraith', 'Mirage', 'Lifeline', 'Pathfinder'],
+    members: [
+      {
+        id: 1,
+        name: 'Wraith'
+      },
+      {
+        id: 2,
+        name: 'Bangalore'
+      },
+      {
+        id: 3,
+        name: 'Bloodhound'
+      }
+    ],
     created_at: '2020-Apr-01'
   },
   {
     id: 2,
     name: 'Recon',
-    members: ['Gibby', 'Mirage', 'Pathfinder'],
+    members: [
+      {
+        id: 4,
+        name: 'Lifeline'
+      },
+      {
+        id: 5,
+        name: 'Pathfinder'
+      },
+      {
+        id: 6,
+        name: 'Mirage'
+      }
+    ],
     created_at: '2022-Jan-01'
   },
   {
     id: 3,
     name: 'Support',
-    members: ['BT7224', 'Lifeline', 'ASH'],
+    members: [
+      {
+        id: 7,
+        name: 'Ash'
+      },
+      {
+        id: 8,
+        name: 'Horizon'
+      },
+      {
+        id: 9,
+        name: 'Octane'
+      }
+    ],
     created_at: '2021-Jun-01'
   }
 ])
@@ -50,17 +96,14 @@ if (localStorage.getItem('groups') === null) {
 let searchInput = ref('')
 function filteredList() {
   return groups.value.filter((data) => {
-    //Name, Email and Phone
-    return (
-      data.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      data.members.join(' ').toLowerCase().includes(searchInput.value.toLowerCase())
-    )
+    // Name
+    return data.name.toLowerCase().includes(searchInput.value.toLowerCase())
   })
 }
 
 //View Group Details
 function viewGroup(event: Event, id: number) {
-  viewGroupDetails.value = groups.value.find((group) => group.id === id) as (typeof groups.value)[0]
+  viewGroupDetails.value = groups.value.find((group) => group.id === id) as GroupDetails
   showViewModal.value = true
 }
 
@@ -232,14 +275,14 @@ const showForm = () => {
             </div>
           </div>
         </template>
-        <template #empty> No customers found. </template>
-        <TableColumn field="id" header="ID" style="width: 10%"></TableColumn>
+        <template #empty> No Group found. </template>
+        <TableColumn field="id" header="ID" style="width: 5%"></TableColumn>
         <TableColumn sortable field="name" header="Name" style="width: 20%"></TableColumn>
-        <TableColumn field="members" header="Members" style="width: 30%">
+        <TableColumn field="members" header="Members" style="width: 40%">
           <template #body="slotProps">
-            <div class="flex">
+            <div class="flex gap-2">
               <span
-                class="rounded-full bg-gray-300 px-5 py-2 text-sm font-medium tracking-wider text-gray-600 shadow-sm hover:bg-gray-400 hover:shadow-2xl"
+                class="rounded-full bg-gray-300 px-3 py-1 text-sm font-medium tracking-wider text-gray-600 shadow-sm hover:bg-gray-400 hover:shadow-2xl"
                 v-for="member in slotProps.data.members"
                 :key="member.id"
               >
@@ -252,7 +295,7 @@ const showForm = () => {
           class="text-sm"
           field="created_at"
           header="Date Added"
-          style="width: 20%"
+          style="width: 10%"
         ></TableColumn>
         <!-- View, Edit and Delete -->
         <TableColumn header="Actions" style="width: 20%" field="id">
