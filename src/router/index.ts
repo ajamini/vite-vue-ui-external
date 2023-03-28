@@ -28,6 +28,24 @@ const router = createRouter({
       meta: {
         title: 'Edit Contact'
       }
+    },
+    //Group View Route
+    {
+      path: '/groups',
+      name: 'groups',
+      component: () => import('../views/GroupsListView.vue'),
+      meta: {
+        title: 'Groups'
+      }
+    },
+    //Group Edit View Route
+    {
+      path: '/groups/:id/edit',
+      name: 'group-edit',
+      component: () => import('../views/GroupEdit.vue'),
+      meta: {
+        title: 'Edit Group'
+      }
     }
   ]
 })
