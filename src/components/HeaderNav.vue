@@ -20,6 +20,10 @@ const navLinks = [
   {
     name: 'Groups',
     path: '/groups'
+  },
+  {
+    name: 'Create Offer',
+    path: '/offers/create'
   }
 ]
 const subMenu = ref()
