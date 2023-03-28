@@ -145,6 +145,39 @@ const groupData = ref({
   members: [],
   created_at: ''
 })
+//Suggested Contacts/Items
+//TODO: Contacts should be retrived from DB
+const suggestedItems = ref([
+  {
+    id: 1,
+    name: 'Wraith'
+  },
+  {
+    id: 2,
+    name: 'Bangalore'
+  },
+  {
+    id: 3,
+    name: 'Bloodhound'
+  },
+  {
+    id: 4,
+    name: 'Pathfinder'
+  },
+  {
+    id: 5,
+    name: 'Watson'
+  }
+])
+
+//Search in Items for Autocomplete
+const contactSearch = (event: Event) => {
+  suggestedItems.value = suggestedItems.value.filter((data) => {
+    // Name
+    return data.name.toLowerCase().includes(searchInput.value.toLowerCase())
+  })
+}
+
 //Error message object for Validation
 const errorMessage = ref({
   name: '',
@@ -444,14 +477,18 @@ const showForm = () => {
             <small class="p-error" id="text-error">{{ errorMessage.name || '&nbsp;' }}</small>
           </div>
           <div class="input-wrapper grid grid-flow-row mt-4">
-            <label class="text-gray-600 font-medium" for="email">Email</label>
-            <!-- <InputText
-              id="email"
-              :class="{ 'p-invalid': errorMessage.email }"
+            <label class="text-gray-600 font-medium" for="contact">Contact</label>
+            <AutoComplete
               v-model="groupData.members"
-              aria-describedby="email-help"
-            /> -->
-            <!-- <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small> -->
+              dropdown
+              multiple
+              :suggestions="suggestedItems"
+              @complete="contactSearch"
+              forceSelection
+              option-label="name"
+              :class="{ 'p-invalid': errorMessage.members }"
+            />
+            <small class="p-error" id="text-error">{{ errorMessage.members || '&nbsp;' }}</small>
           </div>
         </form>
       </div>
@@ -486,5 +523,8 @@ const showForm = () => {
 .p-column-title {
   font-weight: 500;
   color: #94a3b8;
+}
+ul.p-autocomplete-multiple-container {
+  width: 100%;
 }
 </style>
