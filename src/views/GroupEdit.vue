@@ -173,7 +173,7 @@ const updateGroup = () => {
   <div class="w-full">
     <div class="md:flex justify-between">
       <div class="text-gray-600 flex my-4 p-8 text-4xl font-semibold">
-        <RouterLink to="/contacts" class="mr-3">
+        <RouterLink to="/groups" class="mr-3">
           <i class="pi pi-arrow-left text-lightblue" style="font-size: 1.5rem"></i>
         </RouterLink>
         <h1 class="mt-1">Edit Group</h1>
