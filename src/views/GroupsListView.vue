@@ -392,11 +392,11 @@ const showForm = () => {
         </DialogModal>
       </DataTable>
     </div>
-    <!--  Contact Details Modal -->
+    <!--  Group Details Modal -->
     <DialogModal
       v-model:visible="showViewModal"
       modal
-      header="Contact Details"
+      header="Group Details"
       :style="{ width: '50vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
@@ -404,12 +404,21 @@ const showForm = () => {
         <div class="w-full px-8 py-4 bg-darkblue rounded text-primary grid grid-cols-3">
           <div class="font-semibold">
             <h4 class="text-primary">Name:</h4>
-            <h4 class="text-primary mt-4">Email:</h4>
-            <h4 class="text-primary mt-4">Phone:</h4>
+            <h4 class="text-primary mt-4">Members:</h4>
           </div>
 
           <div class="text-primary col-span-2 grid grid-flow-row">
             <span class="">{{ viewGroupDetails.name }}</span>
+            <div class="flex gap-2 mt-4">
+              <span
+                class="py-1 text-sm font-medium tracking-wider text-primary hover:text-teal-500 cursor-pointer"
+                v-for="(member, index) in viewGroupDetails.members"
+                :key="member.id"
+              >
+                {{ member.name }}
+                <span v-if="index < viewGroupDetails.members.length - 1">,</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -418,7 +427,7 @@ const showForm = () => {
     <DialogModal
       v-model:visible="showAddModal"
       modal
-      header="Add new contact"
+      header="Add new Group"
       :style="{ width: '35vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
