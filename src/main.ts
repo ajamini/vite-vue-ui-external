@@ -20,6 +20,8 @@ import ConfirmPopup from 'primevue/confirmpopup'
 import Menu from 'primevue/menu'
 import Dialog from 'primevue/dialog'
 import AutoComplete from 'primevue/autocomplete'
+import Calendar from 'primevue/calendar'
+import InputNumber from 'primevue/inputnumber';
 
 import './assets/main.css'
 
@@ -42,6 +44,7 @@ app.component('TableColumn', Column)
 app.component('TableColumnGroup', ColumnGroup)
 app.component('TableRow', Row)
 app.component('InputText', InputText)
+app.component('InputNumber', InputNumber)
 app.component('PrimeCheckbox', Checkbox)
 app.component('TieredMenu', TieredMenu)
 app.component('PrimeChart', Chart)
@@ -50,5 +53,6 @@ app.component('PrimeMenu', Menu)
 app.component('ToastVue', Toast)
 app.component('DialogModal', Dialog)
 app.component('AutoComplete', AutoComplete)
+app.component('CalendarVue', Calendar)
 
 app.mount('#app')

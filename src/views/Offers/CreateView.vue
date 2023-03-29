@@ -3,20 +3,38 @@ import { ref } from 'vue'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(0)
+const currentStep = ref(1) //Change to 0
 const formData = ref({
   name: '',
   title: '',
-  created_at: new Date(),
+  created_at: '',
   mls: '',
-  buyers: []
+  buyers: [],
+  offerDate: '',
+  seller: '',
+  purchasePrice: 0,
+  depositAmount: 0,
+  depositTerms: '',
+  irrevocableDate: '',
+  completionDate: ''
 })
 
 //Error Message Object for Validation
 const errors = ref({
   mls: '',
-  buyers: ''
+  buyers: '',
+  offerDate: '',
+  seller: '',
+  purchasePrice: '',
+  depositAmount: '',
+  depositTerms: '',
+  irrevocableDate: '',
+  completionDate: ''
 })
+
+//Set min date to start from today
+const minDate = ref(new Date())
+minDate.value.setDate(minDate.value.getDate() + 1)
 
 const handleSubmit = () => {
   switch (currentStep.value) {
@@ -28,6 +46,18 @@ const handleSubmit = () => {
       currentStep.value = 1 //Could be currentStep.value++ but I prefer to be explicit
       break
     case 1:
+      validateForm()
+      if (
+        errors.value.offerDate !== '' ||
+        errors.value.seller !== '' ||
+        errors.value.purchasePrice !== '' ||
+        errors.value.depositAmount !== '' ||
+        errors.value.depositTerms !== '' ||
+        errors.value.irrevocableDate !== '' ||
+        errors.value.completionDate !== ''
+      ) {
+        return
+      }
       currentStep.value = 2
       break
     case 2:
@@ -105,6 +135,41 @@ const validateForm = () => {
   } else {
     errors.value.buyers = ''
   }
+  if (formData.value.offerDate === '') {
+    errors.value.offerDate = 'Offer Date is required'
+  } else {
+    errors.value.offerDate = ''
+  }
+  if (formData.value.seller === '') {
+    errors.value.seller = 'Seller is required'
+  } else {
+    errors.value.seller = ''
+  }
+  if (formData.value.purchasePrice === 0) {
+    errors.value.purchasePrice = 'Purchase Price is required'
+  } else {
+    errors.value.purchasePrice = ''
+  }
+  if (formData.value.depositAmount === 0) {
+    errors.value.depositAmount = 'Deposit Amount is required'
+  } else {
+    errors.value.depositAmount = ''
+  }
+  if (formData.value.depositTerms === '') {
+    errors.value.depositTerms = 'Deposit Terms is required'
+  } else {
+    errors.value.depositTerms = ''
+  }
+  if (formData.value.irrevocableDate === '') {
+    errors.value.irrevocableDate = 'Irrevocable Date is required'
+  } else {
+    errors.value.irrevocableDate = ''
+  }
+  if (formData.value.completionDate === '') {
+    errors.value.completionDate = 'Completion Date is required'
+  } else {
+    errors.value.completionDate = ''
+  }
 }
 </script>
 
@@ -146,7 +211,7 @@ const validateForm = () => {
       </aside>
       <main class="border-2 w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
-          <div class="steps-wrapper border-2 border-teal-400 min-h-[480px]">
+          <div class="steps-wrapper border-2 border-teal-400 min-h-[440px]">
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
               <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
                 <label class="text-gray-600 font-semibold mb-1" for="buyers">Buyers</label>
@@ -178,14 +243,112 @@ const validateForm = () => {
                 <small class="p-error" id="text-error">{{ errors.mls || '&nbsp;' }}</small>
               </div>
             </div>
-            <div v-else-if="currentStep === 1"> Agreement</div>
+            <div
+              class="agree-wrapper px-8 md:flex gap-6 justify-start"
+              v-else-if="currentStep === 1"
+            >
+              <div class="w-1/2">
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="buyers">Offer Date</label>
+                  <CalendarVue
+                    v-model="formData.offerDate"
+                    :minDate="minDate"
+                    :manualInput="false"
+                    :class="{ 'p-invalid': errors.offerDate }"
+                  />
+                  <small class="p-error" id="date-error">{{ errors.offerDate || '&nbsp;' }}</small>
+                </div>
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="buyers">Sellers</label>
+                  <AutoComplete
+                    v-model="formData.seller"
+                    dropdown
+                    :suggestions="filteredContactItems"
+                    @complete="contactSearch"
+                    forceSelection
+                    option-label="name"
+                    placeholder="Search for seller"
+                    :class="{ 'p-invalid': errors.seller }"
+                  />
+                  <small class="p-error" id="text-error">{{ errors.seller || '&nbsp;' }}</small>
+                </div>
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="depositTerms"
+                    >Deposit Terms</label
+                  >
+                  <InputText
+                    id="depositTerms"
+                    v-model="formData.depositTerms"
+                    :class="{ 'p-invalid': errors.depositTerms }"
+                  />
+                  <small class="p-error" id="text-error">{{
+                    errors.depositTerms || '&nbsp;'
+                  }}</small>
+                </div>
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="completion"
+                    >Completion Date</label
+                  >
+                  <CalendarVue
+                    v-model="formData.completionDate"
+                    :minDate="minDate"
+                    :manualInput="false"
+                    :class="{ 'p-invalid': errors.completionDate }"
+                  />
+                  <small class="p-error" id="date-error">{{
+                    errors.completionDate || '&nbsp;'
+                  }}</small>
+                </div>
+              </div>
+              <div class="w-1/2">
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="buyers"
+                    >Irrevocable Date</label
+                  >
+                  <CalendarVue
+                    v-model="formData.irrevocableDate"
+                    :minDate="minDate"
+                    :manualInput="false"
+                    :class="{ 'p-invalid': errors.irrevocableDate }"
+                  />
+                  <small class="p-error" id="date-error">{{
+                    errors.irrevocableDate || '&nbsp;'
+                  }}</small>
+                </div>
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="purchasePrice"
+                    >Purchase Price</label
+                  >
+                  <InputNumber
+                    v-model="formData.purchasePrice"
+                    inputId="integeronly"
+                    :class="{ 'p-invalid': errors.purchasePrice }"
+                  />
+                  <small class="p-error" id="text-error">{{
+                    errors.purchasePrice || '&nbsp;'
+                  }}</small>
+                </div>
+                <div class="input-wrapper grid grid-flow-row mt-4">
+                  <label class="text-gray-600 font-semibold mb-1" for="purchasePrice"
+                    >Deposit Amount</label
+                  >
+                  <InputNumber
+                    v-model="formData.depositAmount"
+                    inputId="integeronly"
+                    :class="{ 'p-invalid': errors.depositAmount }"
+                  />
+                  <small class="p-error" id="text-error">{{
+                    errors.depositAmount || '&nbsp;'
+                  }}</small>
+                </div>
+              </div>
+            </div>
             <div v-else-if="currentStep === 2"><Condition /> Condition</div>
             <div v-else-if="currentStep === 3"><Representation /> Representation</div>
             <div v-else-if="currentStep === 4"><Documents /> Documents</div>
             <div v-else-if="currentStep === 5"><Review /> Review</div>
             <div v-else><Basics /> Basics</div>
           </div>
-
           <div class="button-wrapper flex justify-start w-full pl-4 mt-2">
             <button
               type="button"
