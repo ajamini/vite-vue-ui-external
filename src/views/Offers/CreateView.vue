@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BasicsFormVue from '@/components/offers/BasicsForm.vue'
 import { ref } from 'vue'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
@@ -23,7 +22,14 @@ const handleSubmit = () => {
   switch (currentStep.value) {
     case 0:
       // Validate Form
-      // If valid, then currentStep++
+      formData.value.mls === '' ? (errors.value.mls = 'MLS is required') : (errors.value.mls = '')
+      formData.value.buyers.length === 0
+        ? (errors.value.buyers = 'Buyers are required')
+        : (errors.value.buyers = '')
+
+      if (errors.value.mls !== '' || errors.value.buyers !== '') {
+        return
+      }
       currentStep.value = 1 //Could be currentStep.value++ but I prefer to be explicit
       break
     case 1:
@@ -53,7 +59,44 @@ const handleGoBack = () => {
   }
 }
 
-//First Step Form Data
+//First Step
+//TODO: Contacts should be retrived from DB
+const suggestedItems = ref([
+  {
+    id: 1,
+    name: 'Wraith'
+  },
+  {
+    id: 2,
+    name: 'Bangalore'
+  },
+  {
+    id: 3,
+    name: 'Bloodhound'
+  },
+  {
+    id: 4,
+    name: 'Pathfinder'
+  },
+  {
+    id: 5,
+    name: 'Watson'
+  }
+])
+//Store Filtered Contacts/Items for Autocomplete
+const filteredContactItems = ref<{ id: number; name: string }[]>([])
+
+const contactSearch = (event: any) => {
+  setTimeout(() => {
+    if (!event.query.trim().length) {
+      filteredContactItems.value = [...suggestedItems.value]
+    } else {
+      filteredContactItems.value = suggestedItems.value.filter((item) => {
+        return item.name.toLowerCase().startsWith(event.query.toLowerCase())
+      })
+    }
+  }, 250)
+}
 </script>
 
 <template>
@@ -95,12 +138,35 @@ const handleGoBack = () => {
       <main class="border-2 w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
           <div class="input-wrapper border-2 border-teal-400 min-h-[480px]">
-            <BasicsFormVue
-              :err="errors"
-              v-model:name="formData.name"
-              v-model:title="formData.title"
-              v-if="currentStep === 0"
-            />
+            <div class="basics-wrapper px-8" v-if="currentStep === 0">
+              <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
+                <label class="text-gray-600 font-semibold mb-1" for="buyers">Buyers</label>
+                <AutoComplete
+                  v-model="formData.buyers"
+                  dropdown
+                  multiple
+                  :suggestions="filteredContactItems"
+                  @complete="contactSearch"
+                  forceSelection
+                  option-label="name"
+                  :class="{ 'p-invalid': errors.buyers }"
+                />
+                <small class="p-error" id="text-error">{{ errors.buyers || '&nbsp;' }}</small>
+              </div>
+              <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
+                <label class="text-gray-600 font-semibold mb-1" for="mls">MLS#</label>
+                <AutoComplete
+                  v-model="formData.mls"
+                  dropdown
+                  :suggestions="filteredContactItems"
+                  @complete="contactSearch"
+                  forceSelection
+                  option-label="name"
+                  :class="{ 'p-invalid': errors.mls }"
+                />
+                <small class="p-error" id="text-error">{{ errors.mls || '&nbsp;' }}</small>
+              </div>
+            </div>
             <div v-else-if="currentStep === 1"><Agreement /> Agreement</div>
             <div v-else-if="currentStep === 2"><Condition /> Condition</div>
             <div v-else-if="currentStep === 3"><Representation /> Representation</div>
@@ -130,3 +196,9 @@ const handleGoBack = () => {
     </div>
   </div>
 </template>
+
+<style>
+ul.p-autocomplete-multiple-container {
+  width: 100%;
+}
+</style>
