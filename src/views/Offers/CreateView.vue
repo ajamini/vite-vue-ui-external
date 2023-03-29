@@ -21,12 +21,7 @@ const errors = ref({
 const handleSubmit = () => {
   switch (currentStep.value) {
     case 0:
-      // Validate Form
-      formData.value.mls === '' ? (errors.value.mls = 'MLS is required') : (errors.value.mls = '')
-      formData.value.buyers.length === 0
-        ? (errors.value.buyers = 'Buyers are required')
-        : (errors.value.buyers = '')
-
+      validateForm()
       if (errors.value.mls !== '' || errors.value.buyers !== '') {
         return
       }
@@ -97,6 +92,20 @@ const contactSearch = (event: any) => {
     }
   }, 250)
 }
+
+const validateForm = () => {
+  //Validate form
+  if (formData.value.mls === '') {
+    errors.value.mls = 'MLS is required'
+  } else {
+    errors.value.mls = ''
+  }
+  if (formData.value.buyers.length === 0) {
+    errors.value.buyers = 'Buyers are required'
+  } else {
+    errors.value.buyers = ''
+  }
+}
 </script>
 
 <template>
@@ -149,6 +158,7 @@ const contactSearch = (event: any) => {
                   @complete="contactSearch"
                   forceSelection
                   option-label="name"
+                  placeholder="Search for Buyers"
                   :class="{ 'p-invalid': errors.buyers }"
                 />
                 <small class="p-error" id="text-error">{{ errors.buyers || '&nbsp;' }}</small>
@@ -162,6 +172,7 @@ const contactSearch = (event: any) => {
                   @complete="contactSearch"
                   forceSelection
                   option-label="name"
+                  placeholder="Type contact name"
                   :class="{ 'p-invalid': errors.mls }"
                 />
                 <small class="p-error" id="text-error">{{ errors.mls || '&nbsp;' }}</small>
@@ -179,7 +190,7 @@ const contactSearch = (event: any) => {
             <button
               type="button"
               v-if="currentStep > 0"
-              class="w-20 px-2 py-2 text-sm hover:text-teal-700 font-medium leading-6 text-center text-darkblue uppercase focus:outline-none"
+              class="w-20 px-2 py-2 text-sm bg-slate-200 rounded hover:opacity-80 font-medium leading-6 text-center text-darkblue uppercase focus:outline-none"
               @click="handleGoBack"
             >
               Back
