@@ -167,9 +167,9 @@ const contactSearch = (event: any) => {
           </li>
         </ul>
       </aside>
-      <main class="border-2 w-2/3">
+      <main class=" w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
-          <div class="steps-wrapper border-2 border-teal-400 min-h-[440px]">
+          <div class="steps-wrapper min-h-[440px]">
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
               <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
                 <label class="text-gray-600 font-semibold mb-1" for="buyers">Buyers</label>
