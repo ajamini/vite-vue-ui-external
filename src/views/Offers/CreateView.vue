@@ -146,7 +146,7 @@ const validateForm = () => {
       </aside>
       <main class="border-2 w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
-          <div class="input-wrapper border-2 border-teal-400 min-h-[480px]">
+          <div class="steps-wrapper border-2 border-teal-400 min-h-[480px]">
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
               <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
                 <label class="text-gray-600 font-semibold mb-1" for="buyers">Buyers</label>
@@ -178,7 +178,7 @@ const validateForm = () => {
                 <small class="p-error" id="text-error">{{ errors.mls || '&nbsp;' }}</small>
               </div>
             </div>
-            <div v-else-if="currentStep === 1"><Agreement /> Agreement</div>
+            <div v-else-if="currentStep === 1"> Agreement</div>
             <div v-else-if="currentStep === 2"><Condition /> Condition</div>
             <div v-else-if="currentStep === 3"><Representation /> Representation</div>
             <div v-else-if="currentStep === 4"><Documents /> Documents</div>
