@@ -55,6 +55,15 @@ const router = createRouter({
       meta: {
         title: 'Create Offer'
       }
+    },
+    //Demo Component Route
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('../views/ComponentView.vue'),
+      meta: {
+        title: 'Demo'
+      }
     }
   ]
 })

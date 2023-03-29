@@ -4,7 +4,7 @@ import { validateForm } from './ValidateForm'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(1) //Change to 0
+const currentStep = ref(1) //Change to 0 to start from first step
 const formData = ref({
   name: '',
   title: '',
@@ -63,18 +63,24 @@ const handleSubmit = () => {
       break
     case 2:
       // do something
+      currentStep.value = 3
       break
     case 3:
       // do something
+      currentStep.value = 4
       break
     case 4:
       // do something
+      currentStep.value = 5
       break
     case 5:
       // do something
+      //Actual Submit Form Data
+      console.log('Save Data', formData.value)
       break
     default:
       // do something
+      currentStep.value = 0
       break
   }
 }
