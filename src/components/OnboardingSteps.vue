@@ -4,31 +4,26 @@ import { ref } from 'vue'
 const tasks = ref([
   {
     title: 'Complete Profile',
-    description: 'Fill out your profile information',
     completed: true,
     active: false
   },
   {
     title: 'Upload Photo',
-    description: 'Add a photo to your profile',
     completed: false,
     active: true
   },
   {
     title: 'Follow Friends',
-    description: 'Find and follow your friends on the platform',
     completed: false,
     active: false
   },
   {
     title: 'Create Post',
-    description: 'Write your first post on the platform',
     completed: false,
     active: false
   },
   {
     title: 'Join Group',
-    description: 'Find and join a group on the platform',
     completed: false,
     active: false
   }
@@ -100,7 +95,7 @@ const tasks = ref([
         </div>
       </div>
       <div class="border-t pt-4">
-        <ul class="">
+        <ul class="list-none">
           <li
             v-for="task in tasks"
             :key="task.title"
@@ -108,7 +103,7 @@ const tasks = ref([
             :class="{
               'line-through': task.completed
             }"
-            class="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4 border-l-transparent bg-gradient-to-r from-transparent to-transparent hover:from-slate-100 transition ease-linear duration-150"
+            class="flex justify-between cursor-pointer items-center border-b border-slate-200 py-3 px-2 border-l-4 border-l-transparent bg-gradient-to-r from-transparent to-transparent hover:from-slate-100 transition ease-linear duration-150"
           >
             <div class="inline-flex w-full items-center space-x-2">
               <div>
@@ -141,10 +136,15 @@ const tasks = ref([
                   <circle cx="12" cy="12" r="10"></circle>
                 </svg>
               </div>
-              <div>{{ task.title }}</div>
+              <div class="text-gray-600 text-sm font-semibold">{{ task.title }}</div>
             </div>
           </li>
         </ul>
+      </div>
+      <div
+        class="border-t hover:text-gray-900 hover:bg-gray-100 cursor-pointer py-2 text-start px-5 font-medium text-gray-600"
+      >
+        Skip onboarding
       </div>
     </div>
   </div>
