@@ -3,36 +3,55 @@ import { ref } from 'vue'
 
 const tasks = ref([
   {
+    id: 1,
     title: 'Complete Profile',
     completed: true,
     active: false
   },
   {
+    id: 2,
     title: 'Upload Photo',
     completed: true,
     active: false
   },
   {
+    id: 3,
     title: 'Follow Friends',
     completed: false,
     active: true
   },
   {
+    id: 4,
     title: 'Create Post',
     completed: false,
     active: false
   },
   {
+    id: 5,
     title: 'Join Group',
     completed: false,
     active: false
   }
 ])
 
-const handleComplete = (index: number) => {
-  tasks.value[index].completed = true
-  tasks.value[index].active = false
-  tasks.value[index + 1].active = true
+const handleComplete = (id: number) => {
+  const task = tasks.value.find((task) => task.id === id)
+  if (task) {
+    task.completed = true
+    task.active = false
+    const nextTask = tasks.value.find((task) => task.id === id + 1)
+    if (nextTask) {
+      nextTask.active = true
+    }
+  }
+}
+
+const handleReset = () => {
+  tasks.value.forEach((task) => {
+    task.completed = false
+    task.active = false
+  })
+  tasks.value[0].active = true
 }
 </script>
 <template>
@@ -59,7 +78,9 @@ const handleComplete = (index: number) => {
             <span class="text-green-500 font-semibold">Next up:</span>
             {{
               //Show the next task that is not completed,  Alternatively, active field can be Used
-              tasks.filter((task) => !task.completed)[0].title
+              tasks.filter((task) => !task.completed).length > 0
+                ? tasks.filter((task) => !task.completed)[0].title
+                : 'All Tasks Completed'
             }}
           </p>
         </div>
@@ -110,7 +131,11 @@ const handleComplete = (index: number) => {
             <h4 class="text-lg font-semibold">Leveling Mastery</h4>
             <p class="text-sm">
               <span class="text-green-500 font-semibold">Next up:</span>
-              {{ tasks.filter((task) => !task.completed)[0].title }}
+              {{
+                tasks.filter((task) => !task.completed).length > 0
+                  ? tasks.filter((task) => !task.completed)[0].title
+                  : 'All Tasks Completed'
+              }}
             </p>
           </div>
         </div>
@@ -141,43 +166,31 @@ const handleComplete = (index: number) => {
       <div class="border-t pt-4">
         <ul class="list-none">
           <li
-            v-for="task in tasks"
-            :key="task.title"
+            v-for="(task, index) in tasks"
+            :key="index"
             id="task"
             :class="{
               'line-through': task.completed
             }"
             class="flex justify-between cursor-pointer items-center border-b border-slate-200 py-3 px-2 border-l-4 border-l-transparent bg-gradient-to-r from-transparent to-transparent hover:from-slate-100 transition ease-linear duration-150"
           >
-            <div class="inline-flex w-full items-center space-x-2">
+            <div class="inline-flex w-full items-center space-x-2" @click="handleComplete(task.id)">
               <div>
                 <svg
-                  v-if="task.completed"
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-7 h-7 -ml-0.5 text-slate-500 hover:text-indigo-600 hover:cursor-pointer"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <svg
-                  v-else
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="w-6 h-6 text-slate-500 hover:text-indigo-600 hover:cursor-pointer"
+                  :class="[
+                    'w-7 h-7 text-slate-500 hover:text-indigo-600 hover:cursor-pointer',
+                    { '-ml-0.5': task.completed }
+                  ]"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  :stroke-width="task.completed ? '1.5' : '2'"
+                  :stroke-linecap="task.completed ? 'round' : 'square'"
+                  :stroke-linejoin="task.completed ? 'round' : 'miter'"
                 >
-                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="10" v-if="!task.completed"></circle>
+                  <path d="M9 12.75L11.25 15 15 9.75" v-if="task.completed"></path>
                 </svg>
               </div>
               <div class="text-gray-600 text-sm font-semibold">{{ task.title }}</div>
@@ -186,9 +199,10 @@ const handleComplete = (index: number) => {
         </ul>
       </div>
       <div
+        @click="handleReset"
         class="border-t hover:text-gray-900 hover:bg-gray-100 cursor-pointer py-2 text-start px-5 font-medium text-gray-600"
       >
-        Skip onboarding
+        Skip onboarding (Currently Reset)
       </div>
     </div>
   </div>
