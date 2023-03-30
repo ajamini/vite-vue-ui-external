@@ -21,7 +21,8 @@ import Menu from 'primevue/menu'
 import Dialog from 'primevue/dialog'
 import AutoComplete from 'primevue/autocomplete'
 import Calendar from 'primevue/calendar'
-import InputNumber from 'primevue/inputnumber';
+import InputNumber from 'primevue/inputnumber'
+import Sidebar from 'primevue/sidebar'
 
 import './assets/main.css'
 
@@ -54,5 +55,6 @@ app.component('ToastVue', Toast)
 app.component('DialogModal', Dialog)
 app.component('AutoComplete', AutoComplete)
 app.component('CalendarVue', Calendar)
+app.component('SidebarVue', Sidebar)
 
 app.mount('#app')

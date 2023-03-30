@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ApprovalPending from '@/components/ApprovalPending.vue'
 import FileUpload from '@/components/FileUpload.vue'
 import FileUploadV2 from '@/components/FileUploadV2.vue'
 import PaymentRequest from '@/components/PaymentRequest.vue'
@@ -21,6 +22,9 @@ import PaymentRequest from '@/components/PaymentRequest.vue'
       <h1 class="text-green-700 mt-4 text-2xl font-semibold">Payment Component</h1>
       <div class="md:flex items-center gap-4 justify-center p-12">
         <payment-request />
+        <div class="flex justify-start items-start w-full pt-8 pl-12">
+          <ApprovalPending />
+        </div>
       </div>
     </section>
   </main>
