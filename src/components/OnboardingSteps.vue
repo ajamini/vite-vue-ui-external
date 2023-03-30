@@ -9,13 +9,13 @@ const tasks = ref([
   },
   {
     title: 'Upload Photo',
-    completed: false,
-    active: true
+    completed: true,
+    active: false
   },
   {
     title: 'Follow Friends',
     completed: false,
-    active: false
+    active: true
   },
   {
     title: 'Create Post',
@@ -28,6 +28,12 @@ const tasks = ref([
     active: false
   }
 ])
+
+const handleComplete = (index: number) => {
+  tasks.value[index].completed = true
+  tasks.value[index].active = false
+  tasks.value[index + 1].active = true
+}
 </script>
 <template>
   <div class="mt-4 md:mt-0 mx-auto w-full max-w-[550px]">
@@ -50,15 +56,36 @@ const tasks = ref([
         <div class="text-gray-800 pl-4 text-start">
           <h4 class="text-lg font-semibold">Leveling Mastery</h4>
           <p class="text-sm">
-            <span class="text-green-500 font-semibold">Next up:</span> Create a new story
+            <span class="text-green-500 font-semibold">Next up:</span>
+            {{
+              //Show the next task that is not completed,  Alternatively, active field can be Used
+              tasks.filter((task) => !task.completed)[0].title
+            }}
           </p>
         </div>
       </div>
       <div class="py-4 px-4 text-end">
-        <span class="text-teal-600 text-sm font-semibold">20% finished</span>
+        <span class="text-teal-600 text-sm font-semibold"
+          >{{
+            //Percentage of Completed Tasks out of Total Tasks
+            ((tasks.filter((task) => task.completed).length / tasks.length) * 100)
+              .toFixed(0)
+              .toString() + '%'
+          }}
+          finished</span
+        >
         <!-- Progess bar -->
         <div class="h-2 bg-gray-200 rounded-full w-40 mt-1">
-          <div class="w-1/5 h-full bg-teal-600 rounded-full"></div>
+          <div
+            class="h-full bg-teal-600 rounded-full"
+            :class="{
+              'w-1/5': tasks.filter((task) => task.completed).length === 1,
+              'w-2/5': tasks.filter((task) => task.completed).length === 2,
+              'w-3/5': tasks.filter((task) => task.completed).length === 3,
+              'w-4/5': tasks.filter((task) => task.completed).length === 4,
+              'w-full': tasks.filter((task) => task.completed).length === 5
+            }"
+          ></div>
         </div>
       </div>
     </div>
@@ -82,15 +109,32 @@ const tasks = ref([
           <div class="text-gray-800 pl-4 text-start">
             <h4 class="text-lg font-semibold">Leveling Mastery</h4>
             <p class="text-sm">
-              <span class="text-green-500 font-semibold">Next up:</span> Create a new story
+              <span class="text-green-500 font-semibold">Next up:</span>
+              {{ tasks.filter((task) => !task.completed)[0].title }}
             </p>
           </div>
         </div>
         <div class="py-4 px-4 text-end">
-          <span class="text-teal-600 text-sm font-semibold">20% finished</span>
+          <span class="text-teal-600 text-sm font-semibold"
+            >{{
+              ((tasks.filter((task) => task.completed).length / tasks.length) * 100)
+                .toFixed(0)
+                .toString() + '%'
+            }}
+            finished</span
+          >
           <!-- Progess bar -->
           <div class="h-2 bg-gray-200 rounded-full w-40 mt-1">
-            <div class="w-1/5 h-full bg-teal-600 rounded-full"></div>
+            <div
+              class="h-full bg-teal-600 rounded-full"
+              :class="{
+                'w-1/5': tasks.filter((task) => task.completed).length === 1,
+                'w-2/5': tasks.filter((task) => task.completed).length === 2,
+                'w-3/5': tasks.filter((task) => task.completed).length === 3,
+                'w-4/5': tasks.filter((task) => task.completed).length === 4,
+                'w-full': tasks.filter((task) => task.completed).length === 5
+              }"
+            ></div>
           </div>
         </div>
       </div>
