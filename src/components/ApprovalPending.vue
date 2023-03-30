@@ -72,6 +72,7 @@ const isVisible = ref(false)
     </div>
     <div class="flex items-center justify-center w-full gap-2">
       <button
+        @click="isVisible = false"
         type="button"
         class="w-full py-3 px-4 text-base font-semibold text-gray-800 border-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
       >

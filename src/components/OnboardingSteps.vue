@@ -1,4 +1,39 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const tasks = ref([
+  {
+    title: 'Complete Profile',
+    description: 'Fill out your profile information',
+    completed: true,
+    active: false
+  },
+  {
+    title: 'Upload Photo',
+    description: 'Add a photo to your profile',
+    completed: false,
+    active: true
+  },
+  {
+    title: 'Follow Friends',
+    description: 'Find and follow your friends on the platform',
+    completed: false,
+    active: false
+  },
+  {
+    title: 'Create Post',
+    description: 'Write your first post on the platform',
+    completed: false,
+    active: false
+  },
+  {
+    title: 'Join Group',
+    description: 'Find and join a group on the platform',
+    completed: false,
+    active: false
+  }
+])
+</script>
 <template>
   <div class="mt-4 md:mt-0 mx-auto w-full max-w-[550px]">
     <div class="active-task-wrapper bg-white rounded-lg shadow-lg flex justify-between">
@@ -32,7 +67,8 @@
         </div>
       </div>
     </div>
-    <div class="active-task-wrapper bg-white rounded-lg shadow-lg flex justify-between mt-4">
+
+    <div class="tasks-list-wrapper bg-white rounded-lg shadow-lg flex justify-between mt-4">
       <div class="h-16 flex p-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
