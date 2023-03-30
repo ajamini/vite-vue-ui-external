@@ -149,7 +149,7 @@ const handleReset = () => {
             finished</span
           >
           <!-- Progess bar -->
-          <div class="h-2 bg-gray-200 rounded-full md:marker:w-40 mt-1">
+          <div class="h-2 bg-gray-200 rounded-full md:w-40 mt-1">
             <div
               class="h-full bg-teal-600 rounded-full"
               :class="{
