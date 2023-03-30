@@ -28,6 +28,42 @@ const router = createRouter({
       meta: {
         title: 'Edit Contact'
       }
+    },
+    //Group View Route
+    {
+      path: '/groups',
+      name: 'groups',
+      component: () => import('../views/GroupsListView.vue'),
+      meta: {
+        title: 'Groups'
+      }
+    },
+    //Group Edit View Route
+    {
+      path: '/groups/:id/edit',
+      name: 'group-edit',
+      component: () => import('../views/GroupEdit.vue'),
+      meta: {
+        title: 'Edit Group'
+      }
+    },
+    //Create Offer View Route
+    {
+      path: '/offers/create',
+      name: 'offer-create',
+      component: () => import('../views/Offers/CreateView.vue'),
+      meta: {
+        title: 'Create Offer'
+      }
+    },
+    //Demo Component Route
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('../views/ComponentView.vue'),
+      meta: {
+        title: 'Demo'
+      }
     }
   ]
 })
