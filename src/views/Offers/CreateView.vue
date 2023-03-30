@@ -4,7 +4,7 @@ import { validateForm } from './ValidateForm'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(1) //Change to 0 to start from first step
+const currentStep = ref(0) //Change to 0 to start from first step
 const formData = ref({
   name: '',
   title: '',
@@ -167,7 +167,7 @@ const contactSearch = (event: any) => {
           </li>
         </ul>
       </aside>
-      <main class=" w-2/3">
+      <main class="w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
           <div class="steps-wrapper min-h-[440px]">
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
