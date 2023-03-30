@@ -28,7 +28,7 @@ import OnboardingSteps from '@/components/OnboardingSteps.vue'
         </div>
       </div>
     </section>
-    <section class="mt-4 text-center">
+    <section class="my-8 text-center">
       <h1 class="text-green-700 mt-4 text-2xl font-semibold">Onboarding Component</h1>
       <div class="md:flex items-center gap-4 justify-center p-12">
         <onboarding-steps />

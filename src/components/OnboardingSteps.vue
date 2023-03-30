@@ -11,14 +11,14 @@ const tasks = ref([
   {
     id: 2,
     title: 'Upload Photo',
-    completed: true,
-    active: false
+    completed: false,
+    active: true
   },
   {
     id: 3,
     title: 'Follow Friends',
     completed: false,
-    active: true
+    active: false
   },
   {
     id: 4,
@@ -73,7 +73,7 @@ const handleReset = () => {
           />
         </svg>
         <div class="text-gray-800 pl-4 text-start">
-          <h4 class="text-lg font-semibold">Leveling Mastery</h4>
+          <h4 class="text-sm md:text-lg font-semibold">Leveling Mastery</h4>
           <p class="text-sm">
             <span class="text-green-500 font-semibold">Next up:</span>
             {{
@@ -96,7 +96,7 @@ const handleReset = () => {
           finished</span
         >
         <!-- Progess bar -->
-        <div class="h-2 bg-gray-200 rounded-full w-40 mt-1">
+        <div class="h-2 bg-gray-200 rounded-full md:w-40 mt-1">
           <div
             class="h-full bg-teal-600 rounded-full"
             :class="{
@@ -128,7 +128,7 @@ const handleReset = () => {
             />
           </svg>
           <div class="text-gray-800 pl-4 text-start">
-            <h4 class="text-lg font-semibold">Leveling Mastery</h4>
+            <h4 class="text-sm md:text-lg font-semibold">Leveling Mastery</h4>
             <p class="text-sm">
               <span class="text-green-500 font-semibold">Next up:</span>
               {{
@@ -149,7 +149,7 @@ const handleReset = () => {
             finished</span
           >
           <!-- Progess bar -->
-          <div class="h-2 bg-gray-200 rounded-full w-40 mt-1">
+          <div class="h-2 bg-gray-200 rounded-full md:marker:w-40 mt-1">
             <div
               class="h-full bg-teal-600 rounded-full"
               :class="{
