@@ -23,6 +23,8 @@ import AutoComplete from 'primevue/autocomplete'
 import Calendar from 'primevue/calendar'
 import InputNumber from 'primevue/inputnumber'
 import Sidebar from 'primevue/sidebar'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
 
 import './assets/main.css'
 
@@ -56,5 +58,7 @@ app.component('DialogModal', Dialog)
 app.component('AutoComplete', AutoComplete)
 app.component('CalendarVue', Calendar)
 app.component('SidebarVue', Sidebar)
+app.component('TabView', TabView)
+app.component('TabPanel', TabPanel)
 
 app.mount('#app')

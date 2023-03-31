@@ -177,38 +177,83 @@ const updateContact = () => {
       <div class="sidenav">
         <h4 class="text-gray-600 text-base font-semibold">Contact Details</h4>
       </div>
-      <form class="col-span-2 md:pr-20 mt-4 md:mt-0">
-        <div class="input-wrapper grid grid-flow-row">
-          <label class="text-gray-600 font-medium" for="name">Name</label>
-          <InputText
-            id="name"
-            v-model="contactData.name"
-            :class="{ 'p-invalid': errorMessage.name }"
-            aria-describedby="name-help"
-          />
-          <small class="p-error" id="text-error">{{ errorMessage.name || '&nbsp;' }}</small>
-        </div>
-        <div class="input-wrapper grid grid-flow-row mt-4">
-          <label class="text-gray-600 font-medium" for="email">Email</label>
-          <InputText
-            id="email"
-            :class="{ 'p-invalid': errorMessage.email }"
-            v-model="contactData.email"
-            aria-describedby="email-help"
-          />
-          <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small>
-        </div>
-        <div class="input-wrapper grid grid-flow-row mt-4">
-          <label class="text-gray-600 font-medium" for="phone">Phone</label>
-          <InputText
-            id="phone"
-            v-model="contactData.phone"
-            aria-describedby="phone-help"
-            :class="{ 'p-invalid': errorMessage.phone }"
-          />
-          <small class="p-error" id="text-error">{{ errorMessage.phone || '&nbsp;' }}</small>
-        </div>
-      </form>
+      <div class="col-span-2 md:pr-20 mt-4 md:mt-0">
+        <TabView class="tabview-custom">
+          <TabPanel>
+            <template #header>
+              <i class="pi pi-clone mx-2"></i>
+              <span
+                :class="{
+                  'text-red-500 font-semibold':
+                    errorMessage.name || errorMessage.email || errorMessage.phone
+                }"
+                >Basics</span
+              >
+            </template>
+            <div class="form-wrapper pt-4">
+              <div class="input-wrapper grid grid-flow-row">
+                <label class="text-gray-600 font-medium" for="name">Name</label>
+                <InputText
+                  id="name"
+                  v-model="contactData.name"
+                  :class="{ 'p-invalid': errorMessage.name }"
+                  aria-describedby="name-help"
+                />
+                <small class="p-error" id="text-error">{{ errorMessage.name || '&nbsp;' }}</small>
+              </div>
+              <div class="input-wrapper grid grid-flow-row mt-4">
+                <label class="text-gray-600 font-medium" for="email">Email</label>
+                <InputText
+                  id="email"
+                  :class="{ 'p-invalid': errorMessage.email }"
+                  v-model="contactData.email"
+                  aria-describedby="email-help"
+                />
+                <small class="p-error" id="text-error">{{ errorMessage.email || '&nbsp;' }}</small>
+              </div>
+              <div class="input-wrapper grid grid-flow-row mt-4">
+                <label class="text-gray-600 font-medium" for="phone">Phone</label>
+                <InputText
+                  id="phone"
+                  v-model="contactData.phone"
+                  aria-describedby="phone-help"
+                  :class="{ 'p-invalid': errorMessage.phone }"
+                />
+                <small class="p-error" id="text-error">{{ errorMessage.phone || '&nbsp;' }}</small>
+              </div>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <template #header>
+              <span>Header II</span>
+              <i class="pi pi-user ml-2"></i>
+            </template>
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+              sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+              voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+              modi.
+            </p>
+          </TabPanel>
+          <TabPanel>
+            <template #header>
+              <i class="pi pi-search mr-2"></i>
+              <span>Header III</span>
+              <i class="pi pi-cog ml-2"></i>
+            </template>
+            <p>
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+              occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+              mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque
+              nihil impedit quo minus.
+            </p>
+          </TabPanel>
+        </TabView>
+      </div>
       <div class="col-span-2 flex justify-center pt-4 mt-4 md:mt-0">
         <!-- Insight Card with Icon to show few Keywords -->
         <div class="w-64 h-52 rounded shadow-lg bg-darkblue">
