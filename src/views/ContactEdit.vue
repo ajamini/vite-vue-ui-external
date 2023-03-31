@@ -187,6 +187,8 @@ const selectedCountryAuto = ref()
 const selCountryDropdown = ref()
 const selCountryBoth = ref()
 
+const fruit = ref()
+
 const searchCountry = (event: any) => {
   setTimeout(() => {
     filteredCountries.value = countries.value.filter((country: any) => {
@@ -456,8 +458,7 @@ const searchCountry = (event: any) => {
                       forceSelection
                     />
                   </div>
-                </div>
-                <div class="w-3/4">
+
                   <div class="mb-4">
                     <label for="first-name" class="block text-gray-600 font-semibold mb-2"
                       >Select Country (AutoComplete)</label
@@ -471,8 +472,6 @@ const searchCountry = (event: any) => {
                       forceSelection
                     />
                   </div>
-                </div>
-                <div class="w-3/4">
                   <div class="mb-4">
                     <label for="first-name" class="block text-gray-600 font-semibold mb-2"
                       >Select Country (Dropdown)</label
@@ -484,6 +483,25 @@ const searchCountry = (event: any) => {
                       placeholder="Select a City"
                       class="w-full md:w-14rem"
                     />
+                  </div>
+                  <h2 class="text-lg font-bold mb-4 mt-8">Fav Fruit (Radio Buttons)</h2>
+                  <div class="flex flex-wrap gap-3">
+                    <div class="flex align-items-center">
+                      <RadioButton v-model="fruit" inputId="fruit1" name="apple" value="Apple" />
+                      <label for="fruit1" class="ml-2">Apple</label>
+                    </div>
+                    <div class="flex align-items-center">
+                      <RadioButton v-model="fruit" inputId="fruit2" name="orange" value="Orange" />
+                      <label for="fruit2" class="ml-2">Orange</label>
+                    </div>
+                    <div class="flex align-items-center">
+                      <RadioButton v-model="fruit" inputId="fruit3" name="banana" value="Banana" />
+                      <label for="fruit3" class="ml-2">Banana</label>
+                    </div>
+                    <div class="flex align-items-center">
+                      <RadioButton v-model="fruit" inputId="fruit4" name="grape" value="Grape" />
+                      <label for="fruit4" class="ml-2">Grape</label>
+                    </div>
                   </div>
                 </div>
               </div>

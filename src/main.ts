@@ -26,6 +26,7 @@ import Sidebar from 'primevue/sidebar'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Dropdown from 'primevue/dropdown'
+import RadioButton from 'primevue/radiobutton'
 
 import './assets/main.css'
 
@@ -62,5 +63,6 @@ app.component('SidebarVue', Sidebar)
 app.component('TabView', TabView)
 app.component('TabPanel', TabPanel)
 app.component('DropdownVue', Dropdown)
+app.component('RadioButton', RadioButton)
 
 app.mount('#app')
