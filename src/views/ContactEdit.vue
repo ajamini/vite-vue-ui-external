@@ -173,11 +173,11 @@ const updateContact = () => {
       </div>
     </div>
 
-    <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-5">
+    <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-6">
       <div class="sidenav">
         <h4 class="text-gray-600 text-base font-semibold">Contact Details</h4>
       </div>
-      <div class="col-span-2 md:pr-20 mt-4 md:mt-0">
+      <div class="col-span-3 md:pr-20 mt-4 md:mt-0">
         <TabView class="tabview-custom">
           <TabPanel>
             <template #header>
@@ -190,7 +190,7 @@ const updateContact = () => {
                 >Basics</span
               >
             </template>
-            <div class="form-wrapper pt-4">
+            <div class="form-wrapper pt-4 max-w-md">
               <div class="input-wrapper grid grid-flow-row">
                 <label class="text-gray-600 font-medium" for="name">Name</label>
                 <InputText
@@ -225,10 +225,10 @@ const updateContact = () => {
           </TabPanel>
           <TabPanel>
             <template #header>
+              <i class="pi pi-book mx-2"></i>
               <span>Form V2</span>
-              <i class="pi pi-book ml-2"></i>
             </template>
-            <div class="form-wrapper">
+            <div class="form-wrapper-tab max-w-md">
               <div class="max-w-3xl mx-auto">
                 <div class="bg-white rounded-lg shadow-lg p-6 my-8">
                   <h2 class="text-lg font-bold mb-4">Personal Information</h2>
@@ -285,7 +285,6 @@ const updateContact = () => {
                     }}</small>
                   </div>
                 </div>
-
                 <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                   <h2 class="text-lg font-bold mb-4">Address Information</h2>
 
@@ -340,18 +339,55 @@ const updateContact = () => {
           </TabPanel>
           <TabPanel>
             <template #header>
-              <i class="pi pi-search mr-2"></i>
-              <span>Header III</span>
-              <i class="pi pi-cog ml-2"></i>
+              <i class="pi pi-cog mx-2"></i>
+              <span>Form III</span>
             </template>
-            <p>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-              occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-              mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque
-              nihil impedit quo minus.
-            </p>
+            <div class="max-w-3xl mx-auto">
+              <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-lg font-bold mb-4">Name</h2>
+
+                <div class="md:grid grid-cols-3 gap-4">
+                  <div class="mb-4">
+                    <label for="first-name" class="block text-gray-700 font-semibold mb-2"
+                      >First Name</label
+                    >
+                    <input
+                      type="text"
+                      id="first-name"
+                      name="first-name"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your first name"
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="middle-name" class="block text-gray-700 font-semibold mb-2"
+                      >Middle Name</label
+                    >
+                    <input
+                      type="text"
+                      id="middle-name"
+                      name="middle-name"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your middle name"
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="last-name" class="block text-gray-700 font-semibold mb-2"
+                      >Last Name</label
+                    >
+                    <input
+                      type="text"
+                      id="last-name"
+                      name="last-name"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
         </TabView>
       </div>
