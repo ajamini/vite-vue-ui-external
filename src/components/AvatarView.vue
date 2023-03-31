@@ -37,6 +37,7 @@ const uploadAvatar = () => {
         <span class="font-semibold">
           {{ selectedFile ? `(${selectedFile.name})` : 'Choose Avatar' }}
         </span>
+        <span class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</span>
 
         <input
           id="avatar"
