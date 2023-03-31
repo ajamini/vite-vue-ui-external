@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import AvatarView from '@/components/AvatarView.vue'
+import FormExample from '@/components/FormExample.vue'
 
 //Contact ID from URL
 const { id } = useRoute().params
@@ -463,7 +464,6 @@ const searchCountry = (event: any) => {
                       forceSelection
                     />
                   </div>
-
                   <div class="mb-4">
                     <label for="first-name" class="block text-gray-600 font-semibold mb-2"
                       >Select Country (AutoComplete)</label
@@ -507,6 +507,9 @@ const searchCountry = (event: any) => {
                       <RadioButton v-model="fruit" inputId="fruit4" name="grape" value="Grape" />
                       <label for="fruit4" class="ml-2">Grape</label>
                     </div>
+                  </div>
+                  <div class="alternative-wrapper mt-8">
+                    <FormExample />
                   </div>
                 </div>
               </div>

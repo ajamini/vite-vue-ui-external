@@ -53,7 +53,7 @@ const uploadAvatar = () => {
       :disabled="!selectedFile"
       :class="{ 'opacity-50 cursor-not-allowed': !selectedFile }"
     >
-      Change
+      Upload
     </button>
   </div>
 </template>
