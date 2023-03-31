@@ -3,6 +3,7 @@ import router from '@/router'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
+import AvatarView from '@/components/AvatarView.vue'
 
 //Contact ID from URL
 const { id } = useRoute().params
@@ -230,6 +231,10 @@ const searchCountry = (event: any) => {
     <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-6">
       <div class="sidenav">
         <h4 class="text-gray-600 text-base font-semibold">Contact Details</h4>
+        <!-- Avatar section -->
+        <div class="w-full mt-6 avatar-wrapper">
+          <AvatarView />
+        </div>
       </div>
       <div class="col-span-3 md:pr-20 mt-4 md:mt-0">
         <TabView class="tabview-custom">
