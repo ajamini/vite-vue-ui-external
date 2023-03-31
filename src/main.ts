@@ -25,6 +25,7 @@ import InputNumber from 'primevue/inputnumber'
 import Sidebar from 'primevue/sidebar'
 import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
+import Dropdown from 'primevue/dropdown'
 
 import './assets/main.css'
 
@@ -60,5 +61,6 @@ app.component('CalendarVue', Calendar)
 app.component('SidebarVue', Sidebar)
 app.component('TabView', TabView)
 app.component('TabPanel', TabPanel)
+app.component('DropdownVue', Dropdown)
 
 app.mount('#app')

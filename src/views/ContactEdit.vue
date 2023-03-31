@@ -183,7 +183,9 @@ const countries = ref([
 ])
 
 const filteredCountries = ref()
-const selectedCountry = ref()
+const selectedCountryAuto = ref()
+const selCountryDropdown = ref()
+const selCountryBoth = ref()
 
 const searchCountry = (event: any) => {
   setTimeout(() => {
@@ -439,18 +441,48 @@ const searchCountry = (event: any) => {
               </div>
               <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
                 <h2 class="text-lg font-bold mb-4">Countries</h2>
-                <div class="w-full">
+                <div class="w-3/4">
                   <div class="mb-4">
-                    <label for="first-name" class="block text-gray-700 font-semibold mb-2"
-                      >Select Country</label
+                    <label for="first-name" class="block text-gray-600 font-semibold mb-2"
+                      >Select Country (Dropdown + AutoComplete)</label
                     >
                     <AutoComplete
                       :style="{ width: '100%' }"
                       optionLabel="name"
                       :suggestions="filteredCountries"
-                      v-model="selectedCountry"
+                      v-model="selCountryBoth"
                       dropdown
                       @complete="searchCountry"
+                      forceSelection
+                    />
+                  </div>
+                </div>
+                <div class="w-3/4">
+                  <div class="mb-4">
+                    <label for="first-name" class="block text-gray-600 font-semibold mb-2"
+                      >Select Country (AutoComplete)</label
+                    >
+                    <AutoComplete
+                      :style="{ width: '100%' }"
+                      optionLabel="name"
+                      :suggestions="filteredCountries"
+                      v-model="selectedCountryAuto"
+                      @complete="searchCountry"
+                      forceSelection
+                    />
+                  </div>
+                </div>
+                <div class="w-3/4">
+                  <div class="mb-4">
+                    <label for="first-name" class="block text-gray-600 font-semibold mb-2"
+                      >Select Country (Dropdown)</label
+                    >
+                    <DropdownVue
+                      v-model="selCountryDropdown"
+                      :options="countries"
+                      optionLabel="name"
+                      placeholder="Select a City"
+                      class="w-full md:w-14rem"
                     />
                   </div>
                 </div>
@@ -488,3 +520,15 @@ const searchCountry = (event: any) => {
     <ToastVue />
   </div>
 </template>
+
+<style>
+input.p-autocomplete-input {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  transition: all 0.2s ease-in-out;
+}
+</style>
