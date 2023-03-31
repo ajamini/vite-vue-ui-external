@@ -225,17 +225,118 @@ const updateContact = () => {
           </TabPanel>
           <TabPanel>
             <template #header>
-              <span>Header II</span>
-              <i class="pi pi-user ml-2"></i>
+              <span>Form V2</span>
+              <i class="pi pi-book ml-2"></i>
             </template>
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-              voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-              modi.
-            </p>
+            <div class="form-wrapper">
+              <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-6 my-8">
+                  <h2 class="text-lg font-bold mb-4">Personal Information</h2>
+
+                  <div class="mb-4">
+                    <label for="name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                    <InputText
+                      id="name"
+                      name="name"
+                      v-model="contactData.name"
+                      :class="{ 'p-invalid': errorMessage.name }"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your name"
+                    />
+                    <small class="p-error" id="text-error">{{
+                      errorMessage.name || '&nbsp;'
+                    }}</small>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="email" class="block text-gray-700 font-semibold mb-2"
+                      >Email Address</label
+                    >
+                    <InputText
+                      type="email"
+                      id="email"
+                      name="email"
+                      :class="{ 'p-invalid': errorMessage.email }"
+                      v-model="contactData.email"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your email"
+                    />
+                    <small class="p-error" id="text-error">{{
+                      errorMessage.email || '&nbsp;'
+                    }}</small>
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="phone" class="block text-gray-700 font-semibold mb-2"
+                      >Phone Number</label
+                    >
+                    <InputText
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      v-model="contactData.phone"
+                      aria-describedby="phone-help"
+                      :class="{ 'p-invalid': errorMessage.phone }"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your phone number"
+                    />
+                    <small class="p-error" id="text-error">{{
+                      errorMessage.phone || '&nbsp;'
+                    }}</small>
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                  <h2 class="text-lg font-bold mb-4">Address Information</h2>
+
+                  <div class="mb-4">
+                    <label for="street" class="block text-gray-700 font-semibold mb-2"
+                      >Street Address</label
+                    >
+                    <input
+                      type="text"
+                      id="street"
+                      name="street"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your street address"
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="city" class="block text-gray-700 font-semibold mb-2">City</label>
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your city"
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="state" class="block text-gray-700 font-semibold mb-2">State</label>
+                    <input
+                      type="text"
+                      id="state"
+                      name="state"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your state"
+                    />
+                  </div>
+
+                  <div class="mb-4">
+                    <label for="zip" class="block text-gray-700 font-semibold mb-2">ZIP Code</label>
+                    <input
+                      type="text"
+                      id="zip"
+                      name="zip"
+                      class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      placeholder="Enter your ZIP code"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </TabPanel>
           <TabPanel>
             <template #header>
