@@ -142,6 +142,56 @@ const updateContact = () => {
     }, 3000)
   }
 }
+
+//Dropdown Items
+const countries = ref([
+  { name: 'Afghanistan', code: 'AF' },
+  { name: 'Åland Islands', code: 'AX' },
+  { name: 'Albania', code: 'AL' },
+  { name: 'Algeria', code: 'DZ' },
+  { name: 'American Samoa', code: 'AS' },
+  { name: 'AndorrA', code: 'AD' },
+  { name: 'Angola', code: 'AO' },
+  { name: 'Anguilla', code: 'AI' },
+  { name: 'Antarctica', code: 'AQ' },
+  { name: 'Antigua and Barbuda', code: 'AG' },
+  { name: 'Argentina', code: 'AR' },
+  { name: 'Armenia', code: 'AM' },
+  { name: 'Aruba', code: 'AW' },
+  { name: 'Australia', code: 'AU' },
+  { name: 'Austria', code: 'AT' },
+  { name: 'Azerbaijan', code: 'AZ' },
+  { name: 'Bahamas', code: 'BS' },
+  { name: 'Bahrain', code: 'BH' },
+  { name: 'Bangladesh', code: 'BD' },
+  { name: 'Barbados', code: 'BB' },
+  { name: 'Belarus', code: 'BY' },
+  { name: 'Belgium', code: 'BE' },
+  { name: 'Belize', code: 'BZ' },
+  { name: 'Benin', code: 'BJ' },
+  { name: 'Bermuda', code: 'BM' },
+  { name: 'Bhutan', code: 'BT' },
+  { name: 'Bolivia', code: 'BO' },
+  { name: 'Bosnia and Herzegovina', code: 'BA' },
+  { name: 'Botswana', code: 'BW' },
+  { name: 'Bouvet Island', code: 'BV' },
+  { name: 'Brazil', code: 'BR' },
+  { name: 'British Indian Ocean Territory', code: 'IO' },
+  { name: 'Brunei Darussalam', code: 'BN' },
+  { name: 'Canada', code: 'CA' },
+  { name: 'USA', code: 'US' }
+])
+
+const filteredCountries = ref()
+const selectedCountry = ref()
+
+const searchCountry = (event: any) => {
+  setTimeout(() => {
+    filteredCountries.value = countries.value.filter((country: any) => {
+      return country.name.toLowerCase().startsWith(event.query.toLowerCase())
+    })
+  }, 250)
+}
 </script>
 
 <template>
@@ -383,6 +433,24 @@ const updateContact = () => {
                       name="last-name"
                       class="w-full border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
                       placeholder="Enter your last name"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-lg font-bold mb-4">Countries</h2>
+                <div class="w-full">
+                  <div class="mb-4">
+                    <label for="first-name" class="block text-gray-700 font-semibold mb-2"
+                      >Select Country</label
+                    >
+                    <AutoComplete
+                      :style="{ width: '100%' }"
+                      optionLabel="name"
+                      :suggestions="filteredCountries"
+                      v-model="selectedCountry"
+                      dropdown
+                      @complete="searchCountry"
                     />
                   </div>
                 </div>
