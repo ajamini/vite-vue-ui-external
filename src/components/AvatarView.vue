@@ -34,7 +34,9 @@ const uploadAvatar = () => {
         for="avatar"
         class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-800 cursor-pointer"
       >
-        <span class="font-semibold">Choose avatar</span>
+        <span class="font-semibold">
+          {{ selectedFile ? `(${selectedFile.name})` : 'Choose Avatar' }}
+        </span>
 
         <input
           id="avatar"
@@ -49,6 +51,7 @@ const uploadAvatar = () => {
       class="mt-1 bg-sky-600 hover:bg-sky-800 text-white py-2 px-4 rounded cursor-pointer"
       @click.prevent="uploadAvatar"
       :disabled="!selectedFile"
+      :class="{ 'opacity-50 cursor-not-allowed': !selectedFile }"
     >
       Change
     </button>
