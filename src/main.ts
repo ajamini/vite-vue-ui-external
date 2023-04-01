@@ -12,6 +12,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import Row from 'primevue/row'
+import DataView from 'primevue/dataview';
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 import TieredMenu from 'primevue/tieredmenu'
@@ -64,5 +65,6 @@ app.component('TabView', TabView)
 app.component('TabPanel', TabPanel)
 app.component('DropdownVue', Dropdown)
 app.component('RadioButton', RadioButton)
+app.component('DataView', DataView)
 
 app.mount('#app')

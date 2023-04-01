@@ -265,9 +265,8 @@ const showForm = () => {
       <h1 class="mt-1">Groups</h1>
     </div>
     <div class="w-full p-8 bg-white">
-      <DataTable
+      <DataView
         :value="filteredList()"
-        tableStyle="min-width: 50rem"
         paginator
         dataKey="id"
         :rows="10"
@@ -314,28 +313,41 @@ const showForm = () => {
             </div>
           </div>
         </template>
-        <template #empty> No Group found. </template>
-        <TableColumn field="id" header="ID" style="width: 5%"></TableColumn>
-        <TableColumn sortable field="name" header="Name" style="width: 20%"></TableColumn>
-        <TableColumn field="members" header="Members" style="width: 40%">
-          <template #body="slotProps">
-            <div class="flex gap-2">
-              <span
-                class="rounded-full bg-gray-300 px-3 py-1 text-sm font-medium tracking-wider text-gray-600 shadow-sm hover:bg-gray-400 hover:shadow-2xl"
-                v-for="member in slotProps.data.members"
-                :key="member.id"
-              >
-                {{ member.name }}
-              </span>
+        <template #list="slotProps">
+          <div class="g-card-wrapper mt-4 md:mb-4">
+            <div class="bg-white shadow-lg rounded-lg">
+              <div class="p-4">
+                <h3 class="text-lg font-medium text-gray-900">ID: {{ slotProps.data.id }}</h3>
+                <div class="mt-2">
+                  <div class="flex items-center mb-1">
+                    <div class="flex-grow">
+                      <p class="text-sm font-medium text-gray-900">Group Name</p>
+                      <p class="text-sm text-gray-500">contact1@example.com</p>
+                    </div>
+                    <div class="ml-2 flex-shrink-0">
+                      <button
+                        class="px-2 py-1 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-100"
+                      >
+                        View
+                      </button>
+                      <button
+                        class="ml-2 px-2 py-1 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-100"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        class="ml-2 px-2 py-1 text-sm font-medium text-red-600 rounded-md hover:bg-red-100"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </template>
-        </TableColumn>
-        <TableColumn
-          class="text-sm"
-          field="created_at"
-          header="Date Added"
-          style="width: 10%"
-        ></TableColumn>
+          </div>
+        </template>
+
         <!-- View, Edit and Delete -->
         <TableColumn header="Actions" style="width: 20%" field="id">
           <template #body="slotProps">
@@ -408,28 +420,7 @@ const showForm = () => {
           </template>
         </TableColumn>
         <ConfirmPopup></ConfirmPopup>
-        <DialogModal
-          v-model:visible="showViewModal"
-          modal
-          header="Group Details"
-          :style="{ width: '50vw' }"
-          :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
-        >
-          <div class="w-full">
-            <div class="w-full px-8 py-4 bg-darkblue rounded text-primary grid grid-cols-3">
-              <div class="font-semibold">
-                <h4 class="text-primary">Name:</h4>
-                <h4 class="text-primary mt-4">Members:</h4>
-              </div>
-
-              <div class="text-primary col-span-2 grid grid-flow-row">
-                <span class="">{{ viewGroupDetails.name }}</span>
-                <div>Show Members Here</div>
-              </div>
-            </div>
-          </div>
-        </DialogModal>
-      </DataTable>
+      </DataView>
     </div>
     <!--  Group Details Modal -->
     <DialogModal
@@ -519,6 +510,23 @@ const showForm = () => {
 </template>
 
 <style>
+div.p-dataview-content > div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-gap: 1rem;
+}
+@media screen and (max-width: 768px) {
+  div.p-dataview-content > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 640px) {
+  div.p-dataview-content > div {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
 .p-datatable-header {
   background-color: #fff !important;
   border: none !important;
