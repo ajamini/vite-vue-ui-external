@@ -317,31 +317,35 @@ const showForm = () => {
           <div class="g-card-wrapper mt-4 md:mb-4">
             <div class="bg-white shadow-lg rounded-lg">
               <div class="p-4">
-                <h3 class="text-lg font-medium text-gray-900">ID: {{ slotProps.data.id }}</h3>
-                <div class="mt-2">
-                  <div class="flex items-center mb-1">
-                    <div class="flex-grow">
-                      <p class="text-sm font-medium text-gray-900">Group Name</p>
-                      <p class="text-sm text-gray-500">contact1@example.com</p>
-                    </div>
-                    <div class="ml-2 flex-shrink-0">
-                      <button
-                        class="px-2 py-1 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-100"
-                      >
-                        View
-                      </button>
-                      <button
-                        class="ml-2 px-2 py-1 text-sm font-medium text-gray-900 rounded-md hover:bg-gray-100"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        class="ml-2 px-2 py-1 text-sm font-medium text-red-600 rounded-md hover:bg-red-100"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
+                <div class="action-wrapper flex justify-between flex-col">
+                  <h3 class="text-lg font-medium text-gray-900">{{ slotProps.data.name }}</h3>
+                </div>
+                <div class="mt-2 p-6">
+                  <h3 class="text-gray-600 text-sm font-semibold mb-4">Members</h3>
+                  <ul class="flex items-center justify-center space-x-2">
+                    <li class="flex flex-col items-center space-y-2">
+                      <!-- Avatar -->
+                      <a class="block bg-white p-1 rounded-full" href="#">
+                        <img
+                          class="w-16 rounded-full"
+                          src="https://images.unsplash.com/photo-1638649602320-450b717fa622?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80"
+                        />
+                      </a>
+                      <!-- Username -->
+                      <span class="text-xs text-gray-500"> Sage </span>
+                    </li>
+                    <li class="flex flex-col items-center space-y-2">
+                      <!-- Avatar -->
+                      <a class="block bg-white p-1 rounded-full" href="#">
+                        <img
+                          class="w-16 rounded-full"
+                          src="https://images.unsplash.com/photo-1638612913771-8f00622b96fb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80"
+                        />
+                      </a>
+                      <!-- Username -->
+                      <span class="text-xs text-gray-500"> Sage </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
