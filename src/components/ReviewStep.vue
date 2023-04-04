@@ -24,7 +24,7 @@ const toHumanDate = (date: string) => {
   <div class="bg-gray-100 py-8">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
-        <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Review</h2>
+        <h2 class="text-base text-lightblue font-semibold tracking-wide uppercase">Review</h2>
         <span
           class="mt-2 block text-3xl leading-8 font-extrabold tracking-tight text-gray-500 sm:text-4xl"
         >
@@ -57,10 +57,18 @@ const toHumanDate = (date: string) => {
             <div class="px-6 py-8">
               <div class="text-2xl text-gray-600 font-bold mb-4">Agreement</div>
               <div class="text-lg text-gray-600 leading-relaxed">
-                <p class="font-bold">Offer Date: {{ toHumanDate(props.data.offerDate) }}</p>
-                <p class="font-bold">Purchase Price: ${{ props.data.purchasePrice }}</p>
-                <p class="font-bold">Deposit Amount: ${{ props.data.depositAmount }}</p>
-                <p class="font-bold">Deposit Terms: {{ props.data.depositTerms }}</p>
+                <p class="font-bold">
+                  Offer Date:<span class="mx-1"> {{ toHumanDate(props.data.offerDate) }} </span>
+                </p>
+                <p class="font-bold">
+                  Purchase Price:<span class="mx-1"> ${{ props.data.purchasePrice }}</span>
+                </p>
+                <p class="font-bold">
+                  Deposit Amount:<span class="mx-1"> ${{ props.data.depositAmount }}</span>
+                </p>
+                <p class="font-bold">
+                  Deposit Terms:<span class="mx-1"> {{ props.data.depositTerms }}</span>
+                </p>
               </div>
             </div>
           </div>
