@@ -1,5 +1,28 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+
+interface FileWithDetails extends File {
+  name: string
+}
+
+const selectedFile = ref<FileWithDetails | null>(null)
+
+const handleFileUpload = (event: InputEvent) => {
+  const inputElement = event.target as HTMLInputElement
+  selectedFile.value = inputElement.files![0]
+  const reader = new FileReader()
+  reader.onload = () => {
+    //Preview if you want
+  }
+  reader.readAsDataURL(selectedFile.value)
+}
+
+const uploadFile = () => {
+  if (selectedFile.value) {
+    // This is just a dummy function for demonstration purposes
+    alert(`Uploading ${selectedFile.value.name}...`)
+  }
+}
 </script>
 
 <template>
@@ -13,7 +36,7 @@ import { ref, watch } from 'vue'
           Add your offer here, if selected you will be contacted by our team
         </span>
       </div>
-      <div class="mb-6 pt-4">
+      <div class="mb-4 pt-4">
         <div class="flex items-center justify-center w-full">
           <label
             for="dropzone-file"
@@ -36,17 +59,26 @@ import { ref, watch } from 'vue'
                 ></path>
               </svg>
               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and drop
+                <span class="font-semibold">Click to upload </span> or drag and drop
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">PDF, PNG, JPG (MAX. 5MB)</p>
             </div>
-            <input id="dropzone-file" type="file" class="hidden" />
+            <input
+              @change="handleFileUpload($event as InputEvent)"
+              id="dropzone-file"
+              type="file"
+              class="hidden"
+            />
           </label>
         </div>
       </div>
       <div>
+        <span class="font-semibold text-left block text-sm text-gray-600 mb-2"
+          >{{ selectedFile && selectedFile.name }}
+        </span>
         <button
-          class="hover:shadow-form w-full rounded-md bg-darkblue py-3 px-8 text-center text-base font-semibold text-white outline-none"
+          @click.prevent="uploadFile"
+          class="hover:shadow-form w-full rounded-md bg-darkblue hover:opacity-95 py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
           Upload File
         </button>
