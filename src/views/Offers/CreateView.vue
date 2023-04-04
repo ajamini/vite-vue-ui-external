@@ -133,7 +133,10 @@ const contactSearch = (event: any) => {
 
 <template>
   <div class="w-full p-4 md:p-8">
-    Other things goes here
+    <h1 class="text-2xl font-semibold text-gray-700">Create Offer</h1>
+    <span class="text-sm text-gray-500"
+      >You need to complete a series of Form to create a offer.
+    </span>
     <div
       class="wrapper-wizard pb-8 px-6 md:p-8 md:flex flex-initial bg-white shadow-xl rounded-lg mt-8 gap-2"
     >
