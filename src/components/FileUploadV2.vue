@@ -1,4 +1,36 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+interface FileWithDetails extends File {
+  name: string
+}
+
+const selectedFiles = ref<FileWithDetails[]>([])
+
+const handleFileUpload = (event: InputEvent) => {
+  const inputElement = event.target as HTMLInputElement
+  const files = inputElement.files!
+
+  for (let i = 0; i < files.length; i++) {
+    const reader = new FileReader()
+    reader.onload = () => {
+      // handle file preview if needed
+    }
+    reader.readAsDataURL(files[i])
+
+    // store the file in the selectedFiles array
+    selectedFiles.value.push(files[i])
+  }
+  console.log(selectedFiles.value, 'Uploaded ')
+}
+
+const uploadFiles = () => {
+  if (selectedFiles.value) {
+    // This is just a dummy function for demonstration purposes
+    alert(`Uploading ${selectedFiles.value.length} files...`)
+  }
+}
+</script>
 <template>
   <div class="mt-4 md:mt-0 mx-auto w-full max-w-[550px] bg-white rounded-lg shadow-lg">
     <form class="py-6 px-9">
@@ -40,7 +72,7 @@
             </button>
           </div>
         </div>
-
+        <!-- Progress if Needed -->
         <div class="rounded-md bg-[#F5F7FB] py-4 px-8">
           <div class="flex items-center justify-between">
             <span class="truncate pr-3 text-base font-medium text-[#07074D]"> Main-Offer.pdf </span>
@@ -75,14 +107,26 @@
 
       <div class="flex items-center justify-center w-full">
         <label
-          for="dropzone-file"
+          for="offer-upload"
           class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-800 cursor-pointer"
         >
           <span class="font-semibold">Add more files</span>
 
-          <input id="dropzone-file" type="file" class="hidden" />
+          <input
+            accept=".pdf,.jpg,.jpeg,.png"
+            @change="handleFileUpload($event as InputEvent)"
+            id="offer-upload"
+            type="file"
+            class="hidden"
+          />
         </label>
       </div>
     </form>
+    <button
+      @click.prevent="uploadFiles"
+      class="w-full py-4 bg-teal-700 hover:bg-teal-900 text-white font-semibold rounded-b-lg"
+    >
+      Upload - Can be auto uploaded
+    </button>
   </div>
 </template>
