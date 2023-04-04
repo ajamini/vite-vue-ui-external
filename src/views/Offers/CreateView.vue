@@ -170,6 +170,7 @@ const contactSearch = (event: any) => {
       <main class="w-2/3">
         <form class="w-full" @submit.prevent="handleSubmit">
           <div class="steps-wrapper min-h-[440px]">
+            <!-- First Step -->
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
               <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
                 <label class="text-gray-600 font-semibold mb-1" for="buyers">Buyers</label>
@@ -201,6 +202,7 @@ const contactSearch = (event: any) => {
                 <small class="p-error" id="text-error">{{ errors.mls || '&nbsp;' }}</small>
               </div>
             </div>
+            <!-- Second Step -->
             <div
               class="agree-wrapper px-8 md:flex gap-6 justify-start"
               v-else-if="currentStep === 1"
@@ -301,10 +303,15 @@ const contactSearch = (event: any) => {
                 </div>
               </div>
             </div>
+            <!-- Third Step -->
             <div v-else-if="currentStep === 2"><Condition /> Condition</div>
+            <!-- Forth Step -->
             <div v-else-if="currentStep === 3"><Representation /> Representation</div>
+            <!-- Fifth Step -->
             <div v-else-if="currentStep === 4"><Documents /> Documents</div>
+            <!-- Sixth Step -->
             <div v-else-if="currentStep === 5"><Review /> Review</div>
+            <!-- Default Step -->
             <div v-else><Basics /> Basics</div>
           </div>
           <div class="button-wrapper flex justify-start w-full pl-4 mt-2">
