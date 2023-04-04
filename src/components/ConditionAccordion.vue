@@ -1,71 +1,78 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const items = ref([
+const items = [
   {
-    title: 'Accordion Item 1',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut tellus justo. Donec ac tellus tellus.',
-    image: '',
-    expanded: false
+    title: 'Condition Term 1',
+    description: 'Description for Condition Term 1'
   },
   {
-    title: 'Accordion Item 2',
-    description:
-      'Suspendisse semper volutpat lectus, ac consectetur elit feugiat sit amet. Vestibulum nec felis vel purus elementum ullamcorper eu in nulla. Suspendisse potenti.',
-    image: 'https://via.placeholder.com/500x300',
-    expanded: false
+    title: 'Condition Term 2',
+    description: 'Description for Condition Term 2'
   },
   {
-    title: 'Accordion Item 3',
-    description:
-      'Phasellus quis varius metus. Sed pharetra efficitur dolor, in volutpat turpis mollis id. Nunc id tellus nisi. ',
-    image: '',
-    expanded: false
+    title: 'Condition Term 3',
+    description: 'Description for Condition Term 3'
   }
-])
+]
+const isOpen = ref<number | null>(null)
 
-const toggleAccordion = (index: number) => {
-  items.value[index].expanded = !items.value[index].expanded
+const toggleOpen = (index: number) => {
+  if (isOpen.value === index) {
+    isOpen.value = null
+  } else {
+    isOpen.value = index
+  }
 }
 </script>
 
 <template>
-  <div class="accordion">
-    <div v-for="(item, index) in items" :key="index" class="border-b border-gray-200">
+  <div>
+    <div v-for="(item, index) in items" :key="index">
       <div
-        class="flex items-center justify-between p-4 cursor-pointer select-none"
-        @click="toggleAccordion(index)"
+        class="border-b border-gray-200 cursor-pointer transition duration-300 ease-in-out transform hover:bg-gray-50"
+        :class="{ 'pb-4': isOpen === index, 'mb-4': isOpen !== index }"
+        @click="toggleOpen(index)"
       >
-        <h3 class="text-lg font-medium">{{ item.title }}</h3>
-        <svg
-          class="w-6 h-6 transform transition-transform"
-          :class="{ 'rotate-180': item.expanded }"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
+        <h3 class="flex justify-between items-center py-4 font-medium text-lg">
+          <span>{{ item.title }}</span>
+          <svg
+            class="w-6 h-6 transform transition-transform duration-300"
+            :class="{ 'rotate-180': isOpen === index }"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 9l-7 7-7-7" />
+          </svg>
+        </h3>
+        <p
+          class="text-gray-500 pb-4"
+          v-show="isOpen === index"
+          :class="{ 'opacity-100': isOpen === index, 'opacity-0': isOpen !== index }"
         >
-          <path
-            fill-rule="evenodd"
-            d="M5.293 6.707a1 1 0 011.414 0L10 9.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </div>
-      <div class="p-4" :class="{ hidden: !item.expanded, block: item.expanded }">
-        <p class="text-gray-700">{{ item.description }}</p>
-        <img class="mt-4 rounded-lg" :src="item.image" :alt="item.title" v-if="item.image" />
+          {{ item.description }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.accordion h3 {
-  color: #1a202c;
+.transform {
+  transition-property: transform;
 }
-
-.accordion svg {
-  transition: transform 0.2s ease;
+.rotate-180 {
+  transform: rotate(180deg);
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
 }
 </style>
