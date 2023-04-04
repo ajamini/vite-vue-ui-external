@@ -48,16 +48,12 @@ const uploadFiles = () => {
         </span>
       </div>
       <div class="mb-6 pt-4">
-        <div class="mb-5 mt-4 rounded-md bg-[#F5F7FB] py-4 px-8">
-          <div v-if="selectedFiles.length === 0" class="text-base font-medium text-[#666]">
-            Currently no file selected
-          </div>
-          <div
-            v-else
-            v-for="(file, index) in selectedFiles"
-            :key="index"
-            class="flex items-center justify-between"
-          >
+        <div
+          v-for="(file, index) in selectedFiles"
+          :key="index"
+          class="mb-5 mt-4 rounded-md bg-[#F5F7FB] py-4 px-8"
+        >
+          <div class="flex items-center justify-between">
             <span class="truncate pr-3 text-base font-medium text-[#07074D]">
               {{ file.name }}
             </span>
