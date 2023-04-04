@@ -86,7 +86,7 @@ const uploadFiles = () => {
           </div>
         </div>
         <!-- Progress if Needed -->
-        <div class="rounded-md bg-[#F5F7FB] py-4 px-8">
+        <!-- <div class="rounded-md bg-[#F5F7FB] py-4 px-8">
           <div class="flex items-center justify-between">
             <span class="truncate pr-3 text-base font-medium text-[#07074D]"> Progress Demo </span>
             <button class="text-[#07074D]">
@@ -115,7 +115,7 @@ const uploadFiles = () => {
           <div class="relative mt-5 h-[6px] w-full rounded-lg bg-[#E2E5EF]">
             <div class="absolute left-0 right-0 h-full w-[75%] rounded-lg bg-lightblue"></div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="flex items-center justify-center w-full">
