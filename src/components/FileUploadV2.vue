@@ -24,6 +24,11 @@ const handleFileUpload = (event: InputEvent) => {
   console.log(selectedFiles.value, 'Uploaded ')
 }
 
+//Remove file from the selectedFiles array
+const removeFile = (index: number) => {
+  selectedFiles.value.splice(index, 1)
+}
+
 const uploadFiles = () => {
   if (selectedFiles.value) {
     // This is just a dummy function for demonstration purposes
@@ -44,11 +49,19 @@ const uploadFiles = () => {
       </div>
       <div class="mb-6 pt-4">
         <div class="mb-5 mt-4 rounded-md bg-[#F5F7FB] py-4 px-8">
-          <div class="flex items-center justify-between">
+          <div v-if="selectedFiles.length === 0" class="text-base font-medium text-[#666]">
+            Currently no file selected
+          </div>
+          <div
+            v-else
+            v-for="(file, index) in selectedFiles"
+            :key="index"
+            class="flex items-center justify-between"
+          >
             <span class="truncate pr-3 text-base font-medium text-[#07074D]">
-              Cover Letter.pdf
+              {{ file.name }}
             </span>
-            <button class="text-[#07074D]">
+            <button @click.prevent="removeFile(index)" class="text-[#07074D]">
               <svg
                 width="10"
                 height="10"
@@ -75,7 +88,7 @@ const uploadFiles = () => {
         <!-- Progress if Needed -->
         <div class="rounded-md bg-[#F5F7FB] py-4 px-8">
           <div class="flex items-center justify-between">
-            <span class="truncate pr-3 text-base font-medium text-[#07074D]"> Main-Offer.pdf </span>
+            <span class="truncate pr-3 text-base font-medium text-[#07074D]"> Progress Demo </span>
             <button class="text-[#07074D]">
               <svg
                 width="10"
@@ -126,7 +139,7 @@ const uploadFiles = () => {
       @click.prevent="uploadFiles"
       class="w-full py-4 bg-teal-700 hover:bg-teal-900 text-white font-semibold rounded-b-lg"
     >
-      Upload - Can be auto uploaded
+      Upload
     </button>
   </div>
 </template>
