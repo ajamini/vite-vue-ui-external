@@ -12,6 +12,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import Row from 'primevue/row'
+import DataView from 'primevue/dataview';
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 import TieredMenu from 'primevue/tieredmenu'
@@ -23,6 +24,10 @@ import AutoComplete from 'primevue/autocomplete'
 import Calendar from 'primevue/calendar'
 import InputNumber from 'primevue/inputnumber'
 import Sidebar from 'primevue/sidebar'
+import TabView from 'primevue/tabview'
+import TabPanel from 'primevue/tabpanel'
+import Dropdown from 'primevue/dropdown'
+import RadioButton from 'primevue/radiobutton'
 
 import './assets/main.css'
 
@@ -56,5 +61,10 @@ app.component('DialogModal', Dialog)
 app.component('AutoComplete', AutoComplete)
 app.component('CalendarVue', Calendar)
 app.component('SidebarVue', Sidebar)
+app.component('TabView', TabView)
+app.component('TabPanel', TabPanel)
+app.component('DropdownVue', Dropdown)
+app.component('RadioButton', RadioButton)
+app.component('DataView', DataView)
 
 app.mount('#app')

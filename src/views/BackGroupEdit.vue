@@ -198,56 +198,37 @@ const updateGroup = () => {
       </div>
     </div>
 
-    <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-6">
+    <div class="w-full p-8 bg-white min-h-screen md:grid md:grid-cols-5">
       <div class="sidenav">
-        <h4 class="text-gray-600 text-base font-semibold"></h4>
+        <h4 class="text-gray-600 text-base font-semibold">Group Details</h4>
       </div>
-      <form class="col-span-4 mt-4 md:mt-0">
-        <div class="relative py-3 mt-8 sm:max-w-xl sm:mx-auto">
-          <div class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-            <div class="max-w-md mx-auto">
-              <div>
-                <h1 class="text-2xl font-semibold">Update Group Contacts</h1>
-              </div>
-              <div class="divide-y divide-gray-200">
-                <div
-                  class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
-                >
-                  <div class="input-wrapper grid grid-flow-row">
-                    <label class="text-gray-600 font-medium" for="name">Name</label>
-                    <InputText
-                      id="name"
-                      v-model="groupData.name"
-                      :class="{ 'p-invalid': errorMessage.name }"
-                      aria-describedby="name-help"
-                    />
-                    <small class="p-error" id="text-error">{{
-                      errorMessage.name || '&nbsp;'
-                    }}</small>
-                  </div>
-                  <div class="input-wrapper grid grid-flow-row mt-4">
-                    <label class="text-gray-600 font-medium" for="contact">Contact</label>
-                    <AutoComplete
-                      v-model="groupData.members"
-                      dropdown
-                      multiple
-                      :suggestions="filteredContactItems"
-                      @complete="contactSearch"
-                      forceSelection
-                      option-label="name"
-                      :class="{ 'p-invalid': errorMessage.members }"
-                    />
-                    <small class="p-error" id="text-error">{{
-                      errorMessage.members || '&nbsp;'
-                    }}</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <form class="col-span-2 md:pr-20 mt-4 md:mt-0">
+        <div class="input-wrapper grid grid-flow-row">
+          <label class="text-gray-600 font-medium" for="name">Name</label>
+          <InputText
+            id="name"
+            v-model="groupData.name"
+            :class="{ 'p-invalid': errorMessage.name }"
+            aria-describedby="name-help"
+          />
+          <small class="p-error" id="text-error">{{ errorMessage.name || '&nbsp;' }}</small>
+        </div>
+        <div class="input-wrapper grid grid-flow-row mt-4">
+          <label class="text-gray-600 font-medium" for="contact">Contact</label>
+          <AutoComplete
+            v-model="groupData.members"
+            dropdown
+            multiple
+            :suggestions="filteredContactItems"
+            @complete="contactSearch"
+            forceSelection
+            option-label="name"
+            :class="{ 'p-invalid': errorMessage.members }"
+          />
+          <small class="p-error" id="text-error">{{ errorMessage.members || '&nbsp;' }}</small>
         </div>
       </form>
-      <div class="col-span-1 flex justify-center pt-4 mt-4 md:mt-0">
+      <div class="col-span-2 flex justify-center pt-4 mt-4 md:mt-0">
         <!-- Insight Card with Icon to show few Keywords -->
         <div class="w-64 h-52 rounded shadow-lg bg-darkblue">
           <div class="flex">

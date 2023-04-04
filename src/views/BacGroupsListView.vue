@@ -265,8 +265,9 @@ const showForm = () => {
       <h1 class="mt-1">Groups</h1>
     </div>
     <div class="w-full p-8 bg-white">
-      <DataView
+      <DataTable
         :value="filteredList()"
+        tableStyle="min-width: 50rem"
         paginator
         dataKey="id"
         :rows="10"
@@ -312,118 +313,123 @@ const showForm = () => {
               </button>
             </div>
           </div>
-          <ConfirmPopup />
         </template>
-        <template #list="slotProps">
-          <div class="g-card-wrapper mt-4 md:mb-4">
-            <div class="bg-white shadow-lg rounded-lg">
-              <div class="p-4">
-                <!-- View, Edit, Delete -->
-                <div class="action-wrapper flex justify-between">
-                  <h3 class="text-2xl font-medium text-gray-600">{{ slotProps.data.name }}</h3>
-                  <div class="flex justify-start">
-                    <button
-                      @click="viewGroup($event, slotProps.data.id)"
-                      class="flex items-center justify-center w-8 h-8 mr-0.5 text-lightblue transition-colors duration-150 cursor-pointer focus:outline-none hover:opacity-90"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5 mt-0.5"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
-                        />
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                    </button>
-                    <RouterLink
-                      :to="{ name: 'group-edit', params: { id: slotProps.data.id } }"
-                      class="flex items-center justify-center w-8 h-8 mr-1 text-darkblue transition-colors duration-150 cursor-pointer hover:opacity-90 focus:outline-none"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-5 h-5"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                      </svg>
-                    </RouterLink>
-                    <div class="delete-wrapper">
-                      <button
-                        @click="deleteGroup($event, slotProps.data.id)"
-                        class="flex items-center justify-center w-8 h-8 mr-1 text-darkred transition-colors duration-150 cursor-pointer hover:text-gray-500 focus:outline-none"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="w-5 h-5"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-2 p-6">
-                  <h3 class="text-gray-600 text-sm font-semibold mb-4">Members</h3>
-                  <ul class="flex items-center justify-center space-x-2">
-                    <li
-                      v-for="member in slotProps.data.members"
-                      :key="member.id"
-                      class="flex flex-col items-center space-y-2"
-                    >
-                      <!-- Avatar -->
-                      <a class="block bg-white p-1 rounded-full" href="#">
-                        <img
-                          class="w-16 rounded-full"
-                          src="https://images.unsplash.com/photo-1638649602320-450b717fa622?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80"
-                        />
-                      </a>
-                      <!-- Username -->
-                      <span class="text-xs text-gray-500"> {{ member.name }} </span>
-                    </li>
-                    <li class="flex flex-col items-center space-y-2">
-                      <!-- Avatar -->
-                      <a class="block bg-white p-1 rounded-full" href="#">
-                        <img
-                          class="w-16 rounded-full"
-                          src="https://images.unsplash.com/photo-1638612913771-8f00622b96fb?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=200&amp;h=200&amp;q=80"
-                        />
-                      </a>
-                      <!-- Username -->
-                      <span class="text-xs text-gray-500"> Sage </span>
-                    </li>
-                  </ul>
-                </div>
+        <template #empty> No Group found. </template>
+        <TableColumn field="id" header="ID" style="width: 5%"></TableColumn>
+        <TableColumn sortable field="name" header="Name" style="width: 20%"></TableColumn>
+        <TableColumn field="members" header="Members" style="width: 40%">
+          <template #body="slotProps">
+            <div class="flex gap-2">
+              <span
+                class="rounded-full bg-gray-300 px-3 py-1 text-sm font-medium tracking-wider text-gray-600 shadow-sm hover:bg-gray-400 hover:shadow-2xl"
+                v-for="member in slotProps.data.members"
+                :key="member.id"
+              >
+                {{ member.name }}
+              </span>
+            </div>
+          </template>
+        </TableColumn>
+        <TableColumn
+          class="text-sm"
+          field="created_at"
+          header="Date Added"
+          style="width: 10%"
+        ></TableColumn>
+        <!-- View, Edit and Delete -->
+        <TableColumn header="Actions" style="width: 20%" field="id">
+          <template #body="slotProps">
+            <div class="flex justify-start">
+              <button
+                @click="viewGroup($event, slotProps.data.id)"
+                class="flex items-center justify-center w-8 h-8 mr-0.5 text-lightblue transition-colors duration-150 cursor-pointer focus:outline-none hover:opacity-90"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-5 h-5 mt-0.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </button>
+              <RouterLink
+                :to="{ name: 'group-edit', params: { id: slotProps.data.id } }"
+                class="flex items-center justify-center w-8 h-8 mr-1 text-darkblue transition-colors duration-150 cursor-pointer hover:opacity-90 focus:outline-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                  />
+                </svg>
+              </RouterLink>
+              <div class="delete-wrapper">
+                <button
+                  @click="deleteGroup($event, slotProps.data.id)"
+                  class="flex items-center justify-center w-8 h-8 mr-1 text-darkred transition-colors duration-150 cursor-pointer hover:text-gray-500 focus:outline-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-5 h-5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </template>
+        </TableColumn>
+        <ConfirmPopup></ConfirmPopup>
+        <DialogModal
+          v-model:visible="showViewModal"
+          modal
+          header="Group Details"
+          :style="{ width: '50vw' }"
+          :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
+        >
+          <div class="w-full">
+            <div class="w-full px-8 py-4 bg-darkblue rounded text-primary grid grid-cols-3">
+              <div class="font-semibold">
+                <h4 class="text-primary">Name:</h4>
+                <h4 class="text-primary mt-4">Members:</h4>
+              </div>
+
+              <div class="text-primary col-span-2 grid grid-flow-row">
+                <span class="">{{ viewGroupDetails.name }}</span>
+                <div>Show Members Here</div>
               </div>
             </div>
           </div>
-        </template>
-      </DataView>
+        </DialogModal>
+      </DataTable>
     </div>
     <!--  Group Details Modal -->
     <DialogModal
@@ -513,28 +519,17 @@ const showForm = () => {
 </template>
 
 <style>
-div.p-dataview-content > div {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-gap: 1rem;
-}
-@media screen and (max-width: 768px) {
-  div.p-dataview-content > div {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media screen and (max-width: 640px) {
-  div.p-dataview-content > div {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-}
-
-.p-dataview-header {
+.p-datatable-header {
   background-color: #fff !important;
   border: none !important;
 }
-
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: #fff !important;
+}
+.p-column-title {
+  font-weight: 500;
+  color: #94a3b8;
+}
 ul.p-autocomplete-multiple-container {
   width: 100%;
 }
