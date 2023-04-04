@@ -117,9 +117,11 @@ const uploadFiles = () => {
       <div class="flex items-center justify-center w-full">
         <label
           for="offer-upload"
-          class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-800 cursor-pointer"
+          class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-700 cursor-pointer"
         >
-          <span class="font-semibold">Add more files</span>
+          <span class="font-semibold">{{
+            selectedFiles.length > 0 ? 'Add more files' : 'Select file to upload'
+          }}</span>
 
           <input
             accept=".pdf,.jpg,.jpeg,.png"
