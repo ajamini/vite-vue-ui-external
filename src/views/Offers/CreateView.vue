@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ConditionAccordion from '@/components/ConditionAccordion.vue'
 import { ref } from 'vue'
 import { validateForm } from './ValidateForm'
 
@@ -274,7 +275,7 @@ const contactSearch = (event: any) => {
               </div>
             </div>
             <!-- Third Step -->
-            <div v-else-if="currentStep === 2">Condition</div>
+            <ConditionAccordion v-else-if="currentStep === 2" />
             <!-- Forth Step -->
             <div v-else-if="currentStep === 3">Representation</div>
             <!-- Fifth Step -->
