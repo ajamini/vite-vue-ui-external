@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ConditionAccordion from '@/components/ConditionAccordion.vue'
+import RepresentStep from '@/components/RepresentStep.vue'
 import { ref } from 'vue'
 import { validateForm } from './ValidateForm'
 
@@ -174,8 +175,8 @@ const contactSearch = (event: any) => {
         </div>
       </aside>
       <main class="w-full md:w-2/3">
-        <form class="w-full pt-8" @submit.prevent="handleSubmit">
-          <div class="steps-wrapper min-h-[240px] md:min-h-[440px]">
+        <form class="w-full pt-6" @submit.prevent="handleSubmit">
+          <div class="steps-wrapper min-h-[240px] md:min-h-[420px]">
             <!-- Second Step / First Step at Bottom served as Default -->
             <div class="agree-wrapper px-8 md:flex gap-6 justify-start" v-if="currentStep === 1">
               <div class="w-1/2">
@@ -277,7 +278,7 @@ const contactSearch = (event: any) => {
             <!-- Third Step -->
             <ConditionAccordion v-else-if="currentStep === 2" />
             <!-- Forth Step -->
-            <div v-else-if="currentStep === 3">Representation</div>
+            <RepresentStep :data="formData" v-else-if="currentStep === 3" />
             <!-- Fifth Step -->
             <div v-else-if="currentStep === 4">Documents</div>
             <!-- Sixth Step -->
@@ -315,7 +316,7 @@ const contactSearch = (event: any) => {
               </div>
             </div>
           </div>
-          <div class="button-wrapper flex justify-start w-full pl-4 mt-2">
+          <div class="button-wrapper flex justify-start w-full pl-4 mt-1">
             <button
               type="button"
               v-if="currentStep > 0"
