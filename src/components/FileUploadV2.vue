@@ -117,7 +117,7 @@ const uploadFiles = () => {
       <div class="flex items-center justify-center w-full">
         <label
           for="offer-upload"
-          class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-700 cursor-pointer"
+          class="flex flex-col items-center justify-center w-full h-12 text-teal-600 hover:text-teal-800 cursor-pointer"
         >
           <span class="font-semibold">{{
             selectedFiles.length > 0 ? 'Add more files' : 'Select file to upload'
@@ -135,7 +135,7 @@ const uploadFiles = () => {
     </form>
     <button
       @click.prevent="uploadFiles"
-      class="w-full py-4 bg-teal-700 hover:bg-teal-900 text-white font-semibold rounded-b-lg"
+      class="w-full py-4 bg-teal-700 hover:bg-teal-800 text-white font-semibold rounded-b-lg"
     >
       Upload
     </button>

@@ -36,7 +36,7 @@ const uploadFile = () => {
           Add your offer here, if selected you will be contacted by our team
         </span>
       </div>
-      <div class="mb-6 pt-4">
+      <div class="mb-4 pt-4">
         <div class="flex items-center justify-center w-full">
           <label
             for="dropzone-file"
@@ -59,7 +59,7 @@ const uploadFile = () => {
                 ></path>
               </svg>
               <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Click to upload</span> or drag and drop
+                <span class="font-semibold">Click to upload </span> or drag and drop
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">PDF, PNG, JPG (MAX. 5MB)</p>
             </div>
@@ -73,9 +73,12 @@ const uploadFile = () => {
         </div>
       </div>
       <div>
+        <span class="font-semibold text-left block text-sm text-gray-600 mb-2"
+          >{{ selectedFile && selectedFile.name }}
+        </span>
         <button
           @click.prevent="uploadFile"
-          class="hover:shadow-form w-full rounded-md bg-darkblue py-3 px-8 text-center text-base font-semibold text-white outline-none"
+          class="hover:shadow-form w-full rounded-md bg-darkblue hover:opacity-95 py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
           Upload File
         </button>
