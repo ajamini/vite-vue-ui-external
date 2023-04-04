@@ -86,8 +86,8 @@ const toHumanDate = (date: string) => {
           </div>
         </div>
         <div class="bg-white rounded-lg shadow-lg mt-2">
-          <div class="text-2xl text-gray-600 font-bold mt-4 px-8 pt-8">Documents</div>
-          <ul class="list-none mt-2">
+          <div class="text-2xl text-gray-600 font-bold mt-4 p-8">Documents</div>
+          <ul class="list-none -mt-2">
             <!-- Uploaded Documents  -->
             <li v-for="(file, index) in props.files" :key="index">
               <div class="px-8 py-2">
