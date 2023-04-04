@@ -132,18 +132,20 @@ const contactSearch = (event: any) => {
 </script>
 
 <template>
-  <div class="w-full p-8">
+  <div class="w-full p-4 md:p-8">
     Other things goes here
-    <div class="wrapper-wizard p-8 flex flex-initial bg-white shadow-xl rounded-lg mt-8 gap-2">
-      <aside class="min-h-screen w-1/3 grid justify-center">
-        <ul class="list-none mt-4">
+    <div
+      class="wrapper-wizard pb-8 px-6 md:p-8 md:flex flex-initial bg-white shadow-xl rounded-lg mt-8 gap-2"
+    >
+      <aside class="md:min-h-screen w-full md:w-1/3 md:grid justify-center">
+        <div class="mt-4 flex flex-row md:flex-col flex-wrap md:justify-start">
           <li
             v-for="(stepTitle, index) in stepTitles"
             :key="index"
-            class="flex items-center mt-4 gap-4"
+            class="flex items-center ml-2 md:ml-0 mt-4 gap-4"
           >
             <span
-              class="w-10 h-10 text-xl font-semibold rounded flex items-center justify-center"
+              class="w-8 h-8 md:w-10 md:h-10 text-xl font-semibold rounded flex items-center justify-center"
               :class="
                 currentStep === index ? 'bg-darkblue text-white' : 'bg-gray-200 text-gray-600'
               "
@@ -163,13 +165,13 @@ const contactSearch = (event: any) => {
               </span>
               <span v-else>{{ index + 1 }}</span>
             </span>
-            <span class="font-semibold text-sm text-gray-700">{{ stepTitle }}</span>
+            <span class="font-semibold text-xs md:text-sm text-gray-700">{{ stepTitle }}</span>
           </li>
-        </ul>
+        </div>
       </aside>
-      <main class="w-2/3">
-        <form class="w-full" @submit.prevent="handleSubmit">
-          <div class="steps-wrapper min-h-[440px]">
+      <main class="w-full md:w-2/3">
+        <form class="w-full pt-8" @submit.prevent="handleSubmit">
+          <div class="steps-wrapper min-h-[240px] md:min-h-[440px]">
             <!-- Second Step / First Step at Bottom served as Default -->
             <div class="agree-wrapper px-8 md:flex gap-6 justify-start" v-if="currentStep === 1">
               <div class="w-1/2">
