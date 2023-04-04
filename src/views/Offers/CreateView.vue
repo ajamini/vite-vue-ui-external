@@ -11,7 +11,7 @@ interface FileWithDetails extends File {
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(4) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5
+const currentStep = ref(0) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5
 const formData = ref({
   created_at: '',
   mls: '',
@@ -87,6 +87,8 @@ const handleSubmit = () => {
       // do something
       //Actual Submit Form Data
       console.log('Save these Data', formData.value)
+      alert('Form Submitted, Check Console')
+      //Reset Form Data
       break
     default:
       // Back to first step
@@ -384,11 +386,7 @@ const contactSearch = (event: any) => {
               </div>
             </div>
             <!-- Sixth Step -->
-            <ReviewStep
-              :data="formData"
-              :files="uploadedFiles"
-              v-else-if="currentStep === 5"
-            />
+            <ReviewStep :data="formData" :files="uploadedFiles" v-else-if="currentStep === 5" />
             <!-- Default Step / First Step -->
             <div class="basics-wrapper px-8" v-if="currentStep === 0">
               <div class="input-wrapper grid grid-flow-row mt-4 md:w-1/2">
