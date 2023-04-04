@@ -1,5 +1,28 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
+
+interface FileWithDetails extends File {
+  name: string
+}
+
+const selectedFile = ref<FileWithDetails | null>(null)
+
+const handleFileUpload = (event: InputEvent) => {
+  const inputElement = event.target as HTMLInputElement
+  selectedFile.value = inputElement.files![0]
+  const reader = new FileReader()
+  reader.onload = () => {
+    //Preview if you want
+  }
+  reader.readAsDataURL(selectedFile.value)
+}
+
+const uploadFile = () => {
+  if (selectedFile.value) {
+    // This is just a dummy function for demonstration purposes
+    alert(`Uploading ${selectedFile.value.name}...`)
+  }
+}
 </script>
 
 <template>
@@ -40,12 +63,18 @@ import { ref, watch } from 'vue'
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">PDF, PNG, JPG (MAX. 5MB)</p>
             </div>
-            <input id="dropzone-file" type="file" class="hidden" />
+            <input
+              @change="handleFileUpload($event as InputEvent)"
+              id="dropzone-file"
+              type="file"
+              class="hidden"
+            />
           </label>
         </div>
       </div>
       <div>
         <button
+          @click.prevent="uploadFile"
           class="hover:shadow-form w-full rounded-md bg-darkblue py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
           Upload File
