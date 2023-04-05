@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import { useConfirm } from 'primevue/useconfirm'
 import AttributeChip from './AttributeChip.vue'
+
+const confirm = useConfirm()
 
 interface ConditionItem {
   id: number
@@ -93,10 +96,10 @@ const editCondition = ref<ConditionItem>({
   is_list: false,
   attributes: {}
 })
-const tempAttributes = ref<{ [key: string]: string }>({})
 
+const tempAttributes = ref<{ [key: string]: string }>({})
 //Template Modal Functions
-function editTemplate(event: Event, item_id: number) {
+function editTemplate(item_id: number) {
   console.log('Edit Condition Template', item_id)
   const item = conditionItems.find((item) => item.id === item_id)
   if (item) {
@@ -107,14 +110,43 @@ function editTemplate(event: Event, item_id: number) {
 }
 
 function handleUpdate() {
-  console.log('Update Condition Template', editCondition.value)
   // TODO: Validate the form
   const index = conditionItems.findIndex((item) => item.id === editCondition.value.id)
   conditionItems[index] = {
     ...editCondition.value,
     attributes: { ...tempAttributes.value }
   }
+  console.log('Update Condition Template', editCondition.value)
+
   showTempModal.value = false
+}
+
+//Remove / Skip Condition Item
+function handleSkip(event: Event, item_id: number) {
+  console.log('Skip Condition Item', item_id)
+  // const index = conditionItems.findIndex((item) => item.id === item_id)
+  // conditionItems.splice(index, 1)
+
+  confirm.require({
+    message: 'Are you sure you want to skip this condition?',
+    header: 'Skip COndition',
+    icon: 'pi pi-exclamation-triangle',
+    acceptIcon: 'pi pi-check',
+    rejectIcon: 'pi pi-times',
+    acceptClass: 'p-button-danger',
+    target: event.currentTarget as HTMLElement,
+
+    accept: () => {
+      const index = conditionItems.findIndex((item) => item.id === item_id)
+      conditionItems.splice(index, 1)
+      //TODO: API Call to delete the contact
+      console.log('Skipped', item_id)
+    },
+    reject: () => {
+      //Do nothing
+      console.log('Rejected')
+    }
+  })
 }
 </script>
 
@@ -127,6 +159,7 @@ function handleUpdate() {
     </div>
     <AccordionVue :activeIndex="0">
       <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
+        <ConfirmPopup></ConfirmPopup>
         <div class="condition-item">
           <ul v-if="item.is_list === true" class="list-disc pl-8">
             <li v-for="(row, index) in item.description.split(',')" :key="index">
@@ -138,9 +171,15 @@ function handleUpdate() {
         </div>
         <div class="flex justify-end w-full mt-2">
           <span class="p-buttonset">
-            <PrimeButton label="Skip" icon="pi pi-file" severity="secondary" size="small" />
             <PrimeButton
-              @click.prevent="editTemplate($event, item.id)"
+              @click="handleSkip($event, item.id)"
+              label="Skip"
+              icon="pi pi-file"
+              severity="secondary"
+              size="small"
+            />
+            <PrimeButton
+              @click.prevent="editTemplate(item.id)"
               label="Edit Template"
               icon="pi pi-file-edit "
               severity="secondary"
