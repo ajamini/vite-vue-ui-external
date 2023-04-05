@@ -23,7 +23,7 @@ const toHumanDate = (date: string) => {
   const d = new Date(date)
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
 }
-// TODO: Replace with actual questions
+// TODO: Replace with actual questions ~ ID should be unique currently using index
 const questions = reactive([
   {
     id: 1,
@@ -42,18 +42,53 @@ const questions = reactive([
         },
         no: {
           id: 5,
-          question: 'Would you consider going back?',
+          question: 'Nice try ',
           yes: null,
           no: null
         }
       },
-      no: null
+      no: {
+        id: 6,
+        question: 'Cool story bro',
+        yes: null,
+        no: null
+      }
     },
     no: {
-      id: 6,
+      id: 9,
       question: 'You wanna know which way?',
-      yes: null,
-      no: null
+      yes: {
+        id: 10,
+        question: 'Are you okay with me?',
+        yes: {
+          id: 15,
+          question: 'Are you sure?',
+          yes: null,
+          no: null
+        },
+        no: {
+          id: 11,
+          question: 'okie dokie',
+          yes: null,
+          no: null
+        }
+      },
+      no: {
+        id: 12,
+        question: 'You sure?',
+        yes: {
+          id: 13,
+          question: 'Maybe you should go there',
+          yes: null,
+          no: null
+        },
+        no: {
+          id: 14,
+          question: 'Good choice',
+          yes: null,
+          no: null
+        }
+      }
     }
   }
 ])
