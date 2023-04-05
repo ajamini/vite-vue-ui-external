@@ -3,7 +3,7 @@ import ApprovalPending from '@/components/ApprovalPending.vue'
 import FileUpload from '@/components/FileUpload.vue'
 import FileUploadV2 from '@/components/FileUploadV2.vue'
 import PaymentRequest from '@/components/PaymentRequest.vue'
-import OnboardingSteps from '@/components/OnboardingSteps.vue'
+import OnboardingSteps from '@/components/offer_steps/OnboardingSteps.vue'
 
 //Components are reactivated here
 </script>

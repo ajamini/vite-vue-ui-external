@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ConditionAccordion from '@/components/ConditionAccordion.vue'
-import RepresentStep from '@/components/RepresentStep.vue'
-import ReviewStep from '@/components/ReviewStep.vue'
+import ConditionAccordion from '@/components/offer_steps/ConditionAccordion.vue'
+import RepresentStep from '@/components/offer_steps/RepresentStep.vue'
+import ReviewStep from '@/components/offer_steps/ReviewStep.vue'
 import { ref } from 'vue'
 import { validateForm } from './ValidateForm'
 
