@@ -2,14 +2,6 @@
 import { ref, reactive } from 'vue'
 import AttributeChip from './AttributeChip.vue'
 
-const showTempModal = ref(false)
-const editCondition = ref({
-  id: 0,
-  title: '',
-  description: '',
-  is_list: false,
-  attributes: {}
-})
 //API Returned Data for Condition Items and Templates (Mocked)
 const conditionItems = reactive([
   {
@@ -82,12 +74,23 @@ const conditionTemplates = ref([
   }
 ])
 
+//Modal to Edit Condition Template
+const showTempModal = ref(false)
+const editCondition = ref({
+  id: 0,
+  title: '',
+  description: '',
+  is_list: false,
+  attributes: {}
+})
 //Template Modal Functions
 function editTemplate(event: Event, item_id: number) {
   console.log('Edit Condition Template', item_id)
-  editCondition.value = conditionItems.find(
+  const selectedItem = conditionItems.find(
     (item) => item.id === item_id
   ) as (typeof conditionItems)[0]
+  // create a copy of the selected item
+  editCondition.value = Object.assign({}, selectedItem)
   showTempModal.value = true
 }
 
