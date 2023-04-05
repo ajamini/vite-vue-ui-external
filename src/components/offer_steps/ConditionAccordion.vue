@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, defineExpose } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import AttributeChip from './AttributeChip.vue'
 
@@ -180,6 +180,15 @@ function handleSelect(item_id: number) {
   }
   showTempList.value = false //Close the modal
 }
+
+//Expose Condition Items to Parent Component ~ PINIA Store or Vuex is better for this
+function getConditionItems() {
+  return conditionItems
+}
+
+defineExpose({
+  getConditionItems
+})
 </script>
 
 <template>
@@ -266,11 +275,11 @@ function handleSelect(item_id: number) {
             </div>
           </div>
         </div>
-        <div class="grid grid-flow-row gap-2 pt-4">
+        <div class="grid grid-flow-row gap-3 pt-4">
           <div
             v-for="(item, index) in filteredTemplates()"
             :key="index"
-            class="shadow-md rounded-sm overflow-hidden py-2 px-4 bg-gray-50"
+            class="shadow-lg rounded-md overflow-hidden py-2 px-4 bg-gray-100"
           >
             <h4 class="text-gray-600 text-base font-semibold">{{ item.title }}</h4>
 

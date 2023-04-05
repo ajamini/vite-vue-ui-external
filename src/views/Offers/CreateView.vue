@@ -2,7 +2,7 @@
 import ConditionAccordion from '@/components/offer_steps/ConditionAccordion.vue'
 import RepresentStep from '@/components/offer_steps/RepresentStep.vue'
 import ReviewStep from '@/components/offer_steps/ReviewStep.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { validateForm } from './ValidateForm'
 
 interface FileWithDetails extends File {
@@ -22,10 +22,17 @@ const formData = ref({
   depositAmount: 0,
   depositTerms: '',
   irrevocableDate: '',
-  completionDate: ''
+  completionDate: '',
+  conditions: {}
 })
 
 const uploadedFiles = ref<FileWithDetails[]>([])
+const conditionComponent = ref()
+
+//EH?:Get conditions from Child
+onMounted(() => {
+  formData.value.conditions = conditionComponent.value.getConditionItems()
+})
 
 //Error Message Object for Validation
 const errors = ref({
@@ -82,7 +89,8 @@ const handleSubmit = () => {
       currentStep.value = 2
       break
     case 2:
-      // do something
+      // Conditions are handled by Child Component
+      console.log('Conditions', conditionComponent.value.getConditionItems())
       currentStep.value = 3
       break
     case 3:
@@ -326,7 +334,7 @@ const contactSearch = (event: any) => {
               </div>
             </div>
             <!-- Third Step -->
-            <ConditionAccordion v-else-if="currentStep === 2" />
+            <ConditionAccordion v-else-if="currentStep === 2" ref="conditionComponent" />
             <!-- Forth Step -->
             <RepresentStep :data="formData" v-else-if="currentStep === 3" />
             <!-- Fifth Step -->
