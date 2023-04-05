@@ -23,7 +23,7 @@ const offersData = reactive([
     id: 1,
     created_at: '2021-05-01',
     mls: 'Some Name',
-    buyers: ['Some Buyer 1', 'Some Buyer 2', 'Some Buyer 3'],
+    buyers: ['Tom Hanks', 'Keanu Reevs', 'Edward Norton'],
     offerDate: '2022-05-09',
     seller: 'Seller YZK',
     purchasePrice: 76000,
@@ -48,7 +48,7 @@ const offersData = reactive([
     id: 2,
     created_at: '2021-05-01',
     mls: 'John Doe',
-    buyers: ['Some Buyer 1', 'Some Buyer 2', 'Some Buyer 3'],
+    buyers: ['Robert JR', 'Brad Pitt', 'Johhny Depp', 'Tom Cruise'],
     offerDate: '2022-05-09',
     seller: 'Seller YZK',
     purchasePrice: 76000,
@@ -79,7 +79,9 @@ function filteredList() {
       offer.buyers[0].toLowerCase().includes(searchInput.value.toLowerCase()) ||
       offer.mls.toLowerCase().includes(searchInput.value.toLowerCase()) ||
       offer.seller.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      offer.conditions.title.toLowerCase().includes(searchInput.value.toLowerCase())
+      offer.conditions.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+      // Buyers is an array, so we need to loop through it
+      offer.buyers.some((buyer) => buyer.toLowerCase().includes(searchInput.value.toLowerCase()))
     )
   })
 }

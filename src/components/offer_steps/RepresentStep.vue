@@ -1,5 +1,16 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { ref, reactive } from 'vue'
+
+type Question = {
+  id: number
+  question: string
+  yes: Question | null
+  no: Question | null
+}
+
+type FinalAnswers = {
+  [key: number]: boolean
+}
 
 const props = defineProps({
   data: {
@@ -11,6 +22,62 @@ const props = defineProps({
 const toHumanDate = (date: string) => {
   const d = new Date(date)
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
+// TODO: Replace with actual questions
+const questions = reactive([
+  {
+    id: 1,
+    question: 'Do you know the way?',
+    yes: {
+      id: 2,
+      question: 'Have you been there?',
+      yes: {
+        id: 3,
+        question: 'Did you like it?',
+        yes: {
+          id: 4,
+          question: 'Would you go there again?',
+          yes: null,
+          no: null
+        },
+        no: {
+          id: 5,
+          question: 'Would you consider going back?',
+          yes: null,
+          no: null
+        }
+      },
+      no: null
+    },
+    no: {
+      id: 6,
+      question: 'You wanna know which way?',
+      yes: null,
+      no: null
+    }
+  }
+])
+
+const currentQuestion = ref<Question>(questions[0])
+
+const finalAnswers = ref<FinalAnswers>({})
+
+function answerQuestion(answer: Question | boolean) {
+  if (answer) {
+    if (currentQuestion.value.yes) {
+      currentQuestion.value = currentQuestion.value.yes
+    } else {
+      finalAnswers.value[currentQuestion.value.id] = true
+      currentQuestion.value = questions[0]
+    }
+  } else {
+    if (currentQuestion.value.no) {
+      currentQuestion.value = currentQuestion.value.no
+    } else {
+      finalAnswers.value[currentQuestion.value.id] = false
+      currentQuestion.value = questions[0]
+    }
+  }
 }
 </script>
 
@@ -24,6 +91,25 @@ const toHumanDate = (date: string) => {
         <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
           Details
         </p>
+      </div>
+      <div class="p-4">
+        <div class="text-lg font-bold mb-4">{{ currentQuestion.question }}</div>
+        <div class="flex justify-start gap-4">
+          <button
+            v-if="currentQuestion.no"
+            class="py-2 px-4 rounded-md bg-red-500 text-white"
+            @click.prevent="answerQuestion(false)"
+          >
+            No
+          </button>
+          <button
+            v-if="currentQuestion.yes"
+            class="py-2 px-4 rounded-md bg-green-500 text-white"
+            @click.prevent="answerQuestion(true)"
+          >
+            Yes
+          </button>
+        </div>
       </div>
 
       <div class="mt-16">
