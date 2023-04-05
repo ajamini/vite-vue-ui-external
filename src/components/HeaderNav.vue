@@ -22,6 +22,10 @@ const navLinks = [
     path: '/groups'
   },
   {
+    name: 'Offers',
+    path: '/offers'
+  },
+  {
     name: 'Create Offer',
     path: '/offers/create'
   },
