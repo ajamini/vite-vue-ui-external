@@ -247,8 +247,8 @@ function filteredList() {
                       </svg>
                     </RouterLink>
                     <div class="delete-wrapper">
+                      <!-- @click="deleteOffer($event, slotProps.data.id)" -->
                       <button
-                        @click="deleteOffer($event, slotProps.data.id)"
                         class="flex items-center justify-center w-8 h-8 mr-1 text-darkred transition-colors duration-150 cursor-pointer hover:text-gray-500 focus:outline-none"
                       >
                         <svg
