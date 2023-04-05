@@ -60,24 +60,26 @@ const questions = reactive([
 
 const currentQuestion = ref<Question>(questions[0])
 
-const finalAnswers = ref<FinalAnswers>({})
+const finalAnswers = reactive<FinalAnswers>({})
 
 function answerQuestion(answer: Question | boolean) {
   if (answer) {
     if (currentQuestion.value.yes) {
       currentQuestion.value = currentQuestion.value.yes
-    } else {
-      finalAnswers.value[currentQuestion.value.id] = true
-      currentQuestion.value = questions[0]
+      // Add Current Question and answer to final answers
+      Object.assign(finalAnswers, { [currentQuestion.value.question]: true })
     }
   } else {
     if (currentQuestion.value.no) {
       currentQuestion.value = currentQuestion.value.no
+      Object.assign(finalAnswers, { [currentQuestion.value.question]: false })
     } else {
-      finalAnswers.value[currentQuestion.value.id] = false
+      // Object.assign(finalAnswers, { [currentQuestion.value.question]: false }) //Default to False
+      // Reset to first question
       currentQuestion.value = questions[0]
     }
   }
+  console.log('Final answers', finalAnswers)
 }
 </script>
 
@@ -109,6 +111,15 @@ function answerQuestion(answer: Question | boolean) {
           >
             No
           </button>
+        </div>
+        <div class="w-full">
+          <!-- SHow all anwser if available -->
+          <div v-if="Object.keys(finalAnswers).length > 0">
+            <div class="text-lg text-gray-500 font-bold my-4">Final Answers:</div>
+            <div class="text-lg text-gray-500 leading-relaxed pl-6">
+              {{ finalAnswers }}
+            </div>
+          </div>
         </div>
       </div>
 
