@@ -313,12 +313,12 @@ defineExpose({
       v-model:visible="showTempModal"
       modal
       header="Edit Condition Template"
-      :style="{ width: '40vw' }"
+      :style="{ width: '69vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
-      <div class="w-full">
-        <div class="flex flex-col">
-          <div class="flex flex-col">
+      <div class="w-full grid grid-cols-2">
+        <div class="flex flex-col px-2">
+          <div class="flex flex-col w-full md:w-80">
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input
               type="text"
@@ -326,7 +326,7 @@ defineExpose({
               v-model="editCondition.title"
             />
           </div>
-          <div class="flex flex-col mt-4">
+          <div class="flex flex-col mt-4 w-full md:w-80">
             <label class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
               class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -349,18 +349,17 @@ defineExpose({
               :key="key"
               class="inline-flex justify-between md:pr-8 py-1 items-center"
             >
-              <label for="{{ key }}" class="mr-2 text-sm capitalize">{{ key }}</label>
+              <label class="mr-2 text-sm capitalize">{{ key }}</label>
               <input
                 v-model="tempAttributes[key]"
-                id="{{ key }}"
                 type="text"
-                class="p-1 text-sm border rounded"
+                class="p-1 text-sm w-32 border rounded"
               />
             </div>
           </div>
         </div>
         <!-- Show Preview -->
-        <div class="w-full mt-4 border-t-2 border-gray-400">
+        <div class="w-full mt-4 border-l-2 border-gray-400 pl-4">
           <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
           <div class="condition-item mt-2">
             <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
@@ -370,7 +369,7 @@ defineExpose({
               </li>
             </ul>
             <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
-            <AttributeChip :attributes="editCondition.attributes" />
+            <AttributeChip :attributes="tempAttributes" />
           </div>
         </div>
       </div>
