@@ -11,7 +11,7 @@ interface FileWithDetails extends File {
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(2) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ Later store in vuex
+const currentStep = ref(2) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
 const formData = ref({
   created_at: '',
   mls: '',
