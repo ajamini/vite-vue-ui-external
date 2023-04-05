@@ -47,17 +47,22 @@ const conditionItems = reactive<ConditionItem[]>([
 
 const conditionTemplates = ref([
   {
+    id: 1,
     title: 'Template 1',
     description: 'Description for Template 1',
+    is_list: false,
     attributes: {
-      'Attribute 1': 'Value 1',
-      'Attribute 2': 'Value 2',
-      'Attribute 3': 'Value 3'
+      attr_1: 'Value 1',
+      attr_2: 'Value 2',
+      attr_3: 'Value 3',
+      attr_4: 'Yes'
     }
   },
   {
+    id: 2,
     title: 'Something that is really long and will wrap to the next line',
-    description: 'This gonna be a long text for the template',
+    description: 'Condition 9, condition 6, condition 7',
+    is_list: true,
     attributes: {
       salmon: 'Salmon Value',
       southeast: 'Yes',
@@ -66,8 +71,10 @@ const conditionTemplates = ref([
     }
   },
   {
+    id: 3,
     title: 'Template 3',
     description: 'Description for Template 3',
+    is_list: false,
     attributes: {
       forward: 'Value 1',
       assimilated: 'Value 2',
@@ -76,8 +83,10 @@ const conditionTemplates = ref([
     }
   },
   {
+    id: 9,
     title: 'Template for AD',
     description: 'Description for Template for AD',
+    is_list: false,
     attributes: {
       road: '03 Becker',
       watt: 'wattage',
@@ -146,6 +155,20 @@ function handleSkip(event: Event, item_id: number) {
     }
   })
 }
+
+//Add new Condition Item from Template
+function handleSelect(item_id: number) {
+  console.log('Add Condition Item', item_id)
+  const item = conditionTemplates.value.find((item) => item.id === item_id)
+  // Add to conditionItems with new ID
+  if (item) {
+    conditionItems.push({
+      ...item,
+      id: conditionItems.length + 1,
+      attributes: { ...item.attributes } as any //HACK: Used any to avoid type error since the interface is not matching and has dynamic attributes
+    })
+  }
+}
 </script>
 
 <template>
@@ -188,15 +211,57 @@ function handleSkip(event: Event, item_id: number) {
         </div>
       </AccordionTab>
     </AccordionVue>
+    <!-- Available Templates -->
     <DialogModal
       v-model:visible="showTempList"
       modal
       header="Select a template"
-      :style="{ width: '40vw' }"
+      :style="{ width: '60vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
-      <div class="w-full">LIST</div>
+      <div class="w-full">
+        <h3 class="text-gray-600 text-sm font-semibold">
+          Select a template to add to the condition list. You can also edit the template to add
+          additional information.
+        </h3>
+        <!-- Search List -->
+        <div class="flex flex-col mt-4">Search Goes Here</div>
+        <div class="grid grid-flow-row gap-2 pt-4">
+          <div
+            v-for="(item, index) in conditionTemplates"
+            :key="index"
+            class="shadow-md rounded-sm overflow-hidden py-2 px-4 bg-gray-50"
+          >
+            <h4 class="text-gray-600 text-base font-semibold">{{ item.title }}</h4>
+
+            <div class="mt-2">
+              <ul v-if="item.is_list === true" class="list-disc pl-8">
+                <li v-for="(row, index) in item.description.split(',')" :key="index">
+                  {{ row.trim() }}
+                </li>
+              </ul>
+              <p v-else class="text-sm text-gray-500">{{ item.description }}</p>
+            </div>
+            <div class="template-contents flex justify-between my-4">
+              <div class="attr-wrapper">
+                <AttributeChip :attributes="item.attributes" />
+              </div>
+              <div class="flex justify-center items-center">
+                <button
+                  @click.prevent="handleSelect(item.id)"
+                  class="hover:opacity-90 text-darkblue font-bold py-2 px-4 rounded"
+                >
+                  Select
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white shadow-xl rounded-md overflow-hidden p-4">Ha</div>
+          <div class="bg-white shadow-xl rounded-md overflow-hidden p-4">Ha</div>
+        </div>
+      </div>
     </DialogModal>
+    <!-- Edit Templates -->
     <DialogModal
       v-model:visible="showTempModal"
       modal
