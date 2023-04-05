@@ -347,9 +347,9 @@ defineExpose({
             <div
               v-for="(value, key) in editCondition.attributes"
               :key="key"
-              class="inline-flex justify-between md:pr-8 py-1 items-center"
+              class="md:inline-flex justify-between md:pr-8 py-1 items-center"
             >
-              <label class="mr-2 text-sm capitalize">{{ key }}</label>
+              <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
               <input
                 v-model="tempAttributes[key]"
                 type="text"
