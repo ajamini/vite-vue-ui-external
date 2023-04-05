@@ -176,14 +176,12 @@ function handleSkip(event: Event, item_id: number) {
               @click="handleSkip($event, item.id)"
               label="Skip"
               icon="pi pi-file"
-              severity="secondary"
               size="small"
             />
             <PrimeButton
               @click.prevent="editTemplate(item.id)"
               label="Edit Template"
               icon="pi pi-file-edit "
-              severity="secondary"
               size="small"
             />
           </span>
