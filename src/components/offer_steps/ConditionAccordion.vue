@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import AttributeChip from './AttributeChip.vue'
 
 const showTempModal = ref(false)
 const editCondition = ref({
@@ -115,17 +116,7 @@ function handleUpdate() {
             </li>
           </ul>
           <p v-else class="text-sm text-gray-500">{{ item.description }}</p>
-          <!-- Chips to Show Attribute Values -->
-          <div class="flex gap-2 flex-wrap mt-2 w-full">
-            <div
-              v-for="(value, key) in item.attributes"
-              :key="key"
-              class="p-chip p-component p-chip-rounded p-chip-info p-mr-2 p-mb-2"
-            >
-              <span class="p-chip-icon pi pi-info-circle"></span>
-              <span class="p-chip-text capitalize">{{ key }}: {{ value }}</span>
-            </div>
-          </div>
+          <AttributeChip :attributes="item.attributes" />
         </div>
         <div class="flex justify-end w-full mt-2">
           <span class="p-buttonset">
@@ -181,17 +172,7 @@ function handleUpdate() {
               </li>
             </ul>
             <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
-            <!-- Chips to Show Attribute Values -->
-            <div class="flex gap-2 flex-wrap mt-2 w-full">
-              <div
-                v-for="(value, key) in editCondition.attributes"
-                :key="key"
-                class="p-chip p-component p-chip-rounded p-chip-info p-mr-2 p-mb-2"
-              >
-                <span class="p-chip-icon pi pi-info-circle"></span>
-                <span class="p-chip-text capitalize">{{ key }}: {{ value }}</span>
-              </div>
-            </div>
+            <AttributeChip :attributes="editCondition.attributes" />
           </div>
         </div>
       </div>
