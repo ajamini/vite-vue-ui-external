@@ -84,6 +84,14 @@ function editTemplate(event: Event, item_id: number) {
   ) as (typeof conditionItems.value)[0]
   showTempModal.value = true
 }
+
+function handleUpdate() {
+  console.log('Update Condition Template', editCondition.value)
+  // TODO:Validate the form
+  const index = conditionItems.value.findIndex((item) => item.id === editCondition.value.id)
+  conditionItems.value[index] = editCondition.value
+  showTempModal.value = false
+}
 </script>
 
 <template>
@@ -125,16 +133,20 @@ function editTemplate(event: Event, item_id: number) {
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input
               type="text"
-              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               v-model="editCondition.title"
             />
           </div>
           <div class="flex flex-col mt-4">
             <label class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
-              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
               v-model="editCondition.description"
             ></textarea>
+          </div>
+          <div class="mt-2 flex justify-start items-center">
+            <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
+            <span class="text-md text-gray-500 ml-1">Show as list</span>
           </div>
         </div>
         <!-- Show Preview -->
@@ -159,6 +171,7 @@ function editTemplate(event: Event, item_id: number) {
           Cancel
         </button>
         <button
+          @click="handleUpdate"
           class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-lightblue rounded shadow ripple hover:shadow-lg hover:bg-sky-700 focus:outline-none"
           autofocus
         >

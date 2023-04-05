@@ -71,4 +71,5 @@ app.component('DataView', DataView)
 app.component('AccordionVue', Accordion)
 app.component('AccordionTab', AccordionTab)
 
+
 app.mount('#app')
