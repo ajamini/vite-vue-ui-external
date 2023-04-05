@@ -12,7 +12,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import Row from 'primevue/row'
-import DataView from 'primevue/dataview';
+import DataView from 'primevue/dataview'
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 import TieredMenu from 'primevue/tieredmenu'
@@ -28,6 +28,8 @@ import TabView from 'primevue/tabview'
 import TabPanel from 'primevue/tabpanel'
 import Dropdown from 'primevue/dropdown'
 import RadioButton from 'primevue/radiobutton'
+import Accordion from 'primevue/accordion'
+import AccordionTab from 'primevue/accordiontab'
 
 import './assets/main.css'
 
@@ -66,5 +68,8 @@ app.component('TabPanel', TabPanel)
 app.component('DropdownVue', Dropdown)
 app.component('RadioButton', RadioButton)
 app.component('DataView', DataView)
+app.component('AccordionVue', Accordion)
+app.component('AccordionTab', AccordionTab)
+
 
 app.mount('#app')

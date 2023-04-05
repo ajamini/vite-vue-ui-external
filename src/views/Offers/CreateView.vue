@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ConditionAccordion from '@/components/ConditionAccordion.vue'
-import RepresentStep from '@/components/RepresentStep.vue'
-import ReviewStep from '@/components/ReviewStep.vue'
-import { ref } from 'vue'
+import ConditionAccordion from '@/components/offer_steps/ConditionAccordion.vue'
+import RepresentStep from '@/components/offer_steps/RepresentStep.vue'
+import ReviewStep from '@/components/offer_steps/ReviewStep.vue'
+import { ref, onMounted } from 'vue'
 import { validateForm } from './ValidateForm'
 
 interface FileWithDetails extends File {
@@ -11,7 +11,7 @@ interface FileWithDetails extends File {
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(0) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5
+const currentStep = ref(2) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
 const formData = ref({
   created_at: '',
   mls: '',
@@ -22,10 +22,17 @@ const formData = ref({
   depositAmount: 0,
   depositTerms: '',
   irrevocableDate: '',
-  completionDate: ''
+  completionDate: '',
+  conditions: {}
 })
 
 const uploadedFiles = ref<FileWithDetails[]>([])
+const conditionComponent = ref()
+
+//EH?:Get conditions from Child
+onMounted(() => {
+  formData.value.conditions = conditionComponent.value.getConditionItems()
+})
 
 //Error Message Object for Validation
 const errors = ref({
@@ -46,16 +53,28 @@ minDate.value.setDate(minDate.value.getDate() + 1)
 
 // Form Submit Handler - Validate and Move to Next Step
 const handleSubmit = () => {
+  let fieldsToValidate = []
   switch (currentStep.value) {
     case 0:
-      validateForm(formData, errors)
+      fieldsToValidate = ['mls', 'buyers']
+      validateForm(formData, errors, fieldsToValidate)
       if (errors.value.mls !== '' || errors.value.buyers !== '') {
         return
       }
       currentStep.value = 1 //Could be currentStep.value++ but I prefer to be explicit
       break
+
     case 1:
-      validateForm(formData, errors)
+      fieldsToValidate = [
+        'offerDate',
+        'seller',
+        'purchasePrice',
+        'depositAmount',
+        'depositTerms',
+        'irrevocableDate',
+        'completionDate'
+      ]
+      validateForm(formData, errors, fieldsToValidate)
       if (
         errors.value.offerDate !== '' ||
         errors.value.seller !== '' ||
@@ -70,7 +89,8 @@ const handleSubmit = () => {
       currentStep.value = 2
       break
     case 2:
-      // do something
+      // Conditions are handled by Child Component
+      console.log('Conditions', conditionComponent.value.getConditionItems())
       currentStep.value = 3
       break
     case 3:
@@ -170,13 +190,14 @@ const contactSearch = (event: any) => {
   <div class="w-full p-4 md:p-8">
     <h1 class="text-2xl font-semibold text-gray-700">Create Offer</h1>
     <span class="text-sm text-gray-500"
-      >You need to complete a series of Form to create a offer.
+      >You need to complete a series of Steps to create a offer.
     </span>
     <div
       class="wrapper-wizard pb-8 px-6 md:p-8 md:flex flex-initial bg-white shadow-xl rounded-lg mt-8 gap-2"
     >
+      <!-- Left Side Panel -->
       <aside class="md:min-h-screen w-full md:w-1/3 md:grid justify-center">
-        <div class="mt-4 flex flex-row md:flex-col flex-wrap md:justify-start">
+        <div class="mt-4 grid grid-cols-2 md:flex md:flex-col flex-wrap md:justify-start">
           <li
             v-for="(stepTitle, index) in stepTitles"
             :key="index"
@@ -207,12 +228,16 @@ const contactSearch = (event: any) => {
           </li>
         </div>
       </aside>
+      <!-- Right Panel -->
       <main class="w-full md:w-2/3">
         <form class="w-full pt-6" @submit.prevent="handleSubmit">
           <div class="steps-wrapper min-h-[240px] md:min-h-[420px]">
             <!-- Second Step ~// First Step at the Bottom served as Default -->
-            <div class="agree-wrapper px-8 md:flex gap-6 justify-start" v-if="currentStep === 1">
-              <div class="w-1/2">
+            <div
+              class="agree-wrapper px-4 md:px-8 md:flex gap-6 justify-start"
+              v-if="currentStep === 1"
+            >
+              <div class="w-full md:w-1/2">
                 <div class="input-wrapper grid grid-flow-row mt-4">
                   <label class="text-gray-600 font-semibold mb-1" for="buyers">Offer Date</label>
                   <CalendarVue
@@ -265,7 +290,7 @@ const contactSearch = (event: any) => {
                   }}</small>
                 </div>
               </div>
-              <div class="w-1/2">
+              <div class="w-full md:w-1/2">
                 <div class="input-wrapper grid grid-flow-row mt-4">
                   <label class="text-gray-600 font-semibold mb-1" for="buyers"
                     >Irrevocable Date</label
@@ -309,7 +334,7 @@ const contactSearch = (event: any) => {
               </div>
             </div>
             <!-- Third Step -->
-            <ConditionAccordion v-else-if="currentStep === 2" />
+            <ConditionAccordion v-else-if="currentStep === 2" ref="conditionComponent" />
             <!-- Forth Step -->
             <RepresentStep :data="formData" v-else-if="currentStep === 3" />
             <!-- Fifth Step -->
