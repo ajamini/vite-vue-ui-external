@@ -96,18 +96,18 @@ function answerQuestion(answer: Question | boolean) {
         <div class="text-lg font-bold mb-4">{{ currentQuestion.question }}</div>
         <div class="flex justify-start gap-4">
           <button
-            v-if="currentQuestion.no"
-            class="py-2 px-4 rounded-md bg-red-500 text-white"
-            @click.prevent="answerQuestion(false)"
-          >
-            No
-          </button>
-          <button
             v-if="currentQuestion.yes"
-            class="py-2 px-4 rounded-md bg-green-500 text-white"
+            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
             @click.prevent="answerQuestion(true)"
           >
             Yes
+          </button>
+          <button
+            v-if="currentQuestion.no"
+            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
+            @click.prevent="answerQuestion(false)"
+          >
+            No
           </button>
         </div>
       </div>
