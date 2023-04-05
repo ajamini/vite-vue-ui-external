@@ -86,6 +86,7 @@ const conditionTemplates = ref([
     }
   }
 ])
+const showTempList = ref(false)
 
 //Modal to Edit Condition Template
 const showTempModal = ref(false)
@@ -124,9 +125,6 @@ function handleUpdate() {
 //Remove / Skip Condition Item
 function handleSkip(event: Event, item_id: number) {
   console.log('Skip Condition Item', item_id)
-  // const index = conditionItems.findIndex((item) => item.id === item_id)
-  // conditionItems.splice(index, 1)
-
   confirm.require({
     message: 'Are you sure you want to skip this condition?',
     header: 'Skip COndition',
@@ -153,7 +151,10 @@ function handleSkip(event: Event, item_id: number) {
 <template>
   <div class="condition-wrapper">
     <div class="w-full flex justify-end">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button
+        @click.prevent="showTempList = true"
+        class="bg-darkblue hover:opacity-90 mb-2 text-white font-bold py-2 px-4 rounded"
+      >
         Select a template
       </button>
     </div>
@@ -189,6 +190,15 @@ function handleSkip(event: Event, item_id: number) {
         </div>
       </AccordionTab>
     </AccordionVue>
+    <DialogModal
+      v-model:visible="showTempList"
+      modal
+      header="Select a template"
+      :style="{ width: '40vw' }"
+      :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
+    >
+      <div class="w-full">LIST</div>
+    </DialogModal>
     <DialogModal
       v-model:visible="showTempModal"
       modal
