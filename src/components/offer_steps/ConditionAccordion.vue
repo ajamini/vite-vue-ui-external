@@ -181,6 +181,17 @@ function handleUpdate() {
               </li>
             </ul>
             <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
+            <!-- Chips to Show Attribute Values -->
+            <div class="flex gap-2 flex-wrap mt-2 w-full">
+              <div
+                v-for="(value, key) in editCondition.attributes"
+                :key="key"
+                class="p-chip p-component p-chip-rounded p-chip-info p-mr-2 p-mb-2"
+              >
+                <span class="p-chip-icon pi pi-info-circle"></span>
+                <span class="p-chip-text capitalize">{{ key }}: {{ value }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
