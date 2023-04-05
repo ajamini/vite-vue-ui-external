@@ -46,16 +46,28 @@ minDate.value.setDate(minDate.value.getDate() + 1)
 
 // Form Submit Handler - Validate and Move to Next Step
 const handleSubmit = () => {
+  let fieldsToValidate = []
   switch (currentStep.value) {
     case 0:
-      validateForm(formData, errors)
+      fieldsToValidate = ['mls', 'buyers']
+      validateForm(formData, errors, fieldsToValidate)
       if (errors.value.mls !== '' || errors.value.buyers !== '') {
         return
       }
       currentStep.value = 1 //Could be currentStep.value++ but I prefer to be explicit
       break
+
     case 1:
-      validateForm(formData, errors)
+      fieldsToValidate = [
+        'offerDate',
+        'seller',
+        'purchasePrice',
+        'depositAmount',
+        'depositTerms',
+        'irrevocableDate',
+        'completionDate'
+      ]
+      validateForm(formData, errors, fieldsToValidate)
       if (
         errors.value.offerDate !== '' ||
         errors.value.seller !== '' ||
