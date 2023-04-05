@@ -2,24 +2,34 @@
 import { ref } from 'vue'
 
 const showTempModal = ref(false)
+const editCondition = ref({
+  id: 0,
+  title: '',
+  description: '',
+  is_list: false,
+  attributes: {}
+})
 
 const conditionItems = ref([
   {
     id: 1,
     title: 'Condition Item 1',
     description: 'Description for Condition Term 1',
+    is_list: true,
     attributes: {}
   },
   {
     id: 2,
     title: 'Condition Term 2',
     description: 'Description for Condition Term 2',
+    is_list: false,
     attributes: {}
   },
   {
     id: 3,
     title: 'Condition Term 3',
     description: 'Description for Condition Term 3',
+    is_list: false,
     attributes: {}
   }
 ])
@@ -68,10 +78,10 @@ const conditionTemplates = ref([
 
 //Template Modal Functions
 function editTemplate(event: Event, item_id: number) {
-  // viewContactDetails.value = contacts.value.find(
-  //   (contact) => contact.id === id
-  // ) as (typeof contacts.value)[0]
-  console.log('Edit Template', item_id)
+  console.log('Edit Condition Template', item_id)
+  editCondition.value = conditionItems.value.find(
+    (item) => item.id === item_id
+  ) as (typeof conditionItems.value)[0]
   showTempModal.value = true
 }
 </script>
@@ -105,11 +115,42 @@ function editTemplate(event: Event, item_id: number) {
     <DialogModal
       v-model:visible="showTempModal"
       modal
-      header="Select a template"
-      :style="{ width: '35vw' }"
+      header="Edit Condition Template"
+      :style="{ width: '40vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
-      <div class="w-full">Form goes here</div>
+      <div class="w-full">
+        <div class="flex flex-col">
+          <div class="flex flex-col">
+            <label class="block text-sm font-medium text-gray-700">Title</label>
+            <input
+              type="text"
+              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              v-model="editCondition.title"
+            />
+          </div>
+          <div class="flex flex-col mt-4">
+            <label class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              v-model="editCondition.description"
+            ></textarea>
+          </div>
+        </div>
+        <!-- Show Preview -->
+        <div class="w-full mt-4">
+          <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
+          <div class="condition-item mt-2">
+            <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
+            <ul v-if="editCondition.is_list === true" class="list-disc pl-8">
+              <li v-for="(item, index) in editCondition.description.split(',')" :key="index">
+                {{ item.trim() }}
+              </li>
+            </ul>
+            <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
+          </div>
+        </div>
+      </div>
       <template #footer>
         <button
           class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkred rounded shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
@@ -121,7 +162,7 @@ function editTemplate(event: Event, item_id: number) {
           class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-lightblue rounded shadow ripple hover:shadow-lg hover:bg-sky-700 focus:outline-none"
           autofocus
         >
-          Add
+          Update
         </button>
       </template>
     </DialogModal>
