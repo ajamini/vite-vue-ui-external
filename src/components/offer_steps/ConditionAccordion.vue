@@ -93,7 +93,7 @@ const editCondition = ref<ConditionItem>({
   is_list: false,
   attributes: {}
 })
-const editAttributes = ref<{ [key: string]: string }>({})
+const tempAttributes = ref<{ [key: string]: string }>({})
 
 //Template Modal Functions
 function editTemplate(event: Event, item_id: number) {
@@ -101,7 +101,7 @@ function editTemplate(event: Event, item_id: number) {
   const item = conditionItems.find((item) => item.id === item_id)
   if (item) {
     editCondition.value = { ...item }
-    editAttributes.value = { ...item.attributes }
+    tempAttributes.value = { ...item.attributes }
     showTempModal.value = true
   }
 }
@@ -112,7 +112,7 @@ function handleUpdate() {
   const index = conditionItems.findIndex((item) => item.id === editCondition.value.id)
   conditionItems[index] = {
     ...editCondition.value,
-    attributes: { ...editAttributes.value }
+    attributes: { ...tempAttributes.value }
   }
   showTempModal.value = false
 }
@@ -192,7 +192,7 @@ function handleUpdate() {
             >
               <label for="{{ key }}" class="mr-2 text-sm capitalize">{{ key }}</label>
               <input
-                v-model="editCondition.attributes[key]"
+                v-model="tempAttributes[key]"
                 id="{{ key }}"
                 type="text"
                 class="p-1 text-sm border rounded"
