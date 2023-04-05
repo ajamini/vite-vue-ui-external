@@ -16,7 +16,12 @@ const conditionItems = ref([
     title: 'Condition Item 1',
     description: 'Description for Condition Term 1',
     is_list: true,
-    attributes: {}
+    attributes: {
+      salmon: 'Salmon Value',
+      southeast: 'Yes',
+      practical: 'probably',
+      loan: 'nope'
+    }
   },
   {
     id: 2,
@@ -104,9 +109,25 @@ function handleUpdate() {
     <AccordionVue :activeIndex="0">
       <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
         <div class="condition-item">
-          <p class="text-sm text-gray-500">{{ item.description }}</p>
+          <ul v-if="item.is_list === true" class="list-disc pl-8">
+            <li v-for="(row, index) in item.description.split(',')" :key="index">
+              {{ row.trim() }}
+            </li>
+          </ul>
+          <p v-else class="text-sm text-gray-500">{{ item.description }}</p>
+          <!-- Chips to Show Attribute Values -->
+          <div class="flex gap-2 flex-wrap mt-2 w-full">
+            <div
+              v-for="(value, key) in item.attributes"
+              :key="key"
+              class="p-chip p-component p-chip-rounded p-chip-info p-mr-2 p-mb-2"
+            >
+              <span class="p-chip-icon pi pi-info-circle"></span>
+              <span class="p-chip-text capitalize">{{ key }}: {{ value }}</span>
+            </div>
+          </div>
         </div>
-        <div class="flex justify-end w-full">
+        <div class="flex justify-end w-full mt-2">
           <span class="p-buttonset">
             <PrimeButton label="Skip" icon="pi pi-file" severity="secondary" size="small" />
             <PrimeButton
