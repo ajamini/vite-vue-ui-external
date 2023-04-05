@@ -90,7 +90,7 @@ function viewOffer(id: number) {
   showViewModal.value = true
 }
 
-// //Delete Contact
+// //Delete Offer
 // function deleteContact(event: Event, id: number) {
 //   confirm.require({
 //     message: 'Are you sure you want to delete this contact?',
@@ -143,7 +143,7 @@ function viewOffer(id: number) {
       <h1 class="mt-1">Offers</h1>
     </div>
     <div class="w-full p-8 bg-white">
-      <DataView
+      <DataTable
         :value="filteredList()"
         paginator
         dataKey="id"
@@ -193,13 +193,29 @@ function viewOffer(id: number) {
           <ConfirmPopup />
         </template>
         <TableColumn field="id" header="ID" style="width: 5%"></TableColumn>
-        <TableColumn sortable field="name" header="Name" style="width: 25%"></TableColumn>
-        <TableColumn field="phone" header="Telephone" style="width: 25%"></TableColumn>
+        <TableColumn sortable field="mls" header="MLS#" style="width: 10%"></TableColumn>
+        <TableColumn field="buyers" header="Buyers" style="width: 40%">
+          <template #body="slotProps">
+            <div class="flex justify-start gap-2">
+              <div v-for="(buyer, index) in slotProps.data.buyers" :key="index" class="text-sm">
+                {{ buyer }}
+                <span v-if="index < slotProps.data.buyers.length - 1">,</span>
+              </div>
+            </div>
+          </template>
+        </TableColumn>
+        <TableColumn field="seller" header="Seller" style="width: 10%"></TableColumn>
+        <TableColumn
+          class="text-sm"
+          field="offerDate"
+          header="Offer Date"
+          style="width: 10%"
+        ></TableColumn>
         <TableColumn
           class="text-sm"
           field="created_at"
-          header="Date Added"
-          style="width: 20%"
+          header="Created At"
+          style="width: 10%"
         ></TableColumn>
         <!-- View, Edit and Delete -->
         <TableColumn header="Actions" style="width: 20%" field="id">
@@ -229,8 +245,9 @@ function viewOffer(id: number) {
                   />
                 </svg>
               </button>
+              <!-- :to="{ name: 'offers', params: { id: slotProps.data.id } }" -->
               <RouterLink
-                :to="{ name: 'offers', params: { id: slotProps.data.id } }"
+                :to="{ name: 'offers' }"
                 class="flex items-center justify-center w-8 h-8 mr-1 text-darkblue transition-colors duration-150 cursor-pointer hover:opacity-90 focus:outline-none"
               >
                 <svg
@@ -272,7 +289,7 @@ function viewOffer(id: number) {
             </div>
           </template>
         </TableColumn>
-      </DataView>
+      </DataTable>
     </div>
     <!--  Offer Details Modal -->
     <DialogModal
@@ -318,5 +335,17 @@ div.p-dataview-content > div {
 
 ul.p-autocomplete-multiple-container {
   width: 100%;
+}
+
+.p-datatable-header {
+  background-color: #fff !important;
+  border: none !important;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: #fff !important;
+}
+.p-column-title {
+  font-weight: 500;
+  color: #94a3b8;
 }
 </style>
