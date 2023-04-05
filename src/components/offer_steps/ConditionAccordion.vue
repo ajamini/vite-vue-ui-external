@@ -2,8 +2,18 @@
 import { ref, reactive } from 'vue'
 import AttributeChip from './AttributeChip.vue'
 
+interface ConditionItem {
+  id: number
+  title: string
+  description: string
+  is_list: boolean
+  attributes: {
+    [key: string]: string
+  }
+}
+
 //API Returned Data for Condition Items and Templates (Mocked)
-const conditionItems = reactive([
+const conditionItems = reactive<ConditionItem[]>([
   {
     id: 1,
     title: 'Condition Item 1',
@@ -76,29 +86,34 @@ const conditionTemplates = ref([
 
 //Modal to Edit Condition Template
 const showTempModal = ref(false)
-const editCondition = ref({
+const editCondition = ref<ConditionItem>({
   id: 0,
   title: '',
   description: '',
   is_list: false,
   attributes: {}
 })
+const editAttributes = ref<{ [key: string]: string }>({})
+
 //Template Modal Functions
 function editTemplate(event: Event, item_id: number) {
   console.log('Edit Condition Template', item_id)
-  const selectedItem = conditionItems.find(
-    (item) => item.id === item_id
-  ) as (typeof conditionItems)[0]
-  // create a copy of the selected item
-  editCondition.value = Object.assign({}, selectedItem)
-  showTempModal.value = true
+  const item = conditionItems.find((item) => item.id === item_id)
+  if (item) {
+    editCondition.value = { ...item }
+    editAttributes.value = { ...item.attributes }
+    showTempModal.value = true
+  }
 }
 
 function handleUpdate() {
   console.log('Update Condition Template', editCondition.value)
-  // TODO:Validate the form
+  // TODO: Validate the form
   const index = conditionItems.findIndex((item) => item.id === editCondition.value.id)
-  conditionItems[index] = editCondition.value
+  conditionItems[index] = {
+    ...editCondition.value,
+    attributes: { ...editAttributes.value }
+  }
   showTempModal.value = false
 }
 </script>
