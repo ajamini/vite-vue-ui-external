@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import AttributeChip from './AttributeChip.vue'
 
 const showTempModal = ref(false)
@@ -10,12 +10,12 @@ const editCondition = ref({
   is_list: false,
   attributes: {}
 })
-
-const conditionItems = ref([
+//API Returned Data for Condition Items and Templates (Mocked)
+const conditionItems = reactive([
   {
     id: 1,
     title: 'Condition Item 1',
-    description: 'Description for Condition Term 1',
+    description: 'List of Conditions, Condition 1, Condition 2, Condition 3',
     is_list: true,
     attributes: {
       salmon: 'Salmon Value',
@@ -85,17 +85,17 @@ const conditionTemplates = ref([
 //Template Modal Functions
 function editTemplate(event: Event, item_id: number) {
   console.log('Edit Condition Template', item_id)
-  editCondition.value = conditionItems.value.find(
+  editCondition.value = conditionItems.find(
     (item) => item.id === item_id
-  ) as (typeof conditionItems.value)[0]
+  ) as (typeof conditionItems)[0]
   showTempModal.value = true
 }
 
 function handleUpdate() {
   console.log('Update Condition Template', editCondition.value)
   // TODO:Validate the form
-  const index = conditionItems.value.findIndex((item) => item.id === editCondition.value.id)
-  conditionItems.value[index] = editCondition.value
+  const index = conditionItems.findIndex((item) => item.id === editCondition.value.id)
+  conditionItems[index] = editCondition.value
   showTempModal.value = false
 }
 </script>
@@ -158,11 +158,32 @@ function handleUpdate() {
           </div>
           <div class="mt-2 flex justify-start items-center">
             <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
-            <span class="text-md text-gray-500 ml-1">Show as list</span>
+            <span class="text-md text-gray-500 ml-1"
+              >Show as list
+              <span class="text-xs text-gray-500"> (separate by comma)</span>
+            </span>
+          </div>
+          <div class="text-gray-600 pt-4">
+            <h2 class="text-2xl font-semibold">Attributes</h2>
+          </div>
+          <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
+            <div
+              v-for="(value, key) in editCondition.attributes"
+              :key="key"
+              class="inline-flex justify-between md:pr-8 py-1 items-center"
+            >
+              <label for="{{ key }}" class="mr-2 text-sm capitalize">{{ key }}</label>
+              <input
+                v-model="editCondition.attributes[key]"
+                id="{{ key }}"
+                type="text"
+                class="p-1 text-sm border rounded"
+              />
+            </div>
           </div>
         </div>
         <!-- Show Preview -->
-        <div class="w-full mt-4">
+        <div class="w-full mt-4 border-t-2 border-gray-400">
           <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
           <div class="condition-item mt-2">
             <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
