@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const selectedRep = ref('seller')
+const selectedRep = ref('')
+
+const getRepsrentation = () => {
+  return selectedRep
+}
+defineExpose({
+  getRepsrentation
+})
 </script>
 
 <template>
