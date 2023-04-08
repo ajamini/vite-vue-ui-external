@@ -314,58 +314,57 @@ defineExpose({
       </div>
     </DialogModal>
     <!-- Edit Templates -->
-    <DialogModal
-      v-model:visible="showTempMenu"
-      modal
-      header="Edit Condition Template"
-      :style="{ width: '69vw' }"
-      :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
-    >
-      <div class="w-full grid grid-cols-2">
-        <div class="flex flex-col px-2">
-          <div class="flex flex-col w-full md:w-80">
-            <label class="block text-sm font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-              v-model="editCondition.title"
-            />
-          </div>
-          <div class="flex flex-col mt-4 w-full md:w-80">
-            <label class="block text-sm font-medium text-gray-700">Description</label>
+    <SidebarVue v-model:visible="showTempMenu" class="w-full condition-edit-menu" position="right">
+      <template #header>
+        <h2 class="text-gray-700 font-semibold text-2xl">Edit Condition template</h2>
+      </template>
+
+      <div class="w-full border border-gray-200 px-8 py-6 my-4 rounded-md">
+        <div class="flex flex-col w-full">
+          <label class="block text-sm font-medium text-gray-700">Title for Condition</label>
+          <input
+            type="text"
+            class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded focus:outline-none focus:shadow-outline"
+            v-model="editCondition.title"
+          />
+        </div>
+        <div class="pt-4 mt-2">
+          <div class="flex flex-col w-full">
+            <label class="block text-sm font-medium text-gray-700">Full text for Condition</label>
             <textarea
-              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
               v-model="editCondition.description"
             ></textarea>
-          </div>
-          <div class="mt-2 flex justify-start items-center">
-            <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
-            <span class="text-md text-gray-500 ml-1"
-              >Show as list
-              <span class="text-xs text-gray-500"> (separate by comma)</span>
-            </span>
-          </div>
-          <div class="text-gray-600 pt-4">
-            <h2 class="text-2xl font-semibold">Attributes</h2>
-          </div>
-          <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
-            <div
-              v-for="(value, key) in editCondition.attributes"
-              :key="key"
-              class="md:inline-flex justify-between md:pr-8 py-1 items-center"
-            >
-              <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
-              <input
-                v-model="tempAttributes[key]"
-                type="text"
-                class="p-1 text-sm w-32 border rounded"
-              />
+            <div class="mt-2 flex justify-start items-center">
+              <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
+              <span class="text-md text-gray-500 ml-1"
+                >Show as list
+                <span class="text-xs text-gray-500"> (separate by comma)</span>
+              </span>
             </div>
           </div>
         </div>
-        <!-- Show Preview -->
-        <div class="w-full mt-4 border-l-2 border-gray-400 pl-4">
-          <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
+      </div>
+      <div class="w-full border border-gray-200 px-8 py-4 my-4 rounded-md">
+        <h2 class="text-base text-gray-600 font-semibold">Attributes</h2>
+        <div class="attributes-wrapper gap-2 grid grid-cols-1 md:grid-cols-2 mt-2">
+          <div
+            v-for="(value, key) in editCondition.attributes"
+            :key="key"
+            class="py-1 flex flex-col gap-1 items-start md:pr-4"
+          >
+            <label class="mr-2 text-base text-gray-600 capitalize">{{ key }}</label>
+            <input
+              v-model="tempAttributes[key]"
+              type="text"
+              class="p-1 px-2 text-sm w-full border rounded"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="w-full border border-gray-200 px-8 py-4 my-4 rounded-md">
+        <h2 class="text-base text-gray-600 font-semibold">Preview</h2>
+        <div class="attributes-wrapper gap-2 grid grid-cols-1 md:grid-cols-2 mt-2">
           <div class="condition-item mt-2">
             <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
             <ul v-if="editCondition.is_list === true" class="list-disc pl-8">
@@ -378,21 +377,38 @@ defineExpose({
           </div>
         </div>
       </div>
-      <template #footer>
+      <div class="flex items-center justify-center w-full gap-2">
         <button
-          class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkred rounded shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
           @click="showTempMenu = false"
+          type="button"
+          class="w-full py-3 px-4 text-base font-semibold text-gray-800 border-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
         >
           Cancel
         </button>
         <button
-          @click="handleUpdate"
-          class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-lightblue rounded shadow ripple hover:shadow-lg hover:bg-sky-700 focus:outline-none"
-          autofocus
+          @click.prevent="handleUpdate"
+          type="button"
+          class="w-full py-3 px-4 text-base font-semibold text-white bg-gray-700 rounded hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
         >
           Update
         </button>
-      </template>
-    </DialogModal>
+      </div>
+    </SidebarVue>
   </div>
 </template>
+
+<style>
+.p-sidebar-header {
+  justify-content: space-between !important;
+}
+
+.condition-edit-menu {
+  width: 32rem !important;
+}
+
+@media (max-width: 768px) {
+  .condition-edit-menu {
+    width: 70% !important;
+  }
+}
+</style>
