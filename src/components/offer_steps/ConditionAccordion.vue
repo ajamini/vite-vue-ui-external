@@ -327,14 +327,14 @@ defineExpose({
             <label class="block text-sm font-medium text-gray-700">Title</label>
             <input
               type="text"
-              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
               v-model="editCondition.title"
             />
           </div>
           <div class="flex flex-col mt-4 w-full md:w-80">
             <label class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
-              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
               v-model="editCondition.description"
             ></textarea>
           </div>
