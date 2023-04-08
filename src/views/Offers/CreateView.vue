@@ -31,16 +31,6 @@ const uploadedFiles = ref<FileWithDetails[]>([])
 const conditionComponent = ref()
 const repComponent = ref()
 
-//EH?:Get Values from Child
-onMounted(() => {
-  if (currentStep.value === 2) {
-    formData.value.conditions = conditionComponent.value.getConditionItems()
-  }
-  if (currentStep.value === 3) {
-    formData.value.represent = repComponent.value.getRep()
-  }
-})
-
 //Error Message Object for Validation
 const errors = ref({
   mls: '',
@@ -97,15 +87,19 @@ const handleSubmit = () => {
       break
     case 2:
       // Conditions are handled by Child Component
-      console.log('Conditions', conditionComponent.value.getConditionItems())
+      formData.value.conditions = conditionComponent.value.getConditionItems()
       //Validation if Required
+      // if (formData.value.conditions === '') {
+      //   return alert('Select Condition')
+      // }
       currentStep.value = 3
       break
     case 3:
-      if (repComponent.value.getRep === '') {
+      formData.value.represent = repComponent.value.getRep()
+      if (formData.value.represent === '') {
         return alert('Select Representation')
       }
-      console.log('huh', repComponent.value.getRep())
+      console.log('Rep Value', formData.value.represent)
       //Move to next step
       currentStep.value = 4
       break
