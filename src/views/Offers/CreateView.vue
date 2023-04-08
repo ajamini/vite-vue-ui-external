@@ -29,12 +29,16 @@ const formData = ref({
 
 const uploadedFiles = ref<FileWithDetails[]>([])
 const conditionComponent = ref()
-const representComp = ref()
+const repComponent = ref()
 
 //EH?:Get Values from Child
 onMounted(() => {
-  formData.value.conditions = conditionComponent.value.getConditionItems()
-  formData.value.represent = representComp.value.getRepsrentation()
+  if (currentStep.value === 2) {
+    formData.value.conditions = conditionComponent.value.getConditionItems()
+  }
+  if (currentStep.value === 3) {
+    formData.value.represent = repComponent.value.getRep()
+  }
 })
 
 //Error Message Object for Validation
@@ -94,9 +98,14 @@ const handleSubmit = () => {
     case 2:
       // Conditions are handled by Child Component
       console.log('Conditions', conditionComponent.value.getConditionItems())
+      //Validation if Required
       currentStep.value = 3
       break
     case 3:
+      if (repComponent.value.getRep === '') {
+        return alert('Select Representation')
+      }
+      console.log('huh', repComponent.value.getRep())
       //Move to next step
       currentStep.value = 4
       break
@@ -339,7 +348,7 @@ const contactSearch = (event: any) => {
             <!-- Third Step -->
             <ConditionAccordion v-else-if="currentStep === 2" ref="conditionComponent" />
             <!-- Forth Step -->
-            <RepresentStep :data="formData" v-else-if="currentStep === 3" ref="representComp" />
+            <RepresentStep v-else-if="currentStep === 3" ref="repComponent" />
             <!-- Fifth Step -->
             <div v-else-if="currentStep === 4" class="w-full md:w-3/4">
               <h4 class="text-2xl font-semibold text-gray-700">Upload documents here</h4>

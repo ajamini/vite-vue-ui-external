@@ -3,11 +3,11 @@ import { ref } from 'vue'
 
 const selectedRep = ref('')
 
-const getRepsrentation = () => {
+function getRep() {
   return selectedRep
 }
 defineExpose({
-  getRepsrentation
+  getRep
 })
 </script>
 
