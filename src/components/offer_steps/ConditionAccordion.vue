@@ -207,11 +207,7 @@ defineExpose({
       </button>
     </div>
     <AccordionVue :activeIndex="0">
-      <AccordionTab
-        v-for="(item, index) in conditionItems.reverse()"
-        :key="index"
-        :header="item.title"
-      >
+      <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
         <ConfirmPopup></ConfirmPopup>
         <div class="condition-item">
           <ul v-if="item.is_list === true" class="list-disc pl-8">
@@ -366,19 +362,35 @@ defineExpose({
           </div>
         </div>
       </div>
+      <div class="w-full border border-gray-200 px-8 py-4 my-4 rounded-md">
+        <h2 class="text-base text-gray-600 font-semibold">Preview</h2>
+        <div class="attributes-wrapper gap-2 grid grid-cols-1 md:grid-cols-2 mt-2">
+          <div class="condition-item mt-2">
+            <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
+            <ul v-if="editCondition.is_list === true" class="list-disc pl-8">
+              <li v-for="(item, index) in editCondition.description.split(',')" :key="index">
+                {{ item.trim() }}
+              </li>
+            </ul>
+            <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
+            <AttributeChip :attributes="tempAttributes" />
+          </div>
+        </div>
+      </div>
       <div class="flex items-center justify-center w-full gap-2">
         <button
           @click="showTempMenu = false"
           type="button"
           class="w-full py-3 px-4 text-base font-semibold text-gray-800 border-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
         >
-          Reject
+          Cancel
         </button>
         <button
+          @click.prevent="handleUpdate"
           type="button"
           class="w-full py-3 px-4 text-base font-semibold text-white bg-gray-700 rounded hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
         >
-          Pay now
+          Update
         </button>
       </div>
     </SidebarVue>
