@@ -41,7 +41,12 @@ const conditionItems = reactive<ConditionItem[]>([
     title: 'Condition Term 3',
     description: 'Some Vague Condition, List Items, Condition 1, Condition 2, Condition 3',
     is_list: true,
-    attributes: {}
+    attributes: {
+      salmon: 'Salmon Value',
+      southeast: 'Yes',
+      practical: 'probably',
+      loan: 'nope'
+    }
   }
 ])
 
@@ -314,61 +319,52 @@ defineExpose({
     </DialogModal>
     <!-- Edit Templates -->
     <SidebarVue v-model:visible="showTempMenu" class="w-full condition-edit-menu" position="right">
-      <h2 class="text-gray-800 font-semibold text-lg">Pending approval</h2>
-      <div class="w-full border border-gray-200 p-8 my-4">
-        <div class="flex justify-between">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">From</p>
-            <p class="text-gray-600 text-base">marketplace-b9f277</p>
-          </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Transaction Nr.</p>
-            <p class="text-gray-600 text-base">1000.00</p>
-          </div>
+      <template #header>
+        <h2 class="text-gray-700 font-semibold text-2xl">Edit Condition template</h2>
+      </template>
+
+      <div class="w-full border border-gray-200 px-8 py-6 my-4 rounded-md">
+        <div class="flex flex-col w-full">
+          <label class="block text-sm font-medium text-gray-700">Title for Condition</label>
+          <input
+            type="text"
+            class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded focus:outline-none focus:shadow-outline"
+            v-model="editCondition.title"
+          />
         </div>
-        <div class="flex justify-between border-t my-4 pt-4">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">Source</p>
-            <p class="text-violet-800 text-sm md:text-base mt-4">
-              <span class="bg-violet-300 rounded px-2 py-1">merchants:118271</span>
-            </p>
-          </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Destination</p>
-            <p class="text-amber-800 text-sm md:text-base mt-4">
-              <span class="bg-amber-200 rounded px-2 py-1">merchants:118271</span>
-            </p>
-          </div>
-        </div>
-        <div class="flex justify-between border-t my-4 pt-4">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">Value</p>
-            <p class="text-green-800 font-semibold text-2xl mt-4">$50,000.00</p>
-          </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Description</p>
-            <p class="text-gray-800 text-sm md:text-base mt-4">No description provided</p>
+        <div class="pt-4 mt-2">
+          <div class="flex flex-col w-full">
+            <label class="block text-sm font-medium text-gray-700">Full text for Condition</label>
+            <textarea
+              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
+              v-model="editCondition.description"
+            ></textarea>
+            <div class="mt-2 flex justify-start items-center">
+              <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
+              <span class="text-md text-gray-500 ml-1"
+                >Show as list
+                <span class="text-xs text-gray-500"> (separate by comma)</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="w-full border border-gray-200 p-8 my-4 flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-8 h-8"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-          />
-        </svg>
-        <p class="text-gray-800 font-semibold text-lg ml-4">
-          This <span class="text-green-800 font-semibold">transaction</span> is pending approval.
-        </p>
+      <div class="w-full border border-gray-200 px-8 py-4 my-4 rounded-md">
+        <h2 class="text-base text-gray-600 font-semibold">Attributes</h2>
+        <div class="attributes-wrapper gap-2 grid grid-cols-1 md:grid-cols-2 mt-2">
+          <div
+            v-for="(value, key) in editCondition.attributes"
+            :key="key"
+            class="py-1 flex flex-col gap-1 items-start md:pr-4"
+          >
+            <label class="mr-2 text-base text-gray-600 capitalize">{{ key }}</label>
+            <input
+              v-model="tempAttributes[key]"
+              type="text"
+              class="p-1 px-2 text-sm w-full border rounded"
+            />
+          </div>
+        </div>
       </div>
       <div class="flex items-center justify-center w-full gap-2">
         <button
@@ -390,6 +386,10 @@ defineExpose({
 </template>
 
 <style>
+.p-sidebar-header {
+  justify-content: space-between !important;
+}
+
 .condition-edit-menu {
   width: 32rem !important;
 }
