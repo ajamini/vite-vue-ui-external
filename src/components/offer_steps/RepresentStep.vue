@@ -12,15 +12,15 @@ defineExpose({
 </script>
 
 <template>
-  <div class="py-4">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="py-4 md:bg-gray-100">
+    <div class="max-w-6xl mx-auto md:px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
         <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">
           Representation
         </h2>
         <span class="text-sm text-gray-400"> Tell us who you represent </span>
       </div>
-      <div class="p-4 mt-4 grid grid-rows-4 gap-6">
+      <div class="md:p-4 mt-4 grid grid-rows-4 gap-6">
         <div class="rep-wrapper">
           <input
             v-model="selectedRep"

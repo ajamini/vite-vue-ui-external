@@ -2,7 +2,7 @@
 import ConditionAccordion from '@/components/offer_steps/ConditionAccordion.vue'
 import RepresentStep from '@/components/offer_steps/RepresentStep.vue'
 import ReviewStep from '@/components/offer_steps/ReviewStep.vue'
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { validateForm } from './ValidateForm'
 
 interface FileWithDetails extends File {
