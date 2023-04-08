@@ -98,7 +98,7 @@ const conditionTemplates = ref([
 const showTempList = ref(false)
 
 //Modal to Edit Condition Template
-const showTempMenu = ref(false)
+const showTempModal = ref(false)
 const editCondition = ref<ConditionItem>({
   id: 0,
   title: '',
@@ -115,7 +115,7 @@ function editTemplate(item_id: number) {
   if (item) {
     editCondition.value = { ...item }
     tempAttributes.value = { ...item.attributes }
-    showTempMenu.value = true
+    showTempModal.value = true
   }
 }
 
@@ -128,7 +128,7 @@ function handleUpdate() {
   }
   console.log('Update Condition Template', editCondition.value)
 
-  showTempMenu.value = false
+  showTempModal.value = false
 }
 
 //Remove / Skip Condition Item
@@ -202,11 +202,7 @@ defineExpose({
       </button>
     </div>
     <AccordionVue :activeIndex="0">
-      <AccordionTab
-        v-for="(item, index) in conditionItems.reverse()"
-        :key="index"
-        :header="item.title"
-      >
+      <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
         <ConfirmPopup></ConfirmPopup>
         <div class="condition-item">
           <ul v-if="item.is_list === true" class="list-disc pl-8">
@@ -313,79 +309,86 @@ defineExpose({
       </div>
     </DialogModal>
     <!-- Edit Templates -->
-    <SidebarVue v-model:visible="showTempMenu" class="w-full approval-modal" position="right">
-      <h2 class="text-gray-800 font-semibold text-lg">Pending approval</h2>
-      <div class="w-full border border-gray-200 p-8 my-4">
-        <div class="flex justify-between">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">From</p>
-            <p class="text-gray-600 text-base">marketplace-b9f277</p>
+    <DialogModal
+      v-model:visible="showTempModal"
+      modal
+      header="Edit Condition Template"
+      :style="{ width: '69vw' }"
+      :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
+    >
+      <div class="w-full grid grid-cols-2">
+        <div class="flex flex-col px-2">
+          <div class="flex flex-col w-full md:w-80">
+            <label class="block text-sm font-medium text-gray-700">Title</label>
+            <input
+              type="text"
+              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              v-model="editCondition.title"
+            />
           </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Transaction Nr.</p>
-            <p class="text-gray-600 text-base">1000.00</p>
+          <div class="flex flex-col mt-4 w-full md:w-80">
+            <label class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+              v-model="editCondition.description"
+            ></textarea>
+          </div>
+          <div class="mt-2 flex justify-start items-center">
+            <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
+            <span class="text-md text-gray-500 ml-1"
+              >Show as list
+              <span class="text-xs text-gray-500"> (separate by comma)</span>
+            </span>
+          </div>
+          <div class="text-gray-600 pt-4">
+            <h2 class="text-2xl font-semibold">Attributes</h2>
+          </div>
+          <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
+            <div
+              v-for="(value, key) in editCondition.attributes"
+              :key="key"
+              class="md:inline-flex justify-between md:pr-8 py-1 items-center"
+            >
+              <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
+              <input
+                v-model="tempAttributes[key]"
+                type="text"
+                class="p-1 text-sm w-32 border rounded"
+              />
+            </div>
           </div>
         </div>
-        <div class="flex justify-between border-t my-4 pt-4">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">Source</p>
-            <p class="text-violet-800 text-sm md:text-base mt-4">
-              <span class="bg-violet-300 rounded px-2 py-1">merchants:118271</span>
-            </p>
-          </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Destination</p>
-            <p class="text-amber-800 text-sm md:text-base mt-4">
-              <span class="bg-amber-200 rounded px-2 py-1">merchants:118271</span>
-            </p>
-          </div>
-        </div>
-        <div class="flex justify-between border-t my-4 pt-4">
-          <div class="flex-1">
-            <p class="text-gray-800 font-semibold text-lg">Value</p>
-            <p class="text-green-800 font-semibold text-2xl mt-4">$50,000.00</p>
-          </div>
-          <div class="flex-1 pl-8">
-            <p class="text-gray-800 font-semibold text-lg">Description</p>
-            <p class="text-gray-800 text-sm md:text-base mt-4">No description provided</p>
+        <!-- Show Preview -->
+        <div class="w-full mt-4 border-l-2 border-gray-400 pl-4">
+          <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
+          <div class="condition-item mt-2">
+            <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
+            <ul v-if="editCondition.is_list === true" class="list-disc pl-8">
+              <li v-for="(item, index) in editCondition.description.split(',')" :key="index">
+                {{ item.trim() }}
+              </li>
+            </ul>
+            <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
+            <AttributeChip :attributes="tempAttributes" />
           </div>
         </div>
       </div>
-      <div class="w-full border border-gray-200 p-8 my-4 flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-8 h-8"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-          />
-        </svg>
-        <p class="text-gray-800 font-semibold text-lg ml-4">
-          This <span class="text-green-800 font-semibold">transaction</span> is pending approval.
-        </p>
-      </div>
-      <div class="flex items-center justify-center w-full gap-2">
+      <template #footer>
         <button
-          @click="showTempMenu = false"
-          type="button"
-          class="w-full py-3 px-4 text-base font-semibold text-gray-800 border-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-opacity-50"
+          class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkred rounded shadow ripple hover:shadow-lg hover:bg-red-600 focus:outline-none"
+          @click="showTempModal = false"
         >
-          Reject
+          Cancel
         </button>
         <button
-          type="button"
-          class="w-full py-3 px-4 text-base font-semibold text-white bg-gray-700 rounded hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+          @click="handleUpdate"
+          class="inline-block px-6 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-lightblue rounded shadow ripple hover:shadow-lg hover:bg-sky-700 focus:outline-none"
+          autofocus
         >
-          Pay now
+          Update
         </button>
-      </div>
-    </SidebarVue>
+      </template>
+    </DialogModal>
   </div>
 </template>
 
