@@ -99,15 +99,16 @@ const finalAnswers = reactive<FinalAnswers>({})
 
 function answerQuestion(answer: Question | boolean) {
   if (answer) {
+    console.log('Howat', answer)
     if (currentQuestion.value.yes) {
-      currentQuestion.value = currentQuestion.value.yes
       // Add Current Question and answer to final answers
       Object.assign(finalAnswers, { [currentQuestion.value.question]: true })
+      currentQuestion.value = currentQuestion.value.yes
     }
   } else {
     if (currentQuestion.value.no) {
-      currentQuestion.value = currentQuestion.value.no
       Object.assign(finalAnswers, { [currentQuestion.value.question]: false })
+      currentQuestion.value = currentQuestion.value.no
     } else {
       // Object.assign(finalAnswers, { [currentQuestion.value.question]: false }) //Default to False
       // Reset to first question
