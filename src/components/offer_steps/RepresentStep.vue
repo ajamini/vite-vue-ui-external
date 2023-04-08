@@ -120,77 +120,37 @@ function answerQuestion(answer: Question | boolean) {
 </script>
 
 <template>
-  <div class="bg-gray-100 py-8">
+  <div class="py-4">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
         <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">
           Representation
         </h2>
-        <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          Details
-        </p>
+        <span class="text-sm text-gray-400"> Tell us who you represent </span>
       </div>
-      <div class="p-4">
-        <div class="text-lg font-bold mb-4">{{ currentQuestion.question }}</div>
-        <div class="flex justify-start gap-4">
-          <button
-            v-if="currentQuestion.yes"
-            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
-            @click.prevent="answerQuestion(true)"
-          >
-            Yes
-          </button>
-          <button
-            v-if="currentQuestion.no"
-            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
-            @click.prevent="answerQuestion(false)"
-          >
-            No
-          </button>
-        </div>
-        <div class="w-full">
-          <!-- SHow all anwser if available -->
-          <div v-if="Object.keys(finalAnswers).length > 0">
-            <div class="text-lg text-gray-500 font-bold my-4">Final Answers:</div>
-            <div class="text-lg text-gray-500 leading-relaxed pl-6">
-              {{ finalAnswers }}
-            </div>
+      <div class="p-4 mt-4 grid grid-rows-4 gap-6">
+        <div class="h-16 flex w-full md:w-1/2 mx-auto shadow-lg rounded bg-white">
+          <div class="flex items-center justify-center w-16 h-16 rounded-l bg-indigo-600">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"
+                clip-rule="evenodd"
+              />
+            </svg>
           </div>
-        </div>
-      </div>
-
-      <div class="mt-16">
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Location</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <p>123 Main St.</p>
-                <p>Anytown, USA 12345</p>
-              </div>
-            </div>
+          <div class="flex flex-col text-gray-800 justify-center px-4">
+            <h3 class="text-base font-medium text-gray-800">You represnt buyer only</h3>
           </div>
-
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Offer Details</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <p>Price: ${{ props.data.purchasePrice }}</p>
-                <p>Date: {{ toHumanDate(props.data.offerDate) }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Conditions</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <ul class="list-disc pl-6">
-                  <li>As-is condition</li>
-                  <li>Inspection period: 7 days</li>
-                </ul>
-              </div>
-            </div>
+          <div class="flex items-center justify-center w-16 h-16 rounded-r ml-auto">
+            <!-- SVG ICON -->
+            <svg class="w-8 h-8 -rotate-90 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
           </div>
         </div>
       </div>
