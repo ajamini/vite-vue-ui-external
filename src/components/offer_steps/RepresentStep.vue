@@ -12,7 +12,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="py-4 md:bg-gray-100">
+  <div class="py-4 mb-4 md:bg-gray-100">
     <div class="max-w-6xl mx-auto md:px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
         <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">

@@ -451,21 +451,31 @@ const contactSearch = (event: any) => {
               </div>
             </div>
           </div>
-          <div class="button-wrapper flex justify-start w-full pl-4 mt-1">
-            <button
-              type="button"
-              v-if="currentStep > 0"
-              class="w-20 px-2 py-2 text-sm bg-slate-200 rounded hover:opacity-80 font-medium leading-6 text-center text-darkblue uppercase focus:outline-none"
-              @click="handleGoBack"
-            >
-              Back
-            </button>
-            <button
-              type="submit"
-              class="ml-4 block w-20 px-2 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkblue rounded shadow ripple hover:shadow-lg hover:bg-opacity-90 focus:outline-none"
-            >
-              {{ currentStep === 5 ? 'Submit' : 'Next' }}
-            </button>
+          <div class="flex justify-between w-full pl-4 mt-1">
+            <div class="w-1/3 flex justify-start">
+              <button
+                type="button"
+                v-if="currentStep > 0"
+                class="w-20 px-2 py-2 text-sm bg-slate-200 rounded hover:opacity-80 font-medium leading-6 text-center text-darkblue uppercase focus:outline-none"
+                @click="handleGoBack"
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                class="ml-4 block w-20 px-2 py-2 text-xs font-medium leading-6 text-center text-white uppercase transition bg-darkblue rounded shadow ripple hover:shadow-lg hover:bg-opacity-90 focus:outline-none"
+              >
+                {{ currentStep === 5 ? 'Submit' : 'Next' }}
+              </button>
+            </div>
+            <div class="w-2/3 px-12">
+              <span class="text-sm text-sky-700">25% Complete</span>
+              <div class="relative flex rounded h-3 w-full overflow-hidden bg-gray-300">
+                <div
+                  class="relative w-1/4 bg-sky-500 top-0 left-0 h-full rounded p-1 text-center text-sm text-blue-100"
+                ></div>
+              </div>
+            </div>
           </div>
         </form>
       </main>
