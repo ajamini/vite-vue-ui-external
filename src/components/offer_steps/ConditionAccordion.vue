@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, defineExpose } from 'vue'
+import { ref, reactive } from 'vue'
 import { useConfirm } from 'primevue/useconfirm'
 import AttributeChip from './AttributeChip.vue'
 
