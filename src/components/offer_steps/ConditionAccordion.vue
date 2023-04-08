@@ -39,8 +39,8 @@ const conditionItems = reactive<ConditionItem[]>([
   {
     id: 3,
     title: 'Condition Term 3',
-    description: 'Description for Condition Term 3',
-    is_list: false,
+    description: 'Some Vague Condition, List Items, Condition 1, Condition 2, Condition 3',
+    is_list: true,
     attributes: {}
   }
 ])
@@ -313,7 +313,7 @@ defineExpose({
       </div>
     </DialogModal>
     <!-- Edit Templates -->
-    <SidebarVue v-model:visible="showTempMenu" class="w-full approval-modal" position="right">
+    <SidebarVue v-model:visible="showTempMenu" class="w-full condition-edit-menu" position="right">
       <h2 class="text-gray-800 font-semibold text-lg">Pending approval</h2>
       <div class="w-full border border-gray-200 p-8 my-4">
         <div class="flex justify-between">
@@ -389,4 +389,14 @@ defineExpose({
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.condition-edit-menu {
+  width: 32rem !important;
+}
+
+@media (max-width: 768px) {
+  .condition-edit-menu {
+    width: 70% !important;
+  }
+}
+</style>

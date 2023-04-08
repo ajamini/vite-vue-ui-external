@@ -39,7 +39,7 @@ const conditionItems = reactive<ConditionItem[]>([
   {
     id: 3,
     title: 'Condition Term 3',
-    description: 'Description for Condition Term 3',
+    description: 'Some Vague Condition, Condition 1, Condition 2, Condition 3',
     is_list: false,
     attributes: {}
   }
@@ -85,8 +85,8 @@ const conditionTemplates = ref([
   {
     id: 9,
     title: 'Template for AD',
-    description: 'Description for Template for AD',
-    is_list: false,
+    description: ' Coniditon Unknown, Condition 1, Condition 2, Condition 3',
+    is_list: true,
     attributes: {
       road: '03 Becker',
       watt: 'wattage',
