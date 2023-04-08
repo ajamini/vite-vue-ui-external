@@ -27,7 +27,7 @@ const handleAction = () => {
     <div
       v-for="(item, index) in obj"
       :key="index"
-      class="w-full bg-gray-200 hover:shadow-lg hover:bg-gray-50 cursor-pointer relative py-2 px-3 min-h-[64px] rounded"
+      class="w-full bg-gray-100 hover:shadow-lg hover:bg-gray-50 cursor-pointer relative py-2 px-3 min-h-[64px] rounded"
     >
       <!-- Action button top right -->
       <button
