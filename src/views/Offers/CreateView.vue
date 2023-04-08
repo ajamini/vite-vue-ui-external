@@ -23,15 +23,18 @@ const formData = ref({
   depositTerms: '',
   irrevocableDate: '',
   completionDate: '',
-  conditions: {}
+  conditions: {},
+  represent: ''
 })
 
 const uploadedFiles = ref<FileWithDetails[]>([])
 const conditionComponent = ref()
+const representComp = ref()
 
-//EH?:Get conditions from Child
+//EH?:Get Values from Child
 onMounted(() => {
   formData.value.conditions = conditionComponent.value.getConditionItems()
+  formData.value.represent = representComp.value.getRepsrentation()
 })
 
 //Error Message Object for Validation
@@ -336,7 +339,7 @@ const contactSearch = (event: any) => {
             <!-- Third Step -->
             <ConditionAccordion v-else-if="currentStep === 2" ref="conditionComponent" />
             <!-- Forth Step -->
-            <RepresentStep :data="formData" v-else-if="currentStep === 3" />
+            <RepresentStep :data="formData" v-else-if="currentStep === 3" ref="representComp" />
             <!-- Fifth Step -->
             <div v-else-if="currentStep === 4" class="w-full md:w-3/4">
               <h4 class="text-2xl font-semibold text-gray-700">Upload documents here</h4>
