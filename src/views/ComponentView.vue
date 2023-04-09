@@ -4,12 +4,22 @@ import FileUpload from '@/components/FileUpload.vue'
 import FileUploadV2 from '@/components/FileUploadV2.vue'
 import PaymentRequest from '@/components/PaymentRequest.vue'
 import OnboardingSteps from '@/components/offer_steps/OnboardingSteps.vue'
+import ObjectiveList from '@/components/ObjectiveList.vue'
 
 //Components are reactivated here
 </script>
 
 <template>
   <main class="min-h-screen">
+    <section class="mt-4 text-center bg-white py-4">
+      <h1 class="text-green-700 mt-4 text-2xl font-semibold">Objectives List</h1>
+      <div class="md:flex items-center gap-4 justify-center px-4 md:p-12">
+        <div class="md:w-1/2 p-4 border-2 border-gray-200 rounded">
+          <ObjectiveList />
+        </div>
+      </div>
+    </section>
+
     <section class="mt-4 text-center">
       <h1 class="text-green-700 mt-4 text-2xl font-semibold">File Upload Component</h1>
       <div class="md:flex items-center gap-4 justify-center p-12">

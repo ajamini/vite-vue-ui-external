@@ -1,198 +1,218 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 
-type Question = {
-  id: number
-  question: string
-  yes: Question | null
-  no: Question | null
+const selectedRep = ref('')
+
+function getRep() {
+  return selectedRep
 }
-
-type FinalAnswers = {
-  [key: number]: boolean
-}
-
-const props = defineProps({
-  data: {
-    type: Object,
-    required: true
-  }
+defineExpose({
+  getRep
 })
-
-const toHumanDate = (date: string) => {
-  const d = new Date(date)
-  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-}
-// TODO: Replace with actual questions ~ ID should be unique currently using index
-const questions = reactive([
-  {
-    id: 1,
-    question: 'Do you know the way?',
-    yes: {
-      id: 2,
-      question: 'Have you been there?',
-      yes: {
-        id: 3,
-        question: 'Did you like it?',
-        yes: {
-          id: 4,
-          question: 'You should go there again sometime',
-          yes: null,
-          no: null
-        },
-        no: {
-          id: 5,
-          question: 'Nice try ',
-          yes: null,
-          no: null
-        }
-      },
-      no: {
-        id: 6,
-        question: 'Cool story bro',
-        yes: null,
-        no: null
-      }
-    },
-    no: {
-      id: 9,
-      question: 'You wanna know which way?',
-      yes: {
-        id: 10,
-        question: 'Are you okay with me?',
-        yes: {
-          id: 15,
-          question: 'Are you sure?',
-          yes: null,
-          no: null
-        },
-        no: {
-          id: 11,
-          question: 'okie dokie',
-          yes: null,
-          no: null
-        }
-      },
-      no: {
-        id: 12,
-        question: 'You sure?',
-        yes: {
-          id: 13,
-          question: 'Maybe you should go there',
-          yes: null,
-          no: null
-        },
-        no: {
-          id: 14,
-          question: 'Good choice',
-          yes: null,
-          no: null
-        }
-      }
-    }
-  }
-])
-
-const currentQuestion = ref<Question>(questions[0])
-
-const finalAnswers = reactive<FinalAnswers>({})
-
-function answerQuestion(answer: Question | boolean) {
-  if (answer) {
-    if (currentQuestion.value.yes) {
-      currentQuestion.value = currentQuestion.value.yes
-      // Add Current Question and answer to final answers
-      Object.assign(finalAnswers, { [currentQuestion.value.question]: true })
-    }
-  } else {
-    if (currentQuestion.value.no) {
-      currentQuestion.value = currentQuestion.value.no
-      Object.assign(finalAnswers, { [currentQuestion.value.question]: false })
-    } else {
-      // Object.assign(finalAnswers, { [currentQuestion.value.question]: false }) //Default to False
-      // Reset to first question
-      currentQuestion.value = questions[0]
-    }
-  }
-  console.log('Final answers', finalAnswers)
-}
 </script>
 
 <template>
-  <div class="bg-gray-100 py-8">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="py-4 mb-4 md:bg-gray-100">
+    <div class="max-w-6xl mx-auto md:px-4 sm:px-6 lg:px-8">
       <div class="lg:text-center">
         <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">
           Representation
         </h2>
-        <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          Details
-        </p>
+        <span class="text-sm text-gray-400"> Tell us who you represent </span>
       </div>
-      <div class="p-4">
-        <div class="text-lg font-bold mb-4">{{ currentQuestion.question }}</div>
-        <div class="flex justify-start gap-4">
-          <button
-            v-if="currentQuestion.yes"
-            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
-            @click.prevent="answerQuestion(true)"
+      <div class="md:p-4 mt-4 grid grid-rows-4 gap-6">
+        <div class="rep-wrapper">
+          <input
+            v-model="selectedRep"
+            class="hidden"
+            id="buyer"
+            value="buyer"
+            type="radio"
+            name="represent"
+          />
+          <label
+            for="buyer"
+            class="h-16 flex w-full md:w-1/2 mx-auto shadow-lg rounded bg-white hover:shadow-2xl cursor-pointer"
           >
-            Yes
-          </button>
-          <button
-            v-if="currentQuestion.no"
-            class="py-2 px-4 rounded-md bg-lightblue text-white hover:bg-teal-800"
-            @click.prevent="answerQuestion(false)"
+            <div class="flex items-center justify-center w-16 h-16 rounded-l bg-indigo-600">
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="m3 15 5.12-5.12A3 3 0 0 1 10.24 9H13a2 2 0 1 1 0 4h-2.5m4-.68 4.17-4.89a1.88 1.88 0 0 1 2.92 2.36l-4.2 5.94A3 3 0 0 1 14.96 17H9.83a2 2 0 0 0-1.42.59L7 19"
+                ></path>
+                <path d="m2 14 6 6"></path>
+              </svg>
+            </div>
+            <div class="flex flex-col text-gray-800 justify-center px-4">
+              <h3 class="text-base font-medium text-gray-800">You represent buyer only</h3>
+            </div>
+            <div class="flex items-center justify-center w-16 h-16 rounded-r ml-auto">
+              <!-- Action ICON -->
+              <svg
+                class="w-8 h-8 move -rotate-90 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </label>
+        </div>
+        <div class="rep-wrapper">
+          <input
+            v-model="selectedRep"
+            class="hidden"
+            id="seller"
+            value="seller"
+            type="radio"
+            name="represent"
+          />
+          <label
+            for="seller"
+            class="h-16 flex w-full md:w-1/2 mx-auto shadow-lg rounded bg-white hover:shadow-2xl cursor-pointer"
           >
-            No
-          </button>
+            <div class="flex items-center justify-center w-16 h-16 rounded-l bg-indigo-600">
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m12 19 7-7 3 3-7 7-3-3z"></path>
+                <path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                <path d="m2 2 7.586 7.586"></path>
+                <circle cx="11" cy="11" r="2"></circle>
+              </svg>
+            </div>
+            <div class="flex flex-col text-gray-800 justify-center px-4">
+              <h3 class="text-base font-medium text-gray-800">You represent seller only</h3>
+            </div>
+            <div class="flex items-center justify-center w-16 h-16 rounded-r ml-auto">
+              <!-- Action ICON -->
+              <svg class="w-8 h-8 -rotate-90 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </label>
         </div>
-        <div class="w-full">
-          <!-- SHow all anwser if available -->
-          <div v-if="Object.keys(finalAnswers).length > 0">
-            <div class="text-lg text-gray-500 font-bold my-4">Final Answers:</div>
-            <div class="text-lg text-gray-500 leading-relaxed pl-6">
-              {{ finalAnswers }}
+        <div class="rep-wrapper">
+          <input
+            v-model="selectedRep"
+            class="hidden"
+            id="both"
+            value="both"
+            type="radio"
+            name="represent"
+          />
+          <label
+            for="both"
+            class="h-16 flex w-full md:w-1/2 mx-auto shadow-lg rounded bg-white hover:shadow-2xl cursor-pointer"
+          >
+            <div class="flex items-center justify-center w-16 h-16 rounded-l bg-indigo-600">
+              <svg
+                class="w-8 h-8 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"
+                ></path>
+                <path
+                  d="M12 5.36 8.87 8.5a2.13 2.13 0 0 0 0 3h0a2.13 2.13 0 0 0 3 0l2.26-2.21a3 3 0 0 1 4.22 0l2.4 2.4"
+                ></path>
+                <path d="m18 15-2-2"></path>
+                <path d="m15 18-2-2"></path>
+              </svg>
             </div>
-          </div>
+            <div class="flex flex-col text-gray-800 justify-center px-4">
+              <h3 class="text-base font-medium text-gray-800">You represent seller & buyer</h3>
+            </div>
+            <div class="flex items-center justify-center w-16 h-16 rounded-r ml-auto">
+              <!-- Action ICON -->
+              <svg class="w-8 h-8 -rotate-90 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </label>
         </div>
-      </div>
-
-      <div class="mt-16">
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Location</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <p>123 Main St.</p>
-                <p>Anytown, USA 12345</p>
-              </div>
+        <div class="rep-wrapper">
+          <input
+            v-model="selectedRep"
+            class="hidden"
+            id="either"
+            value="either"
+            type="radio"
+            name="represent"
+          />
+          <label
+            for="either"
+            class="h-16 flex w-full md:w-1/2 mx-auto shadow-lg rounded bg-white hover:shadow-2xl cursor-pointer"
+          >
+            <div class="flex items-center justify-center w-16 h-16 rounded-l bg-indigo-600">
+              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 14a6 6 0 110-12 6 6 0 010 12z"
+                  clip-rule="evenodd"
+                />
+              </svg>
             </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Offer Details</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <p>Price: ${{ props.data.purchasePrice }}</p>
-                <p>Date: {{ toHumanDate(props.data.offerDate) }}</p>
-              </div>
+            <div class="flex flex-col text-gray-800 justify-center px-4">
+              <h3 class="text-base font-medium text-gray-800">You represent either of them</h3>
             </div>
-          </div>
-
-          <div class="bg-white rounded-lg shadow-lg">
-            <div class="px-6 py-8">
-              <div class="text-2xl font-bold mb-4">Conditions</div>
-              <div class="text-lg text-gray-700 leading-relaxed">
-                <ul class="list-disc pl-6">
-                  <li>As-is condition</li>
-                  <li>Inspection period: 7 days</li>
-                </ul>
-              </div>
+            <div class="flex items-center justify-center w-16 h-16 rounded-r ml-auto">
+              <!-- Action ICON -->
+              <svg class="w-8 h-8 -rotate-90 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
             </div>
-          </div>
+          </label>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style scoped>
+input:checked + label {
+  box-shadow: 0 0 0 1px #f7fafc, 0 0 0 3px #667eea;
+}
+</style>

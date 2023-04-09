@@ -6,7 +6,7 @@ const props = defineProps<{
 
 <template>
   <!-- Chips to Show Attribute Values -->
-  <div class="flex gap-2 flex-wrap mt-2 w-full">
+  <div class="flex gap-2 flex-wrap pt-2 w-full">
     <div
       v-for="(value, key) in props.attributes"
       :key="key"
