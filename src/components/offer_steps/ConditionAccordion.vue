@@ -8,8 +8,8 @@ const confirm = useConfirm()
 interface ConditionItem {
   id: number
   title: string
-  description: string
-  is_list: boolean
+  text: string
+  is_full_text: boolean
   attributes: {
     [key: string]: string
   }
@@ -20,8 +20,8 @@ const conditionItems = reactive<ConditionItem[]>([
   {
     id: 1,
     title: 'Condition Item 1',
-    description: 'List of Conditions, Condition 1, Condition 2, Condition 3',
-    is_list: true,
+    text: 'List of Conditions, Condition 1, Condition 2, Condition 3',
+    is_full_text: true,
     attributes: {
       salmon: 'Salmon Value',
       southeast: 'Yes',
@@ -32,15 +32,15 @@ const conditionItems = reactive<ConditionItem[]>([
   {
     id: 2,
     title: 'Condition Term 2',
-    description: 'Description for Condition Term 2',
-    is_list: false,
+    text: 'Description for Condition Term 2',
+    is_full_text: false,
     attributes: {}
   },
   {
     id: 3,
     title: 'Condition Term 3',
-    description: 'Some Vague Condition, List Items, Condition 1, Condition 2, Condition 3',
-    is_list: true,
+    text: 'Some Vague Condition, List Items, Condition 1, Condition 2, Condition 3',
+    is_full_text: true,
     attributes: {
       salmon: 'Salmon Value',
       southeast: 'Yes',
@@ -107,8 +107,8 @@ const showTempMenu = ref(false)
 const editCondition = ref<ConditionItem>({
   id: 0,
   title: '',
-  description: '',
-  is_list: false,
+  text: '',
+  is_full_text: false,
   attributes: {}
 })
 
@@ -176,13 +176,13 @@ function handleSelect(item_id: number) {
   console.log('Add Condition Item', item_id)
   const item = conditionTemplates.value.find((item) => item.id === item_id)
   // Add to conditionItems with new ID
-  if (item) {
-    conditionItems.push({
-      ...item,
-      id: conditionItems.length + 1,
-      attributes: { ...item.attributes } as any //HACK: Used any to avoid type error since the interface is not matching and has dynamic attributes
-    })
-  }
+  // if (item) {
+  //   conditionItems.push({
+  //     ...item,
+  //     id: conditionItems.length + 1,
+  //     attributes: { ...item.attributes } as any //HACK: Used any to avoid type error since the interface is not matching and has dynamic attributes
+  //   })
+  // }
   showTempList.value = false //Close the modal
 }
 
@@ -210,12 +210,12 @@ defineExpose({
       <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
         <ConfirmPopup></ConfirmPopup>
         <div class="condition-item">
-          <ul v-if="item.is_list === true" class="list-disc pl-8">
+          <!-- <ul v-if="item.is_list === true" class="list-disc pl-8">
             <li v-for="(row, index) in item.description.split(',')" :key="index">
               {{ row.trim() }}
             </li>
-          </ul>
-          <p v-else class="text-sm text-gray-500">{{ item.description }}</p>
+          </ul> -->
+          <!-- <p v-else class="text-sm text-gray-500">{{ item.description }}</p> -->
           <AttributeChip :attributes="item.attributes" />
         </div>
         <div class="flex justify-end w-full mt-2">
@@ -321,8 +321,8 @@ defineExpose({
       :style="{ width: '50vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
-      <div class="w-full px-4">
-        <div class="flex flex-row w-full items-center pr-4">
+      <div class="w-full pl-4 pr-8">
+        <div class="flex flex-row w-full items-center">
           <label class="block w-1/3 text-sm font-medium text-gray-700">Title of condition</label>
           <input
             type="text"
@@ -330,7 +330,7 @@ defineExpose({
             v-model="editCondition.title"
           />
         </div>
-        <div class="text-gray-600 pt-4 pr-4">
+        <div class="text-gray-600 pt-4">
           <h2 class="text-lg font-semibold">Attributes</h2>
 
           <div class="border-2 rounded p-4 grid grid-cols-1 md:grid-cols-2 mt-2">
@@ -341,44 +341,24 @@ defineExpose({
             >
               <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
               <input
+                :disabled="editCondition.is_full_text"
                 v-model="tempAttributes[key]"
                 type="text"
-                class="p-1 text-sm w-32 border rounded"
+                class="p-1 text-sm w-32 border rounded disabled:bg-gray-200"
               />
             </div>
           </div>
         </div>
-
-        <div class="flex flex-col mt-4 w-full md:w-80">
-          <label class="block text-sm font-medium text-gray-700">Description</label>
-          <textarea
-            class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
-            v-model="editCondition.description"
-          ></textarea>
-        </div>
         <div class="mt-2 flex justify-start items-center">
-          <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
-          <span class="text-md text-gray-500 ml-1"
-            >Show as list
-            <span class="text-xs text-gray-500"> (separate by comma)</span>
-          </span>
+          <PrimeCheckbox v-model="editCondition.is_full_text" :binary="true" />
+          <span class="text-md text-gray-500 ml-1">Edit the full text? </span>
         </div>
-        <div class="text-gray-600 pt-4">
-          <h2 class="text-2xl font-semibold">Attributes</h2>
-        </div>
-        <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
-          <div
-            v-for="(value, key) in editCondition.attributes"
-            :key="key"
-            class="md:inline-flex justify-between md:pr-8 py-1 items-center"
-          >
-            <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
-            <input
-              v-model="tempAttributes[key]"
-              type="text"
-              class="p-1 text-sm w-32 border rounded"
-            />
-          </div>
+        <div class="border-2 min-h-[164px] rounded flex flex-col mt-4 w-full">
+          <textarea
+            disabled
+            class="w-full min-h-[164px] px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
+            v-model="editCondition.text"
+          ></textarea>
         </div>
       </div>
       <template #footer>
