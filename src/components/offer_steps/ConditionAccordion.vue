@@ -323,7 +323,9 @@ defineExpose({
     >
       <div class="w-full pl-4 pr-8">
         <div class="flex flex-row w-full items-center">
-          <label class="block w-1/3 text-sm font-medium text-gray-700">Title of condition</label>
+          <label class="block w-2/3 md:w-1/3 md:text-lg font-semibold text-gray-600"
+            >Title of condition</label
+          >
           <input
             type="text"
             class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
@@ -354,7 +356,9 @@ defineExpose({
           <span class="text-md text-gray-500 ml-1">Edit the full text? </span>
         </div>
         <div class="border-2 rounded flex flex-col mt-4 w-full">
-          <div v-if="!editCondition.is_full_text" class="w-full min-h-[164px] px-4 py-2">HA</div>
+          <div v-if="!editCondition.is_full_text" class="w-full min-h-[164px] px-4 py-2">
+            <AttributeChip :attributes="tempAttributes" />
+          </div>
           <textarea
             v-else
             :disabled="!editCondition.is_full_text"
