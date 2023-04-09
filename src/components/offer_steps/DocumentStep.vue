@@ -57,8 +57,16 @@ const docs = reactive([
       <div class="flex flex-col ml-4">
         <div class="font-sans text-gray-700 text-lg font-medium">{{ doc.title }}</div>
         <div class="text-gray-500 text-sm font-medium">
-          <span class="text-gray-700 font-medium capitalize">{{ doc.status }}</span>
-          <span class="mx-1">•</span>
+          <span
+            :class="{
+              'text-red-500': doc.status === 'overdue',
+              'text-yellow-500': doc.status === 'pending',
+              'text-green-500': doc.status === 'submitted'
+            }"
+            class="text-gray-700 font-medium capitalize"
+            >{{ doc.status }}</span
+          >
+          <span class="mx-1">|</span>
           {{ doc.created_at }}
         </div>
       </div>
