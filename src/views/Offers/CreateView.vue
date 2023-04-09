@@ -190,6 +190,11 @@ const contactSearch = (event: any) => {
     }
   }, 250)
 }
+
+//Calcuate percentage of progress and round it
+const progressPercentage = () => {
+  return Math.round((currentStep.value / 5) * 100)
+}
 </script>
 
 <template>
@@ -469,10 +474,14 @@ const contactSearch = (event: any) => {
               </button>
             </div>
             <div class="w-2/3 px-12">
-              <span class="text-sm text-sky-700">25% Complete</span>
+              <span class="text-sm text-sky-700">
+                {{ progressPercentage() + '%' }}
+                Complete</span
+              >
               <div class="relative flex rounded h-3 w-full overflow-hidden bg-gray-300">
                 <div
-                  class="relative w-1/4 bg-sky-500 top-0 left-0 h-full rounded p-1 text-center text-sm text-blue-100"
+                  :style="{ width: progressPercentage() + '%' }"
+                  class="relative w-1/4 bg-sky-600 top-0 left-0 h-full rounded p-1 text-center text-sm text-blue-100"
                 ></div>
               </div>
             </div>
