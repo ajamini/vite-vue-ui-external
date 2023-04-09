@@ -39,6 +39,8 @@ const docs = reactive([
 const toggleMenu = (id: number) => {
   menuOpen.value = menuOpen.value === id ? null : id
 }
+
+//Pass to Parent with Define Expose
 </script>
 
 <template>

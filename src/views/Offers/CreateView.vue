@@ -95,9 +95,9 @@ const handleSubmit = () => {
       break
     case 3:
       formData.value.represent = repComponent.value.getRep()
-      if (formData.value.represent === '') {
-        return alert('Select Representation')
-      }
+      // if (formData.value.represent === '') {
+      //   return alert('Select Representation')
+      // }
       console.log('Rep Value', formData.value.represent)
       //Move to next step
       currentStep.value = 4
