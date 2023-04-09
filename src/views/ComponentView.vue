@@ -13,8 +13,8 @@ import ObjectiveList from '@/components/ObjectiveList.vue'
   <main class="min-h-screen">
     <section class="mt-4 text-center bg-white py-4">
       <h1 class="text-green-700 mt-4 text-2xl font-semibold">Objectives List</h1>
-      <div class="flex items-center gap-4 justify-center p-12">
-        <div class="w-1/2 p-4 border-2 border-gray-200 rounded">
+      <div class="md:flex items-center gap-4 justify-center px-4 md:p-12">
+        <div class="md:w-1/2 p-4 border-2 border-gray-200 rounded">
           <ObjectiveList />
         </div>
       </div>
