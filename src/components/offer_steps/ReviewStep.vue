@@ -9,6 +9,7 @@ const props = defineProps({
   files: {
     type: Object,
     required: true
+    
   }
 })
 
