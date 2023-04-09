@@ -54,8 +54,8 @@ const conditionTemplates = ref([
   {
     id: 1,
     title: 'Template 1',
-    description: 'Description for Template 1',
-    is_list: false,
+    text: 'Description for Template 1',
+    is_full_text: false,
     attributes: {
       attr_1: 'Value 1',
       attr_2: 'Value 2',
@@ -66,8 +66,8 @@ const conditionTemplates = ref([
   {
     id: 2,
     title: 'Something that is really long and will wrap to the next line',
-    description: 'Condition 9, condition 6, condition 7',
-    is_list: true,
+    text: 'Condition 9, condition 6, condition 7',
+    is_full_text: true,
     attributes: {
       salmon: 'Salmon Value',
       southeast: 'Yes',
@@ -78,8 +78,8 @@ const conditionTemplates = ref([
   {
     id: 3,
     title: 'Template 3',
-    description: 'Description for Template 3',
-    is_list: false,
+    text: 'Description for Template 3',
+    is_full_text: false,
     attributes: {
       forward: 'Value 1',
       assimilated: 'Value 2',
@@ -90,8 +90,8 @@ const conditionTemplates = ref([
   {
     id: 9,
     title: 'Template for AD',
-    description: 'Description for Template for AD',
-    is_list: false,
+    text: 'Description for Template for AD',
+    is_full_text: false,
     attributes: {
       road: '03 Becker',
       watt: 'wattage',
@@ -166,7 +166,7 @@ const filteredTemplates = () => {
   return conditionTemplates.value.filter((item) => {
     return (
       item.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchInput.value.toLowerCase())
+      item.text.toLowerCase().includes(searchInput.value.toLowerCase())
     )
   })
 }
@@ -176,13 +176,13 @@ function handleSelect(item_id: number) {
   console.log('Add Condition Item', item_id)
   const item = conditionTemplates.value.find((item) => item.id === item_id)
   // Add to conditionItems with new ID
-  // if (item) {
-  //   conditionItems.push({
-  //     ...item,
-  //     id: conditionItems.length + 1,
-  //     attributes: { ...item.attributes } as any //HACK: Used any to avoid type error since the interface is not matching and has dynamic attributes
-  //   })
-  // }
+  if (item) {
+    conditionItems.push({
+      ...item,
+      id: conditionItems.length + 1,
+      attributes: { ...item.attributes } as any //HACK: Used any to avoid type error since the interface is not matching and has dynamic attributes
+    })
+  }
   showTempList.value = false //Close the modal
 }
 
@@ -210,13 +210,10 @@ defineExpose({
       <AccordionTab v-for="(item, index) in conditionItems" :key="index" :header="item.title">
         <ConfirmPopup></ConfirmPopup>
         <div class="condition-item">
-          <!-- <ul v-if="item.is_list === true" class="list-disc pl-8">
-            <li v-for="(row, index) in item.description.split(',')" :key="index">
-              {{ row.trim() }}
-            </li>
-          </ul> -->
-          <!-- <p v-else class="text-sm text-gray-500">{{ item.description }}</p> -->
-          <AttributeChip :attributes="item.attributes" />
+          <p v-if="item.is_full_text === true" class="text-sm text-gray-500">
+            {{ item.text }}
+          </p>
+          <AttributeChip v-else :attributes="item.attributes" />
         </div>
         <div class="flex justify-end w-full mt-2">
           <span class="p-buttonset">
@@ -289,12 +286,7 @@ defineExpose({
             <h4 class="text-gray-600 text-base font-semibold">{{ item.title }}</h4>
 
             <div class="mt-2">
-              <ul v-if="item.is_list === true" class="list-disc pl-8">
-                <li v-for="(row, index) in item.description.split(',')" :key="index">
-                  {{ row.trim() }}
-                </li>
-              </ul>
-              <p v-else class="text-sm text-gray-500">{{ item.description }}</p>
+              <p class="text-sm text-gray-500">{{ item.text }}</p>
             </div>
             <div class="template-contents flex justify-between my-4">
               <div class="attr-wrapper">
