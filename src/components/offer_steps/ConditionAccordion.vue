@@ -353,12 +353,14 @@ defineExpose({
           <PrimeCheckbox v-model="editCondition.is_full_text" :binary="true" />
           <span class="text-md text-gray-500 ml-1">Edit the full text? </span>
         </div>
-        <div class="border-2 min-h-[164px] rounded flex flex-col mt-4 w-full">
+        <div class="border-2 rounded flex flex-col mt-4 w-full">
+          <div v-if="!editCondition.is_full_text" class="w-full min-h-[164px] px-4 py-2">HA</div>
           <textarea
-            disabled
-            class="w-full min-h-[164px] px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
+            v-else
+            :disabled="!editCondition.is_full_text"
+            class="w-full min-h-[164px] px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none disabled:bg-gray-200"
             v-model="editCondition.text"
-          ></textarea>
+          />
         </div>
       </div>
       <template #footer>
