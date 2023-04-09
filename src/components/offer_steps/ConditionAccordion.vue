@@ -317,38 +317,23 @@ defineExpose({
     <DialogModal
       v-model:visible="showTempMenu"
       modal
-      header="Edit Condition Template"
-      :style="{ width: '69vw' }"
+      header="Edit Condition"
+      :style="{ width: '50vw' }"
       :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
     >
-      <div class="w-full grid grid-cols-2">
-        <div class="flex flex-col px-2">
-          <div class="flex flex-col w-full md:w-80">
-            <label class="block text-sm font-medium text-gray-700">Title</label>
-            <input
-              type="text"
-              class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
-              v-model="editCondition.title"
-            />
-          </div>
-          <div class="flex flex-col mt-4 w-full md:w-80">
-            <label class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
-              v-model="editCondition.description"
-            ></textarea>
-          </div>
-          <div class="mt-2 flex justify-start items-center">
-            <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
-            <span class="text-md text-gray-500 ml-1"
-              >Show as list
-              <span class="text-xs text-gray-500"> (separate by comma)</span>
-            </span>
-          </div>
-          <div class="text-gray-600 pt-4">
-            <h2 class="text-2xl font-semibold">Attributes</h2>
-          </div>
-          <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
+      <div class="w-full px-4">
+        <div class="flex flex-row w-full items-center pr-4">
+          <label class="block w-1/3 text-sm font-medium text-gray-700">Title of condition</label>
+          <input
+            type="text"
+            class="w-full px-3 mt-2 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
+            v-model="editCondition.title"
+          />
+        </div>
+        <div class="text-gray-600 pt-4 pr-4">
+          <h2 class="text-lg font-semibold">Attributes</h2>
+
+          <div class="border-2 rounded p-4 grid grid-cols-1 md:grid-cols-2 mt-2">
             <div
               v-for="(value, key) in editCondition.attributes"
               :key="key"
@@ -363,18 +348,36 @@ defineExpose({
             </div>
           </div>
         </div>
-        <!-- Show Preview -->
-        <div class="w-full mt-4 border-l-2 border-gray-400 pl-4">
-          <h2 class="text-2xl font-semibold text-gray-700">Preview</h2>
-          <div class="condition-item mt-2">
-            <p class="text-lg text-gray-600">{{ editCondition.title }}</p>
-            <ul v-if="editCondition.is_list === true" class="list-disc pl-8">
-              <li v-for="(item, index) in editCondition.description.split(',')" :key="index">
-                {{ item.trim() }}
-              </li>
-            </ul>
-            <p v-else class="text-sm text-gray-500">{{ editCondition.description }}</p>
-            <AttributeChip :attributes="tempAttributes" />
+
+        <div class="flex flex-col mt-4 w-full md:w-80">
+          <label class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea
+            class="w-full mt-2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded appearance-none focus:outline-none"
+            v-model="editCondition.description"
+          ></textarea>
+        </div>
+        <div class="mt-2 flex justify-start items-center">
+          <PrimeCheckbox v-model="editCondition.is_list" :binary="true" />
+          <span class="text-md text-gray-500 ml-1"
+            >Show as list
+            <span class="text-xs text-gray-500"> (separate by comma)</span>
+          </span>
+        </div>
+        <div class="text-gray-600 pt-4">
+          <h2 class="text-2xl font-semibold">Attributes</h2>
+        </div>
+        <div class="attributes-wrapper grid grid-cols-1 md:grid-cols-2 mt-2">
+          <div
+            v-for="(value, key) in editCondition.attributes"
+            :key="key"
+            class="md:inline-flex justify-between md:pr-8 py-1 items-center"
+          >
+            <label class="mr-2 text-sm text-gray-500 capitalize">{{ key }}</label>
+            <input
+              v-model="tempAttributes[key]"
+              type="text"
+              class="p-1 text-sm w-32 border rounded"
+            />
           </div>
         </div>
       </div>
