@@ -181,7 +181,7 @@ defineExpose({
           </label>
           <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
             <li class="text-sm text-gray-500">You are a representator.</li>
-            <li class="text-sm text-gray-500">You represent buyer only</li>
+            <li class="text-sm text-gray-500">You represent both of them</li>
             <li class="text-sm text-gray-500">Something goes here</li>
           </ul>
         </div>
@@ -223,7 +223,7 @@ defineExpose({
           </label>
           <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
             <li class="text-sm text-gray-500">You are a representator.</li>
-            <li class="text-sm text-gray-500">You represent buyer only</li>
+            <li class="text-sm text-gray-500">You represent either</li>
             <li class="text-sm text-gray-500">Something goes here</li>
           </ul>
         </div>
