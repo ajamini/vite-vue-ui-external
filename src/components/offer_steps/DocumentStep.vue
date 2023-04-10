@@ -44,19 +44,19 @@ const toggleMenu = (id: number) => {
 </script>
 
 <template>
-  <div class="flex justify-start w-full bg-gray-200 shadow-2xl mb-6">
+  <div class="md:flex justify-start w-full bg-gray-200 shadow-2xl mb-6">
     <!-- List of Docs -->
-    <div class="grid grid-flow-row w-1/2 pr-2">
+    <div class="grid grid-flow-row w-full md:w-1/2 md:pr-2">
       <div
         v-for="doc in docs"
         :key="doc.id"
-        class="w-full flex justify-start items-center px-8 border-y border-gray-200 h-28 bg-white relative"
+        class="w-full flex justify-start items-center md:px-8 border-y border-gray-200 h-28 bg-white relative"
         :class="{
           'border-b border-gray-200': doc.id !== docs.length,
           'border-b-0': doc.id === docs.length
         }"
       >
-        <div class="text-gray-500 text-2xl font-semibold">{{ doc.id }}</div>
+        <div class="text-gray-500 text-2xl font-semibold pl-2">{{ doc.id }}</div>
         <div class="flex ml-4 items-center">
           <div
             class="w-7 h-7 uppercase rounded-sm bg-indigo-500 flex items-center justify-center text-white text-sm font-medium"
@@ -65,7 +65,7 @@ const toggleMenu = (id: number) => {
           </div>
         </div>
         <div class="flex flex-col ml-4 w-full">
-          <div class="font-sans text-gray-700 text-lg font-medium">{{ doc.title }}</div>
+          <div class="font-sans text-gray-700 text-sm md:text-lg font-medium">{{ doc.title }}</div>
           <div class="text-gray-500 text-sm font-medium">
             <span
               :class="{
@@ -189,7 +189,7 @@ const toggleMenu = (id: number) => {
       </div>
     </div>
     <!-- Preview of Doc -->
-    <div class="flex min-h-64 w-1/2">
+    <div class="flex md:w-1/2 mt-4 md:mt-0">
       <div class="overflow-auto w-full h-full">
         <iframe
           class="w-full h-full"
