@@ -362,8 +362,8 @@ const progressPercentage = () => {
             </div>
           </div>
           <!-- Footer/ Next-Back & Progress -->
-          <div class="flex justify-between w-full pl-4 mt-1">
-            <div class="w-1/3 flex justify-start">
+          <div class="md:flex justify-between w-full md:pl-4 mt-1">
+            <div class="w-full md:w-1/3 flex justify-start">
               <button
                 type="button"
                 v-if="currentStep > 0"
@@ -379,7 +379,7 @@ const progressPercentage = () => {
                 {{ currentStep === 5 ? 'Submit' : 'Next' }}
               </button>
             </div>
-            <div class="w-2/3 px-12">
+            <div class="w-full md:w-2/3 md:px-12 mt-4 md:mt-0">
               <span class="text-sm text-sky-700">
                 {{ progressPercentage() + '%' }}
                 Complete</span
