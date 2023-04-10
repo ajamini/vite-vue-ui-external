@@ -20,7 +20,7 @@ defineExpose({
         </h2>
         <span class="text-sm text-gray-400"> Tell us who you represent </span>
       </div>
-      <div class="md:p-4 mt-4 grid grid-rows-4 gap-6">
+      <div class="md:p-4 mt-4 grid grid-rows-4 gap-2">
         <div class="rep-wrapper">
           <input
             v-model="selectedRep"
@@ -71,6 +71,11 @@ defineExpose({
               </svg>
             </div>
           </label>
+          <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
+            <li class="text-sm text-gray-500">You are a representator.</li>
+            <li class="text-sm text-gray-500">You represent buyer only</li>
+            <li class="text-sm text-gray-500">Something goes here</li>
+          </ul>
         </div>
         <div class="rep-wrapper">
           <input
@@ -118,6 +123,11 @@ defineExpose({
               </svg>
             </div>
           </label>
+          <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
+            <li class="text-sm text-gray-500">You are a representator.</li>
+            <li class="text-sm text-gray-500">You represent seller only</li>
+            <li class="text-sm text-gray-500">Something goes here</li>
+          </ul>
         </div>
         <div class="rep-wrapper">
           <input
@@ -169,6 +179,11 @@ defineExpose({
               </svg>
             </div>
           </label>
+          <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
+            <li class="text-sm text-gray-500">You are a representator.</li>
+            <li class="text-sm text-gray-500">You represent buyer only</li>
+            <li class="text-sm text-gray-500">Something goes here</li>
+          </ul>
         </div>
         <div class="rep-wrapper">
           <input
@@ -206,6 +221,11 @@ defineExpose({
               </svg>
             </div>
           </label>
+          <ul class="list-disc w-full md:w-1/2 p-2 pl-20 mx-auto">
+            <li class="text-sm text-gray-500">You are a representator.</li>
+            <li class="text-sm text-gray-500">You represent buyer only</li>
+            <li class="text-sm text-gray-500">Something goes here</li>
+          </ul>
         </div>
       </div>
     </div>
