@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+//Sample PDF
+import pdf_doc from '@/assets/sample_pdf.pdf'
 
 const menuOpen = ref()
+const doc_url = ref(pdf_doc) // Update this with the url of the document you want to display
 
 const docs = reactive([
   {
@@ -191,11 +194,7 @@ const toggleMenu = (id: number) => {
     <!-- Preview of Doc -->
     <div class="flex md:w-1/2 mt-4 md:mt-0">
       <div class="overflow-auto w-full h-full">
-        <iframe
-          class="w-full h-full"
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation allow-downloads allow-top-navigation"
-          src="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
-        ></iframe>
+        <iframe class="w-full h-full" :src="doc_url"></iframe>
       </div>
     </div>
   </div>
