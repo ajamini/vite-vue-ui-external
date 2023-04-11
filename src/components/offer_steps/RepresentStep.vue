@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const selectedRep = ref('')
 
 const representData = ref({
-  represent: '',
+  selectedRep: '',
   event: '',
   guest: '',
   location: ''
@@ -23,7 +23,7 @@ const guestsOptions = ref([
 const changeRepresent = () => {
   selectedRep.value = ''
   representData.value = {
-    represent: '',
+    selectedRep: '',
     event: '',
     guest: '',
     location: ''
@@ -31,7 +31,7 @@ const changeRepresent = () => {
 }
 
 function getRep() {
-  representData.value.represent = selectedRep.value
+  representData.value.selectedRep = selectedRep.value
   return representData.value
 }
 defineExpose({

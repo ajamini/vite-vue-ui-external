@@ -21,7 +21,7 @@ const formData = ref({
   irrevocableDate: '',
   completionDate: '',
   conditions: {},
-  represent: ''
+  represent: {}
 })
 
 const conditionComponent = ref()
@@ -50,6 +50,10 @@ minDate.value.setDate(minDate.value.getDate() + 1)
 // Form Submit Handler - Validate and Move to Next Step
 const handleSubmit = () => {
   let fieldsToValidate = []
+  let repValues = {
+    selectedRep: ''
+    //TODO: Add other fields
+  }
   switch (currentStep.value) {
     case 0:
       fieldsToValidate = ['mls', 'buyers']
@@ -87,18 +91,18 @@ const handleSubmit = () => {
     case 2:
       // Conditions are handled by Child Component
       formData.value.conditions = conditionComponent.value.getConditionItems()
-      //Validation if Required
-      // if (formData.value.conditions === '') {
-      //   return alert('Select Condition')
-      // }
+      //Validate if required
+
       currentStep.value = 3
       break
     case 3:
-      formData.value.represent = repComponent.value.getRep()
-      // if (formData.value.represent === '') {
-      //   return alert('Select Representation')
-      // }
-      console.log('Rep Value', formData.value.represent)
+      repValues = repComponent.value.getRep()
+      if (repValues.selectedRep === '') {
+        return alert('Please select who you represent')
+      }
+      //Add Represent Data to Form Data
+      formData.value.represent = repValues
+      console.log('Rep Value', repValues)
       //Move to next step
       currentStep.value = 4
       break
