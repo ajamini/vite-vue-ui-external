@@ -20,8 +20,19 @@ const guestsOptions = ref([
   { name: 'Nope', key: 'M' }
 ])
 
+const changeRepresent = () => {
+  selectedRep.value = ''
+  representData.value = {
+    represent: '',
+    event: '',
+    guest: '',
+    location: ''
+  }
+}
+
 function getRep() {
-  return selectedRep
+  representData.value.represent = selectedRep.value
+  return representData.value
 }
 defineExpose({
   getRep
@@ -245,10 +256,18 @@ defineExpose({
           </ul>
         </div>
       </div>
-      <div v-else class="w-full grid grid-flow-row justify-center md:min-h-[360px]">
+      <div v-else class="w-full relative grid grid-flow-row justify-center md:min-h-[360px]">
         <div class="mt-4">
           <label class="block my-2 font-sans font-medium text-gray-700">Event</label>
           <SelectButton v-model="representData.event" :options="eventOptions" optionLabel="name" />
+        </div>
+        <div class="absolute top-0 right-0">
+          <span
+            @click="changeRepresent"
+            class="text-sm text-gray-500 underline hover:text-blue-500 cursor-pointer"
+          >
+            Change who you represent
+          </span>
         </div>
         <div class="w-full mt-4">
           <h4 class="block my-2 font-sans font-medium text-gray-700">Buyer guests allowed?</h4>
