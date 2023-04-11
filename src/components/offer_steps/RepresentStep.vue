@@ -3,6 +3,23 @@ import { ref } from 'vue'
 
 const selectedRep = ref('')
 
+const representData = ref({
+  represent: '',
+  event: '',
+  guest: '',
+  location: ''
+})
+
+const eventOptions = ref([
+  { name: 'Option 1', value: 1 },
+  { name: 'Option 2', value: 2 },
+  { name: 'Option 3', value: 3 }
+])
+const guestsOptions = ref([
+  { name: 'Absolutely', key: 'A' },
+  { name: 'Nope', key: 'M' }
+])
+
 function getRep() {
   return selectedRep
 }
@@ -20,7 +37,7 @@ defineExpose({
         </h2>
         <span class="text-sm text-gray-400"> Tell us who you represent </span>
       </div>
-      <div class="md:p-4 mt-4 grid grid-rows-4 gap-2">
+      <div v-if="selectedRep === ''" class="md:p-4 mt-4 grid grid-rows-4 gap-2">
         <div class="rep-wrapper">
           <input
             v-model="selectedRep"
@@ -226,6 +243,39 @@ defineExpose({
             <li class="text-sm text-gray-500">You represent either</li>
             <li class="text-sm text-gray-500">Something goes here</li>
           </ul>
+        </div>
+      </div>
+      <div v-else class="w-full grid grid-flow-row justify-center md:min-h-[360px]">
+        <div class="mt-4">
+          <label class="block my-2 font-sans font-medium text-gray-700">Event</label>
+          <SelectButton v-model="representData.event" :options="eventOptions" optionLabel="name" />
+        </div>
+        <div class="w-full mt-4">
+          <h4 class="block my-2 font-sans font-medium text-gray-700">Buyer guests allowed?</h4>
+          <div v-for="guest in guestsOptions" :key="guest.key" class="flex">
+            <RadioButton
+              v-model="representData.guest"
+              :inputId="guest.key"
+              name="guest"
+              class="my-2"
+              :value="guest.name"
+            />
+            <label :for="guest.key" class="m-2">{{ guest.name }}</label>
+          </div>
+        </div>
+        <div class="w-full mt-4">
+          <h4 class="block font-sans font-medium text-gray-700">Is this a outside sale ?</h4>
+          <span class="text-xs text-gray-500">If yes, please let us know</span>
+          <div v-for="guest in guestsOptions" :key="guest.key" class="flex">
+            <RadioButton
+              v-model="representData.location"
+              :inputId="guest.key"
+              name="location"
+              class="my-2"
+              :value="guest.name"
+            />
+            <label :for="guest.key" class="m-2">{{ guest.name }}</label>
+          </div>
         </div>
       </div>
     </div>
