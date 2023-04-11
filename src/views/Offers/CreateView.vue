@@ -8,7 +8,7 @@ import { validateForm } from './ValidateForm'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(2) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
+const currentStep = ref(3) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
 const formData = ref({
   created_at: '',
   mls: '',
@@ -21,7 +21,7 @@ const formData = ref({
   irrevocableDate: '',
   completionDate: '',
   conditions: {},
-  represent: ''
+  represent: {}
 })
 
 const conditionComponent = ref()
@@ -50,6 +50,10 @@ minDate.value.setDate(minDate.value.getDate() + 1)
 // Form Submit Handler - Validate and Move to Next Step
 const handleSubmit = () => {
   let fieldsToValidate = []
+  let repValues = {
+    selectedRep: ''
+    //TODO: Add other fields
+  }
   switch (currentStep.value) {
     case 0:
       fieldsToValidate = ['mls', 'buyers']
@@ -87,18 +91,18 @@ const handleSubmit = () => {
     case 2:
       // Conditions are handled by Child Component
       formData.value.conditions = conditionComponent.value.getConditionItems()
-      //Validation if Required
-      // if (formData.value.conditions === '') {
-      //   return alert('Select Condition')
-      // }
+      //Validate if required
+
       currentStep.value = 3
       break
     case 3:
-      formData.value.represent = repComponent.value.getRep()
-      // if (formData.value.represent === '') {
-      //   return alert('Select Representation')
-      // }
-      console.log('Rep Value', formData.value.represent)
+      repValues = repComponent.value.getRep()
+      if (repValues.selectedRep === '') {
+        return alert('Please select who you represent')
+      }
+      //Add Represent Data to Form Data
+      formData.value.represent = repValues
+      console.log('Rep Value', repValues)
       //Move to next step
       currentStep.value = 4
       break
@@ -362,8 +366,8 @@ const progressPercentage = () => {
             </div>
           </div>
           <!-- Footer/ Next-Back & Progress -->
-          <div class="flex justify-between w-full pl-4 mt-1">
-            <div class="w-1/3 flex justify-start">
+          <div class="md:flex justify-between w-full md:pl-4 mt-1">
+            <div class="w-full md:w-1/3 flex justify-start">
               <button
                 type="button"
                 v-if="currentStep > 0"
@@ -379,7 +383,7 @@ const progressPercentage = () => {
                 {{ currentStep === 5 ? 'Submit' : 'Next' }}
               </button>
             </div>
-            <div class="w-2/3 px-12">
+            <div class="w-full md:w-2/3 md:px-12 mt-4 md:mt-0">
               <span class="text-sm text-sky-700">
                 {{ progressPercentage() + '%' }}
                 Complete</span

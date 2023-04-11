@@ -29,6 +29,7 @@ import TabPanel from 'primevue/tabpanel'
 import Dropdown from 'primevue/dropdown'
 import RadioButton from 'primevue/radiobutton'
 import Accordion from 'primevue/accordion'
+import SelectButton from 'primevue/selectbutton'
 import AccordionTab from 'primevue/accordiontab'
 
 import './assets/main.css'
@@ -70,6 +71,6 @@ app.component('RadioButton', RadioButton)
 app.component('DataView', DataView)
 app.component('AccordionVue', Accordion)
 app.component('AccordionTab', AccordionTab)
-
+app.component('SelectButton', SelectButton)
 
 app.mount('#app')
