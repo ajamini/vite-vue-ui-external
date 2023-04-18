@@ -7,16 +7,6 @@ import { useToast } from 'primevue/usetoast'
 const confirm = useConfirm()
 const toast = useToast()
 
-const showViewModal = ref(false)
-
-const viewOfferDetails = ref({
-  id: 0,
-  name: '',
-  email: '',
-  phone: '',
-  created_at: ''
-})
-
 //Temp data ~ Should be fetched from API
 const offersData = reactive([
   {
@@ -42,6 +32,11 @@ const offersData = reactive([
         practical: 'probably',
         loan: 'nope'
       }
+    },
+    represent: {
+      selectedRep: 'buyer',
+      guest: 'Guest Name',
+      location: 'Location'
     }
   },
   {
@@ -67,6 +62,11 @@ const offersData = reactive([
         practical: 'probably',
         loan: 'nope'
       }
+    },
+    represent: {
+      selectedRep: 'seller',
+      guest: 'Guest',
+      location: 'Location'
     }
   }
 ])
@@ -91,12 +91,6 @@ function filteredList() {
       offer.buyers.some((buyer) => buyer.toLowerCase().includes(searchInput.value.toLowerCase()))
     )
   })
-}
-
-//View Offer Details
-function viewOffer(id: number) {
-  viewOfferDetails.value = offersData.find((item) => item.id === id) as any //(typeof offersData)[0] Todo: fix this
-  showViewModal.value = true
 }
 
 // //Delete Offer
@@ -230,8 +224,8 @@ function viewOffer(id: number) {
         <TableColumn header="Actions" style="width: 20%" field="id">
           <template #body="slotProps">
             <div class="flex justify-start">
-              <button
-                @click="viewOffer(slotProps.data.id)"
+              <RouterLink
+                :to="{ name: 'offer-details', params: { id: slotProps.data.id } }"
                 class="flex items-center justify-center w-8 h-8 mr-0.5 text-lightblue transition-colors duration-150 cursor-pointer focus:outline-none hover:opacity-90"
               >
                 <svg
@@ -253,7 +247,7 @@ function viewOffer(id: number) {
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-              </button>
+              </RouterLink>
               <!-- :to="{ name: 'offers', params: { id: slotProps.data.id } }" -->
               <RouterLink
                 :to="{ name: 'offers' }"
@@ -300,21 +294,6 @@ function viewOffer(id: number) {
         </TableColumn>
       </DataTable>
     </div>
-    <!--  Offer Details Modal -->
-    <DialogModal
-      v-model:visible="showViewModal"
-      modal
-      header="Offer Details"
-      :style="{ width: '50vw' }"
-      :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
-    >
-      <div class="w-full">
-        <div class="w-full px-8 py-4 bg-darkblue rounded text-primary grid grid-cols-3">
-          Okay so this is the offer details modal.
-          {{ viewOfferDetails }}
-        </div>
-      </div>
-    </DialogModal>
     <ToastVue />
   </div>
 </template>
