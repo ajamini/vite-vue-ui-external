@@ -8,7 +8,7 @@ import { validateForm } from './ValidateForm'
 
 const stepTitles = ['Basics', 'Agreement', 'Condition', 'Representation', 'Documents', 'Review']
 
-const currentStep = ref(3) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
+const currentStep = ref(0) //Change to 0 to start from first step - 0, 1, 2, 3, 4, 5 ~ 6 steps
 const formData = ref({
   created_at: '',
   mls: '',
