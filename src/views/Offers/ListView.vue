@@ -72,8 +72,8 @@ const offersData = reactive([
 ])
 
 //Store to Local Storage to persist data
-if (localStorage.getItem('offers') === null) {
-  localStorage.setItem('offers', JSON.stringify(offersData))
+if (localStorage.getItem('offersData') === null) {
+  localStorage.setItem('offersData', JSON.stringify(offersData))
 } else {
   offersData.values = JSON.parse(localStorage.getItem('offersData') || '[]')
 }
