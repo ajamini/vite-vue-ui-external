@@ -55,7 +55,7 @@ if (offer) {
 <template>
   <div class="w-full p-8">
     <div class="w-full flex justify-start">
-      <RouterLink to="/offers" class="flex items-center">
+      <RouterLink to="/offers" class="flex items-center mr-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6 mr-2"
@@ -73,7 +73,13 @@ if (offer) {
       </RouterLink>
       <div class="w-full">
         <h1 class="text-2xl font-bold">Address, City, State, Zip</h1>
-        <h4 class="text-sm text-gray-500">{{ offerDetails.id }}</h4>
+        <h4 class="text-sm text-gray-500">MLS# {{ offerDetails.mls }}</h4>
+        <div class="flex flex-wrap gap-3">
+          <div v-for="buyer in offerDetails.buyers" :key="buyer" class="flex items-center">
+            <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+            <h4 class="text-sm text-gray-500">{{ buyer }}</h4>
+          </div>
+        </div>
       </div>
     </div>
   </div>
