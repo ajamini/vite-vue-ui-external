@@ -82,5 +82,102 @@ if (offer) {
         </div>
       </div>
     </div>
+    <div class="w-full mt-4 flex gap-4">
+      <div class="w-3/4">
+        <TabView>
+          <TabPanel header="Header I">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </p>
+          </TabPanel>
+          <TabPanel header="Header II">
+            <p>
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+              sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+              voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+              modi.
+            </p>
+          </TabPanel>
+          <TabPanel header="Header III">
+            <p>
+              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+              occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
+              mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
+              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque
+              nihil impedit quo minus.
+            </p>
+          </TabPanel>
+        </TabView>
+      </div>
+      <div class="w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
+        <div class="text-gray-600 p-4">
+          <h4 class="text-sm font-bold">Buying Agent</h4>
+          <!-- Image, Name Phone and Email -->
+          <div class="flex items-center gap-2 mt-2 ml-4">
+            <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+            <div class="flex flex-col">
+              <h4 class="text-sm font-bold">Name</h4>
+              <h4 class="text-sm">Phone</h4>
+              <h4 class="text-sm">Email</h4>
+            </div>
+          </div>
+        </div>
+        <div class="text-gray-600 p-4">
+          <h4 class="text-sm font-bold">Buyers</h4>
+          <div class="grid grid-flow-row gap-2">
+            <div
+              v-for="buyer in offerDetails.buyers"
+              :key="buyer"
+              class="flex items-center gap-2 mt-2 ml-4"
+            >
+              <div class="w-10 h-10 rounded-full bg-gray-300">
+                <img
+                  class="object-cover w-full h-full rounded-full"
+                  src="https://picsum.photos/500"
+                  alt=""
+                />
+              </div>
+              <div class="flex flex-col">
+                <h4 class="text-sm font-bold">{{ buyer }}</h4>
+                <h4 class="text-sm">Email</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 text-gray-600">
+          <h4 class="text-sm font-bold">Property</h4>
+          <div class="relative">
+            <div class="flex flex-row flex-wrap gap-2 m-4 pl-4 overflow-hidden">
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/500" alt="" />
+              </div>
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/400" alt="" />
+              </div>
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/600" alt="" />
+              </div>
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/700" alt="" />
+              </div>
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/800" alt="" />
+              </div>
+              <div class="w-20 h-20">
+                <img class="w-full" src="https://picsum.photos/900" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
