@@ -124,9 +124,9 @@ const isActive = (status: String) => {
             Represent
           </button>
         </div>
-        <div class="w-full bg-gray-200 mt-2 h-screen">
+        <div class="w-full bg-gray-200 mt-2 h-screen p-4">
           <!-- Status -->
-          <div class="bg-white h-24 p-6">
+          <div class="bg-white h-24 p-4">
             <div
               class="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-gray-200"
             >
@@ -262,6 +262,7 @@ const isActive = (status: String) => {
               </ol>
             </div>
           </div>
+          <div class="p-4 bg-white mt-4">Documents</div>
         </div>
       </main>
       <div class="w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
