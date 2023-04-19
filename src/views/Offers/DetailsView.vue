@@ -50,6 +50,29 @@ const offer = offers.find((offer: any) => offer.id === Number(id))
 if (offer) {
   offerDetails.value = offer
 }
+
+//Status
+const currentStatus = ref('signed') //TODO: Change to offerDetails.value.status //Convert to lowercase
+
+const isActive = (status: String) => {
+  if (currentStatus.value === status) {
+    return true
+  } else if (currentStatus.value === 'signed' && (status === 'draft' || status === 'reviewed')) {
+    return true
+  } else if (
+    currentStatus.value === 'submitted' &&
+    (status === 'draft' || status === 'reviewed' || status === 'signed')
+  ) {
+    return true
+  } else if (
+    currentStatus.value === 'accepted' &&
+    (status === 'draft' || status === 'reviewed' || status === 'signed' || status === 'submitted')
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
 </script>
 
 <template>
@@ -101,7 +124,145 @@ if (offer) {
             Represent
           </button>
         </div>
-        <div class="w-full"></div>
+        <div class="w-full bg-gray-200 mt-2 h-screen">
+          <!-- Status -->
+          <div class="bg-white h-24 p-6">
+            <div
+              class="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-gray-200"
+            >
+              <ol class="grid grid-cols-5 text-sm font-medium text-gray-500">
+                <li class="relative flex justify-start">
+                  <span
+                    :class="[isActive('draft') ? 'bg-blue-600' : 'bg-gray-600']"
+                    class="absolute -bottom-[1.75rem] start-0 rounded-full text-white z-10"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    :class="[isActive('draft') ? 'text-blue-600' : 'text-gray-600']"
+                    class="block"
+                  >
+                    Draft
+                  </span>
+                </li>
+
+                <li class="relative flex justify-center">
+                  <span
+                    :class="[isActive('reviewed') ? 'bg-blue-600' : 'bg-gray-600']"
+                    class="absolute -bottom-[1.75rem] left-1/2 -translate-x-1/2 rounded-full text-white z-10"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    :class="[isActive('reviewed') ? 'text-blue-600' : 'text-gray-600']"
+                    class="block"
+                  >
+                    Reviewed
+                  </span>
+                </li>
+
+                <li class="relative flex justify-center">
+                  <span
+                    :class="[isActive('signed') ? 'bg-blue-600' : 'bg-gray-600']"
+                    class="absolute -bottom-[1.75rem] end-0 rounded-full text-white z-10"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+
+                  <span
+                    :class="[isActive('signed') ? 'text-blue-600' : 'text-gray-600']"
+                    class="block"
+                  >
+                    Signed
+                  </span>
+                </li>
+                <li class="relative flex justify-center">
+                  <span
+                    :class="[isActive('submitted') ? 'bg-blue-600' : 'bg-gray-600']"
+                    class="absolute -bottom-[1.75rem] end-0 rounded-full text-white z-10"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    :class="[isActive('submitted') ? 'text-blue-600' : 'text-gray-600']"
+                    class="block"
+                  >
+                    Submitted
+                  </span>
+                </li>
+                <li class="relative flex justify-end">
+                  <span
+                    :class="[isActive('accepted') ? 'bg-blue-600' : 'bg-gray-600']"
+                    class="absolute -bottom-[1.75rem] end-0 rounded-full text-white z-10"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    :class="[isActive('accepted') ? 'text-blue-600' : 'text-gray-600']"
+                    class="block"
+                  >
+                    Accepted
+                  </span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
       </main>
       <div class="w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
         <div class="text-gray-600 p-4">
