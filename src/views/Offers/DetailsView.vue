@@ -83,40 +83,26 @@ if (offer) {
       </div>
     </div>
     <div class="w-full mt-4 flex gap-4">
-      <div class="w-3/4">
-        <TabView>
-          <TabPanel header="Header I">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-              mollit anim id est laborum.
-            </p>
-          </TabPanel>
-          <TabPanel header="Header II">
-            <p>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-              laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-              architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
-              sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
-              voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
-              modi.
-            </p>
-          </TabPanel>
-          <TabPanel header="Header III">
-            <p>
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-              voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
-              occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt
-              mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-              expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque
-              nihil impedit quo minus.
-            </p>
-          </TabPanel>
-        </TabView>
-      </div>
+      <main class="w-3/4">
+        <div class="w-1/2 flex gap-2 justify-start">
+          <button
+            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+          >
+            Overview
+          </button>
+          <button
+            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+          >
+            Agreement
+          </button>
+          <button
+            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+          >
+            Represent
+          </button>
+        </div>
+        <div class="w-full"></div>
+      </main>
       <div class="w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
         <div class="text-gray-600 p-4">
           <h4 class="text-sm font-bold">Buying Agent</h4>
@@ -175,6 +161,12 @@ if (offer) {
                 <img class="w-full" src="https://picsum.photos/900" alt="" />
               </div>
             </div>
+          </div>
+          <div class="w-full pl-8 text-gray-500">
+            <div class="text-gray-500">1234 Main St</div>
+            <div class="text-sm">Unique Identifier</div>
+            <div class="text-sm">City, State</div>
+            <div class="text-sm">Asking Price</div>
           </div>
         </div>
       </div>
