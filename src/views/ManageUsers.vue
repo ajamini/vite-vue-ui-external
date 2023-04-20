@@ -58,7 +58,7 @@ const permissions = ref({
                   </button>
                 </div>
                 <div class="w-full p-4">
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">1. View Threads</div>
                       <InputSwitch v-model="permissions.viewThreads" />
@@ -69,7 +69,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">2. View Users</div>
                       <InputSwitch v-model="permissions.viewBilling" />
@@ -80,7 +80,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">3. View Reports</div>
                       <InputSwitch v-model="permissions.viewReports" />
@@ -97,7 +97,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">2. View Users</div>
                       <InputSwitch v-model="permissions.viewBilling" />
@@ -108,7 +108,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">2. View Users</div>
                       <InputSwitch v-model="permissions.viewBilling" />
@@ -119,7 +119,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">2. View Users</div>
                       <InputSwitch v-model="permissions.viewBilling" />
@@ -130,7 +130,7 @@ const permissions = ref({
                     </div>
                   </div>
                   <hr class="w-full my-6 border-1" />
-                  <div class="grid grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
+                  <div class="grid md:grid-cols-2 md:gap-x-[10rem] gap-y-2 gap-x-4">
                     <div class="flex justify-between md:px-8">
                       <div class="text-gray-700 text-sm">2. View Users</div>
                       <InputSwitch v-model="permissions.viewBilling" />
