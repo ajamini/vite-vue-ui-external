@@ -3,9 +3,11 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div class="border bg-white h-[256px] rounded-md divide-y">
-    <div
-      class="flex text-gray-500 items-center p-4 border-l-4 border-l-black bg-gray-100 cursor-pointer"
+  <div class="border bg-white rounded-md divide-y">
+    <router-link
+      class="flex text-gray-500 items-center p-4 border-l-4 border-gray-100 bg-gray-100 cursor-pointer"
+      :to="{ path: '/profile' }"
+      active-class="border-l-black"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -21,11 +23,13 @@ import { RouterLink } from 'vue-router'
           d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
         />
       </svg>
-
       <span class="font-semibold text-base ml-1">User Profile</span>
-    </div>
-    <div
-      class="flex text-gray-500 items-center p-4 border-l-4 border-l-white hover:bg-gray-100 hover:border-l-gray-100 cursor-pointer"
+    </router-link>
+
+    <router-link
+      class="flex text-gray-500 items-center p-4 border-l-4 border-gray-100 bg-gray-100 cursor-pointer"
+      :to="{ path: '/user-management' }"
+      active-class="border-l-black"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -43,9 +47,11 @@ import { RouterLink } from 'vue-router'
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
       <span class="font-semibold text-base ml-1">User Management</span>
-    </div>
-    <div
-      class="flex text-gray-500 items-center p-4 border-l-4 border-l-white hover:bg-gray-100 hover:border-l-gray-100 cursor-pointer"
+    </router-link>
+    <router-link
+      class="flex text-gray-500 items-center p-4 border-l-4 border-gray-100 bg-gray-100 cursor-pointer"
+      :to="{ path: '/notification' }"
+      active-class="border-l-black"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -63,9 +69,11 @@ import { RouterLink } from 'vue-router'
       </svg>
 
       <span class="font-semibold text-base ml-1">Notifications</span>
-    </div>
-    <div
-      class="flex text-gray-500 items-center p-4 border-l-4 border-l-white hover:bg-gray-100 hover:border-l-gray-100 cursor-pointer"
+    </router-link>
+    <router-link
+      class="flex text-gray-500 items-center p-4 border-l-4 border-gray-100 bg-gray-100 cursor-pointer"
+      :to="{ path: '/console' }"
+      active-class="border-l-black"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +91,6 @@ import { RouterLink } from 'vue-router'
       </svg>
 
       <span class="font-semibold text-base ml-1">Console Log</span>
-    </div>
+    </router-link>
   </div>
 </template>
