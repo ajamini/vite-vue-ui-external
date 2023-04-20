@@ -405,6 +405,20 @@ const isActive = (status: String) => {
             </div>
           </div>
         </div>
+        <div class="text-gray-600 p-4">
+          <h4 class="text-sm font-bold">Property Agent</h4>
+          <!-- Image, Name Phone and Email -->
+          <div class="flex items-center gap-2 mt-2 ml-4">
+            <div class="w-10 h-10 rounded-full bg-gray-300">
+              <img class="w-full rounded-full bg-cover" src="https://picsum.photos/900" alt="" />
+            </div>
+            <div class="flex flex-col">
+              <h4 class="text-sm font-bold">Name</h4>
+              <h4 class="text-sm">Phone</h4>
+              <h4 class="text-sm">Email</h4>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
