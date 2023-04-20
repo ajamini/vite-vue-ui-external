@@ -106,27 +106,27 @@ const isActive = (status: String) => {
         </div>
       </div>
     </div>
-    <div class="w-full mt-4 md:flex gap-4">
+    <!-- Buttons -->
+    <div class="md:w-1/2 w-full flex gap-2 justify-start mt-2">
+      <button
+        class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+      >
+        Overview
+      </button>
+      <button
+        class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+      >
+        Agreement
+      </button>
+      <button
+        class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
+      >
+        Represent
+      </button>
+    </div>
+    <div class="w-full mt-4 md:flex gap-4 bg-gray-200 px-4">
       <main class="md:w-3/4 w-full">
-        <!-- Buttons -->
-        <div class="md:w-1/2 w-full flex gap-2 justify-start">
-          <button
-            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
-          >
-            Overview
-          </button>
-          <button
-            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
-          >
-            Agreement
-          </button>
-          <button
-            class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
-          >
-            Represent
-          </button>
-        </div>
-        <div class="w-full bg-gray-200 mt-2 p-4">
+        <div class="w-full bg-gray-200 mt-2 py-4">
           <!-- Status -->
           <div class="bg-white h-24 p-4">
             <div
@@ -269,7 +269,7 @@ const isActive = (status: String) => {
           <div class="p-4 bg-white mt-4 h-48">Representation</div>
         </div>
       </main>
-      <div class="w-full md:w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
+      <div class="w-full md:w-1/4 min-h-[420px] bg-white mt-6">
         <div class="text-gray-600 p-4">
           <h4 class="text-sm font-bold">Buying Agent</h4>
           <!-- Image, Name Phone and Email -->
@@ -329,10 +329,80 @@ const isActive = (status: String) => {
             </div>
           </div>
           <div class="w-full pl-8 text-gray-500">
-            <div class="text-gray-500">1234 Main St</div>
-            <div class="text-sm">Unique Identifier</div>
-            <div class="text-sm">City, State</div>
-            <div class="text-sm">Asking Price</div>
+            <div class="text-gray-500 flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"
+                />
+              </svg>
+              <span class="ml-1"> 1234 Main St </span>
+            </div>
+            <div class="text-sm flex items-center mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"
+                />
+              </svg>
+
+              <span class="ml-1">Unique Identifier </span>
+            </div>
+            <div class="text-sm flex items-center mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                />
+              </svg>
+              <span class="ml-1"> City, State </span>
+            </div>
+            <div class="text-sm flex items-center mt-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span class="ml-1">Asking Price</span>
+            </div>
           </div>
         </div>
       </div>
