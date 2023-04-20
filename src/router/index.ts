@@ -56,6 +56,15 @@ const router = createRouter({
         title: 'List of Offers'
       }
     },
+    //Offer Deteails View Route
+    {
+      path: '/offers/:id/view',
+      name: 'offer-details',
+      component: () => import('../views/Offers/DetailsView.vue'),
+      meta: {
+        title: 'Offer Details'
+      }
+    },
     //Create Offer View Route
     {
       path: '/offers/create',
@@ -72,6 +81,24 @@ const router = createRouter({
       component: () => import('../views/ComponentView.vue'),
       meta: {
         title: 'Demo'
+      }
+    },
+    // Profile View Route
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+      meta: {
+        title: 'Profile'
+      }
+    },
+    //Users Management View Route
+    {
+      path: '/users-management',
+      name: 'users-management',
+      component: () => import('../views/ManageUsers.vue'),
+      meta: {
+        title: 'Users'
       }
     }
   ]
