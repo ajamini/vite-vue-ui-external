@@ -94,6 +94,7 @@ const isActive = (status: String) => {
           />
         </svg>
       </RouterLink>
+      <!-- Header section -->
       <div class="w-full">
         <h1 class="text-2xl font-bold">Address, City, State, Zip</h1>
         <h4 class="text-sm text-gray-500">MLS# {{ offerDetails.mls }}</h4>
@@ -105,9 +106,10 @@ const isActive = (status: String) => {
         </div>
       </div>
     </div>
-    <div class="w-full mt-4 flex gap-4">
-      <main class="w-3/4">
-        <div class="w-1/2 flex gap-2 justify-start">
+    <div class="w-full mt-4 md:flex gap-4">
+      <main class="md:w-3/4 w-full">
+        <!-- Buttons -->
+        <div class="md:w-1/2 w-full flex gap-2 justify-start">
           <button
             class="w-full h-8 bg-gray-200 text-gray-600 font-semibold rounded-sm hover:bg-gray-300"
           >
@@ -124,7 +126,7 @@ const isActive = (status: String) => {
             Represent
           </button>
         </div>
-        <div class="w-full bg-gray-200 mt-2 h-screen p-4">
+        <div class="w-full bg-gray-200 mt-2 p-4">
           <!-- Status -->
           <div class="bg-white h-24 p-4">
             <div
@@ -262,10 +264,12 @@ const isActive = (status: String) => {
               </ol>
             </div>
           </div>
-          <div class="p-4 bg-white mt-4">Documents</div>
+          <div class="p-4 bg-white mt-4 h-48">Documents</div>
+          <div class="p-4 bg-white mt-4 h-48">Agreement</div>
+          <div class="p-4 bg-white mt-4 h-48">Representation</div>
         </div>
       </main>
-      <div class="w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
+      <div class="w-full md:w-1/4 min-h-[440px] bg-white grid grid-flow-row gap-4">
         <div class="text-gray-600 p-4">
           <h4 class="text-sm font-bold">Buying Agent</h4>
           <!-- Image, Name Phone and Email -->
