@@ -91,6 +91,15 @@ const router = createRouter({
       meta: {
         title: 'Profile'
       }
+    },
+    //Users Management View Route
+    {
+      path: '/users-management',
+      name: 'users-management',
+      component: () => import('../views/ManageUsers.vue'),
+      meta: {
+        title: 'Users'
+      }
     }
   ]
 })

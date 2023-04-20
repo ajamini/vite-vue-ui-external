@@ -26,12 +26,12 @@ const navLinks = [
     path: '/offers'
   },
   {
-    name: 'Create Offer',
-    path: '/offers/create'
-  },
-  {
     name: 'Components',
     path: '/demo'
+  },
+  {
+    name: 'Management',
+    path: '/profile'
   }
 ]
 const subMenu = ref()

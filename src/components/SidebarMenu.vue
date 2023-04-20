@@ -28,7 +28,7 @@ import { RouterLink } from 'vue-router'
 
     <router-link
       class="flex text-gray-500 items-center p-4 border-l-4 border-gray-100 bg-gray-100 cursor-pointer"
-      :to="{ path: '/user-management' }"
+      :to="{ path: '/users-management' }"
       active-class="border-l-black"
     >
       <svg
