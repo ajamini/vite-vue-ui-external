@@ -82,6 +82,15 @@ const router = createRouter({
       meta: {
         title: 'Demo'
       }
+    },
+    // Profile View Route
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+      meta: {
+        title: 'Profile'
+      }
     }
   ]
 })
