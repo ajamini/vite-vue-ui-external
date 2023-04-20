@@ -93,11 +93,11 @@
           </div>
         </div>
       </div>
+      <!-- Right Side -->
       <div class="w-full mt-4 ml-4 rounded-md border p-4 bg-white">
-        <!-- Right Side -->
         <h4 class="text-gray-500 text-xl font-bold">Edit Profile</h4>
-        <div class="w-full">
-          <div class="w-full flex justify-center">
+        <div class="w-full flex justify-start pl-8">
+          <div class="w-1/2 flex justify-center">
             <div class="relative">
               <img
                 src="https://picsum.photos/690"
@@ -127,6 +127,125 @@
                 <input id="file-upload" type="file" class="hidden" accept="image/*" />
               </div>
             </div>
+          </div>
+        </div>
+        <div class="w-2/3 mt-4 pl-8">
+          <div class="flex justify-start">
+            <div class="w-1/2">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="first_name"
+                >First Name</label
+              >
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="first_name"
+                type="text"
+                placeholder="First Name"
+                value="John"
+              />
+            </div>
+            <div class="w-1/2 ml-4">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="last_name"
+                >Last Name</label
+              >
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="last_name"
+                type="text"
+                placeholder="Last Name"
+                value="Doe"
+              />
+            </div>
+          </div>
+          <div class="w-ful mt-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2" for="email">Email</label>
+            <InputText
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              placeholder="Email"
+              value="demo@mail.com"
+            />
+          </div>
+          <!-- Contact Number -->
+          <div class="w-ful mt-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2" for="contact_number"
+              >Contact Number</label
+            >
+            <InputText
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="contact_number"
+              type="text"
+              placeholder="Contact Number"
+              value="09123456789"
+            />
+          </div>
+          <!-- Address -->
+          <div class="w-ful mt-4">
+            <label class="block text-gray-500 text-sm font-bold mb-2" for="address">Address</label>
+            <InputText
+              class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="address"
+              type="text"
+              placeholder="Address"
+              value="1234 Main St"
+            />
+          </div>
+          <!-- City and State -->
+          <div class="flex justify-start mt-4">
+            <div class="w-1/2">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="city">City</label>
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="city"
+                type="text"
+                placeholder="City"
+                value="Manchester"
+              />
+            </div>
+            <div class="w-1/2 ml-4">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="state">State</label>
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="state"
+                type="text"
+                placeholder="State"
+                value="Metro Manila"
+              />
+            </div>
+          </div>
+          <!-- Zip Code and Country -->
+          <div class="flex justify-start mt-4">
+            <div class="w-1/2">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="zip_code"
+                >Zip Code</label
+              >
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="zip_code"
+                type="text"
+                placeholder="Zip Code"
+                value="4C4 4C4"
+              />
+            </div>
+            <div class="w-1/2 ml-4">
+              <label class="block text-gray-500 text-sm font-bold mb-2" for="country"
+                >Country</label
+              >
+              <InputText
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="country"
+                type="text"
+                placeholder="Country"
+                value="United Kingdom"
+              />
+            </div>
+          </div>
+          <!-- Save Button -->
+          <div class="flex justify-end mt-4">
+            <PrimeButton
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              label="Save"
+            />
           </div>
         </div>
       </div>
