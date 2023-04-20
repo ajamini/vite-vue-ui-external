@@ -3,9 +3,9 @@
 <template>
   <div class="w-full p-8">
     <h1 class="text-gray-700 font-bold text-2xl">Admin</h1>
-    <div class="flex w-full border-t-2 my-4">
-      <div class="w-80 mt-4">
-        <!-- Left Side -->
+    <div class="md:flex w-full border-t-2 my-4">
+      <!-- Left Side -->
+      <div class="w-full md:w-80 mt-4">
         <div class="static border bg-white h-[256px] rounded-md divide-y">
           <div
             class="flex text-gray-500 items-center p-4 border-l-4 border-l-black bg-gray-100 cursor-pointer"
@@ -94,9 +94,9 @@
         </div>
       </div>
       <!-- Right Side -->
-      <div class="w-full mt-4 ml-4 rounded-md border p-4 bg-white">
+      <div class="w-full mt-4 md:ml-4 rounded-md border p-4 bg-white">
         <h4 class="text-gray-500 text-xl font-bold">Edit Profile</h4>
-        <div class="w-full flex justify-start pl-8">
+        <div class="w-full flex justify-center mt-4">
           <div class="w-1/2 flex justify-center">
             <div class="relative">
               <img
@@ -129,7 +129,7 @@
             </div>
           </div>
         </div>
-        <div class="w-2/3 mt-4 pl-8">
+        <div class="w-full md:w-1/2 mt-4 mx-auto">
           <div class="flex justify-start">
             <div class="w-1/2">
               <label class="block text-gray-500 text-sm font-bold mb-2" for="first_name"
@@ -156,7 +156,7 @@
               />
             </div>
           </div>
-          <div class="w-ful mt-4">
+          <div class="w-full mt-4">
             <label class="block text-gray-500 text-sm font-bold mb-2" for="email">Email</label>
             <InputText
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -167,7 +167,7 @@
             />
           </div>
           <!-- Contact Number -->
-          <div class="w-ful mt-4">
+          <div class="w-full mt-4">
             <label class="block text-gray-500 text-sm font-bold mb-2" for="contact_number"
               >Contact Number</label
             >
@@ -180,7 +180,7 @@
             />
           </div>
           <!-- Address -->
-          <div class="w-ful mt-4">
+          <div class="w-full mt-4">
             <label class="block text-gray-500 text-sm font-bold mb-2" for="address">Address</label>
             <InputText
               class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
