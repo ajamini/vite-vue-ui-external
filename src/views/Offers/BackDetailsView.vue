@@ -8,8 +8,6 @@ window.scrollTo(0, 0)
 //Get the id from the route
 const { id } = useRoute().params
 
-const activeTab = ref('Overview')
-
 interface OfferDetails {
   id: number
   created_at: string
@@ -78,8 +76,8 @@ const isActive = (status: String) => {
 </script>
 
 <template>
-  <div class="w-full bg-white">
-    <div class="w-full flex justify-start p-8">
+  <div class="w-full p-8">
+    <div class="w-full flex justify-start">
       <RouterLink to="/offers" class="flex items-center mr-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -108,54 +106,6 @@ const isActive = (status: String) => {
         </div>
       </div>
     </div>
-    <div class="w-full">
-      <div class="flex shadow-lg pl-12">
-        <div
-          class="px-8 py-2 text-sm font-medium text-gray-500 relative cursor-pointer"
-          :class="{ ' text-gray-700': activeTab === 'Overview' }"
-          @click="activeTab = 'Overview'"
-        >
-          Overview
-          <span
-            v-if="activeTab === 'Overview'"
-            class="absolute shadow-md border-b-2 border-b-red-500 left-1/3 bottom-0 w-1/3"
-          ></span>
-        </div>
-        <div
-          class="px-8 py-2 text-sm font-medium text-gray-500 relative cursor-pointer"
-          :class="{ ' text-gray-700': activeTab === 'Agreement' }"
-          @click="activeTab = 'Agreement'"
-        >
-          Agreement
-          <span
-            v-if="activeTab === 'Agreement'"
-            class="absolute shadow-md border-b-2 border-b-red-500 left-1/3 bottom-0 w-1/3"
-          ></span>
-        </div>
-        <div
-          class="px-8 py-2 text-sm font-medium text-gray-500 relative cursor-pointer"
-          :class="{ ' text-gray-700': activeTab === 'Represent' }"
-          @click="activeTab = 'Represent'"
-        >
-          Represent
-          <span
-            v-if="activeTab === 'Represent'"
-            class="absolute shadow-md border-b-2 border-b-red-500 left-1/3 bottom-0 w-1/3"
-          ></span>
-        </div>
-      </div>
-      <div v-if="activeTab === 'Overview'">
-        <!-- Overview tab content goes here -->
-        HEH
-      </div>
-      <div v-if="activeTab === 'Agreement'">
-        <!-- Agreement tab content goes here -->
-      </div>
-      <div v-if="activeTab === 'Represent'">
-        <!-- Represent tab content goes here -->
-      </div>
-    </div>
-
     <!-- Buttons -->
     <div class="md:w-1/2 w-full flex gap-2 justify-start mt-2">
       <button
