@@ -8,8 +8,9 @@ defineProps({
 })
 </script>
 <template>
-  <div class="flex justify-start">
-    <div class="w-3/4 grid grid-cols-2 gap-4">
+  <div class="md:flex justify-start">
+    <!-- Left Panel -->
+    <div class="w-full md:w-3/4 grid grid-cols-2 gap-4">
       <div class="px-4">
         <h4 class="text-sm font-medium text-gray-500">Number</h4>
         <p class="text-sm text-gray-600">A-000345</p>
@@ -78,7 +79,7 @@ defineProps({
       </div>
     </div>
     <!-- Right Panel -->
-    <div class="w-1/3">
+    <div class="w-fill md:w-1/3 mt-8 md:mt-0">
       <div class="w-full flex items-center text-blue-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
