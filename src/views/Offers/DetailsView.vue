@@ -58,22 +58,23 @@ if (offer) {
 <template>
   <div class="w-full bg-white">
     <div class="w-full flex justify-start p-8">
-      <RouterLink to="/offers" class="flex items-center mr-2">
+      <RouterLink to="/offers" class="flex items-center mr-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 mr-2"
-          fill="none"
           viewBox="0 0 24 24"
+          fill="none"
           stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-12 w-12"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
+          <circle cx="12" cy="12" r="10" stroke-dasharray="1,4"></circle>
+          <polyline points="12 8 8 12 12 16"></polyline>
+          <line x1="16" x2="8" y1="12" y2="12"></line>
         </svg>
       </RouterLink>
+
       <!-- Header section -->
       <div class="w-full">
         <h1 class="text-2xl font-bold">Address, City, State, Zip</h1>
@@ -180,7 +181,7 @@ if (offer) {
       <div class="w-full mt-4">
         <div v-if="activeTab === 'Overview'">
           <!-- Overview tab content -->
-          <div class="mt-4">
+          <div class="mt-8 bg-gray-100">
             <OverviewContent :offerDetails="offerDetails" />
           </div>
         </div>

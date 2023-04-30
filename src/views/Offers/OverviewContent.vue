@@ -34,9 +34,9 @@ const isActive = (status: String) => {
 </script>
 
 <template>
-  <div class="w-full mt-4 md:flex gap-4 bg-gray-200 px-4">
+  <div class="w-full mt-4 md:flex gap-4 px-4">
     <main class="md:w-3/4 w-full">
-      <div class="w-full bg-gray-200 mt-2 py-4">
+      <div class="w-full mt-2 py-4">
         <!-- Status -->
         <div class="bg-white h-24 p-4">
           <div
