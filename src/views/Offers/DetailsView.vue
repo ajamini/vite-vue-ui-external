@@ -188,7 +188,75 @@ if (offer) {
         <div v-if="activeTab === 'Agreement'">
           <!-- Agreement tab content goes here -->
           <div class="w-full mt-8 p-4 flex justify-start">
-            <div class="w-3/4">HUH</div>
+            <div class="w-3/4 grid grid-cols-2 gap-4">
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">Number</h4>
+                <p class="text-sm text-gray-600">A-000345</p>
+              </div>
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">NART</h4>
+                <p class="text-sm text-gray-600">#55569drgr</p>
+              </div>
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">NART</h4>
+                <p class="text-sm text-gray-600">#55569drgr</p>
+              </div>
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">NART</h4>
+                <p class="text-sm text-gray-600">#55569drgr</p>
+              </div>
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">NART</h4>
+                <p class="text-sm text-gray-600">#55569drgr</p>
+              </div>
+              <div class="px-4">
+                <h4 class="text-sm font-medium text-gray-500">NART</h4>
+                <p class="text-sm text-gray-600">#55569drgr</p>
+              </div>
+              <div class="px-4 col-span-2">
+                <h3 class="text-2xl font-medium text-gray-500">Samples</h3>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Deadline for Offer</h4>
+                    <p class="text-sm text-gray-600">12-03-2023</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Initial Offer Time</h4>
+                    <p class="text-sm text-gray-600">25-04-2023</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Deadline for Offer</h4>
+                    <p class="text-sm text-gray-600">12-03-2023</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Initial Offer Time</h4>
+                    <p class="text-sm text-gray-600">25-04-2023</p>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 col-span-2">
+                <h3 class="text-2xl font-medium text-gray-500">Prices</h3>
+                <div class="mt-4 grid grid-cols-2 gap-4">
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Actual Pricing</h4>
+                    <p class="text-sm text-gray-600">$700</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Offer Price</h4>
+                    <p class="text-sm text-gray-600">$699</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">IDK Price</h4>
+                    <p class="text-sm text-gray-600">$0.0</p>
+                  </div>
+                  <div class="w-full">
+                    <h4 class="text-sm font-medium text-gray-500">Adjustment</h4>
+                    <p class="text-sm text-gray-600">AAA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Right Panel -->
             <div class="w-1/3">
               <div class="w-full flex items-center text-blue-600">
                 <svg
@@ -211,7 +279,7 @@ if (offer) {
                 <img
                   src="https://placehold.co/600x400"
                   alt="Product Image"
-                  class="w-full h-auto object-cover"
+                  class="w-full h-auto object-cover max-w-[600px] max-h-[400px]"
                 />
               </div>
               <div class="mt-4">
