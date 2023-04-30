@@ -38,7 +38,7 @@ const isActive = (status: String) => {
     <main class="md:w-3/4 w-full">
       <div class="w-full mt-2 py-4">
         <!-- Status -->
-        <div class="bg-gray-100 h-24 p-4">
+        <div class="bg-gray-100 h-24 p-4 rounded">
           <div
             class="after:mt-4 after:block after:h-1 after:w-full after:rounded-lg after:bg-gray-200"
           >
@@ -174,9 +174,9 @@ const isActive = (status: String) => {
             </ol>
           </div>
         </div>
-        <div class="p-4 bg-gray-100 mt-4 h-48">Documents</div>
-        <div class="p-4 bg-gray-100 mt-4 h-48">Agreement</div>
-        <div class="p-4 bg-gray-100 mt-4 h-48">Representation</div>
+        <div class="p-4 bg-gray-100 mt-4 h-48 rounded">Documents</div>
+        <div class="p-4 bg-gray-100 mt-4 h-48 rounded">Agreement</div>
+        <div class="p-4 bg-gray-100 mt-4 h-48 rounded">Representation</div>
       </div>
     </main>
     <div class="w-full md:w-1/4 min-h-[420px] bg-gray-100 mt-6">
