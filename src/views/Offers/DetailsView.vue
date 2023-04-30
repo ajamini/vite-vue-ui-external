@@ -3,6 +3,7 @@ import { ref, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import AgreementContent from './AgreementContent.vue'
 import OverviewContent from './OverviewContent.vue'
+import RepresentContent from './RepresentContent.vue'
 
 //Start from top of Screen instead of scroll position
 window.scrollTo(0, 0)
@@ -190,7 +191,7 @@ if (offer) {
         </div>
         <div v-if="activeTab === 'Represent'" class="w-full mt-8 p-4">
           <!-- Represent tab content goes here -->
-          <AgreementContent :offerDetails="offerDetails" />
+          <RepresentContent :offerDetails="offerDetails" />
         </div>
       </div>
     </div>
