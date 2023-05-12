@@ -32,6 +32,10 @@ const navLinks = [
   {
     name: 'Management',
     path: '/profile'
+  },
+  {
+    name: 'Login',
+    path: '/login'
   }
 ]
 const subMenu = ref()
