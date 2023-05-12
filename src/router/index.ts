@@ -100,6 +100,15 @@ const router = createRouter({
       meta: {
         title: 'Users'
       }
+    },
+    //Login View Route
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/Auth/LoginView.vue'),
+      meta: {
+        title: 'Login'
+      }
     }
   ]
 })
