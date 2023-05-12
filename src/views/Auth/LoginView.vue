@@ -1,5 +1,14 @@
 <script setup lang="ts">
 //Login Page
+
+import { ref } from 'vue'
+
+const formData = ref({
+  email: '',
+  password: ''
+})
+
+console.log(formData)
 </script>
 
 <template>
@@ -55,14 +64,21 @@
             </div>
             <div class="flex flex-col max-w-md space-y-5">
               <input
+                :v-model="formData.email"
                 type="text"
-                placeholder="Username"
+                placeholder="Email"
+                class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
+              />
+              <input
+                :v-model="formData.password"
+                type="password"
+                placeholder="Password"
                 class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal"
               />
               <button
                 class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white"
               >
-                Confirm with email
+                Continue with email
               </button>
               <div class="flex justify-center items-center">
                 <span class="w-full border border-black"></span>
