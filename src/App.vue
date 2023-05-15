@@ -4,9 +4,9 @@ import HeaderNav from './components/HeaderNav.vue'
 </script>
 
 <template>
-  <div class="w-full app-wrapper max-w-screen-2xl mx-auto">
+  <div class="w-full">
     <HeaderNav />
-    <div class="main-body-wrapper">
+    <div class="max-w-screen-2xl mx-auto">
       <RouterView />
     </div>
   </div>

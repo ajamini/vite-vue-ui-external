@@ -99,9 +99,9 @@ const toggleSubmenu = (event: Event) => {
 </script>
 
 <template>
-  <header class="w-full">
+  <header class="w-full bg-white border-b-2">
     <nav
-      class="bg-white border-b-2 w-full flex relative justify-between items-center px-4 md:px-12 h-16"
+      class="w-full flex relative justify-between items-center px-4 md:px-12 h-16 max-w-screen-2xl mx-auto"
     >
       <!-- logo -->
       <div class="inline-flex font-extrabold h-full">
